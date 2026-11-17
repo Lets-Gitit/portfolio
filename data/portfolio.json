@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11",
+  "generatedAt": "2026-11-17",
   "profile": {
     "name": "이찬영",
     "nameEn": "ChanYoung Lee",
@@ -7,7 +7,12 @@
     "intro": "기능을 만들기 전에 어떤 상황에서 동작해야 하고, 그 일을 어느 시스템이 맡아야 하는지부터 정리합니다. 문제가 생기면 정상적으로 동작하는 경우와 비교해 원인을 좁히고, 수정한 뒤에는 실제 플레이 흐름에서 다시 확인합니다. 설계 의도를 이해하고 다음 작업을 이어갈 수 있도록, 구조와 선택 이유를 명확히 설명하는 개발자가 되고 싶습니다.",
     "email": "you@example.com",
     "github": "https://github.com/your-id",
-    "links": [{ "label": "블로그", "url": "https://your-blog.example.com" }]
+    "links": [
+      {
+        "label": "블로그",
+        "url": "https://your-blog.example.com"
+      }
+    ]
   },
   "settings": {
     "layout": "project",
@@ -17,23 +22,62 @@
     {
       "name": "Unity",
       "evidence": [
-        { "text": "`Rigidbody2D.MovePosition`으로 충돌은 물리 엔진에, 속도·감속은 코드로 제어하는 이동", "project": "0-super-phage" },
-        { "text": "유영·세균 내부를 별도 씬으로 나누고 `DontDestroyOnLoad`로 진행 기록 유지", "project": "0-super-phage" }
+        {
+          "text": "`Rigidbody2D.MovePosition`으로 충돌은 물리 엔진에, 속도·감속은 코드로 제어하는 이동",
+          "project": "0-super-phage"
+        },
+        {
+          "text": "유영·세균 내부를 별도 씬으로 나누고 `DontDestroyOnLoad`로 진행 기록 유지",
+          "project": "0-super-phage"
+        },
+        {
+          "text": "`NavMeshAgent`를 잠시 끄고 착지 뒤 되돌리는 보스 등장 낙하",
+          "project": "1-hive-purge"
+        }
       ]
     },
     {
       "name": "C#",
       "evidence": [
-        { "text": "`MicroEntityEmitter` 상속으로 리보솜·핵양체·RNA 중합효소의 생성·배출 공유", "project": "0-super-phage" },
-        { "text": "0.5초 간격 코루틴 + `sqrMagnitude` 비교로 항체 25마리의 감지 검사", "project": "0-super-phage" }
+        {
+          "text": "`MicroEntityEmitter` 상속으로 리보솜·핵양체·RNA 중합효소의 생성·배출 공유",
+          "project": "0-super-phage"
+        },
+        {
+          "text": "0.5초 간격 코루틴 + `sqrMagnitude` 비교로 항체 25마리의 감지 검사",
+          "project": "0-super-phage"
+        },
+        {
+          "text": "`BossAttack` 추상 클래스를 상속해 보스 공격 5종을 같은 단계 진행으로 구현",
+          "project": "1-hive-purge"
+        }
+      ]
+    },
+    {
+      "name": "컴포넌트 기반 설계",
+      "evidence": [
+        {
+          "text": "공통 `BossController`와 보스 전용 컨트롤러·패턴 선택기·공격 5종을 한 프리팹에 조합",
+          "project": "1-hive-purge"
+        }
       ]
     },
     {
       "name": "디자인 패턴",
       "evidence": [
-        { "text": "`SingletonBase<T>` 싱글톤으로 씬 전환 너머 진행 기록(`SwimFieldState`) 보관", "project": "0-super-phage" }
+        {
+          "text": "`SingletonBase<T>` 싱글톤으로 씬 전환 너머 진행 기록(`SwimFieldState`) 보관",
+          "project": "0-super-phage"
+        },
+        {
+          "text": "보스 등장을 `BossAppearedEvent` 이벤트로 알리고 플레이어·사운드·보상이 각자 구독",
+          "project": "1-hive-purge"
+        }
       ]
     }
   ],
-  "projects": ["0-super-phage"]
+  "projects": [
+    "0-super-phage",
+    "1-hive-purge"
+  ]
 }
