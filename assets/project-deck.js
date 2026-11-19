@@ -1,9 +1,9 @@
-// 발표 덱(project.html?p=<폴더 이름>) — 기술 문서를 바탕으로 한 16:9 발표 슬라이드(결정 G1·G2·G6·G11)
+// 슬라이드(project.html?p=<폴더 이름>) — 프로젝트 문서를 바탕으로 한 16:9 발표 슬라이드(결정 G1·G2·G6·G11)
 //   장면 순서: 표지(cover) → 목차(toc) → [장 표지(ch-<장 key>) → 장면(d-<key>, 나뉘면 d-<key>-2…)] × 장 → 결과와 회고(retro) → 맺음(end)
 //   장면 목록은 data/projects/<id>.json의 deck(/portfolio-build가 원문을 읽고 고름). 그림·코드·표·이미지는 원문 md 블록을 가리키기만 하고
-//   여기서 원문을 찾아 **그대로** 그립니다(PF.md, 규칙은 .claude/skills/portfolio-build/schema.md 「발표 덱」). 장면 글은 deck의 글 조각뿐입니다.
+//   여기서 원문을 찾아 **그대로** 그립니다(PF.md, 규칙은 .claude/skills/portfolio-build/schema.md 「슬라이드」). 장면 글은 deck의 글 조각뿐입니다.
 //   deck이 없는 예전 데이터는 highlights·troubleshooting·screenshots·retro로 자동 구성하고 장면마다 띠로 알립니다.
-//   옛 주소(#s=hl-n·ts-n·shots·more, #pf-*)는 가까운 장면으로 넘기고, 옛 기술 문서 제목 앵커는 상세 문서로 보냅니다(결정 G3).
+//   옛 주소(#s=hl-n·ts-n·shots·more, #pf-*)는 가까운 장면으로 넘기고, 옛 프로젝트 문서 제목 앵커는 상세 문서로 보냅니다(결정 G3).
 //   상세 문서 링크는 표지와 맺음 장면에만 둡니다(결정 G1). 새 문장·수치를 만들지 않습니다(장면 이름·라벨은 UI 글자 — 문구 표 PF.t).
 //   data의 탭·카드 라벨은 PF.tab()·PF.label()로 보여 주기만 바꾸고, 칩 색(FLOW)은 data 값 그대로 판정합니다.
 //   주석의 설계 근거(docs/design/…, 결정 F·G·Q 번호)는 템플릿 유지관리용 maintainer 브랜치에 있습니다. 이 레포에 없어도 정상입니다.
@@ -17,8 +17,8 @@
   const MAXL = 20;                                                     // 코드 한 장면 20줄 안팎(Q8), 넘으면 "계속" 장면
 
   // ── 옛 주소(결정 G3) ──
-  //   #s=… · #<숫자> · #s-n · 새 장면 id → 덱이 받음(옛 장면 id는 그린 뒤 remapHash가 바꿈) / #pf-doc → 상세 문서 /
-  //   #pf-highlights 등 → 옛 장면 id로 바꾼 뒤 같은 처리 / 그 밖(옛 기술 문서 제목 앵커) → 상세 문서의 같은 조각
+  //   #s=… · #<숫자> · #s-n · 새 장면 id → 슬라이드가 받음(옛 장면 id는 그린 뒤 remapHash가 바꿈) / #pf-doc → 상세 문서 /
+  //   #pf-highlights 등 → 옛 장면 id로 바꾼 뒤 같은 처리 / 그 밖(옛 프로젝트 문서 제목 앵커) → 상세 문서의 같은 조각
   const SCENE = /^(cover|toc|ch-[a-z][a-z0-9-]*|d-[a-z0-9-]+|retro(-\d+)?|end|notice|hl-\d+(-\d+)?|ts-\d+(-\d+)?|shots(-\d+)?|more)$/;
   const LEGACY = { 'pf-highlights': 'hl-1', 'pf-troubleshooting': 'ts-1', 'pf-screenshots': 'shots', 'pf-retro': 'retro' };
   const redirected = (() => {
@@ -41,7 +41,7 @@
     info.strings = PF.stringsReport();
     PF.dropMeasure(); mmdHost?.remove();
     PFScene.mount({ deck: '#deck', hint: link({ href: id ? PF.docUrl(id) : 'index.html', label: esc(PF.t('deck.mobile-doc')), kind: 'page' }),
-      pptx: window.PFPptx && info.meta ? (b) => PFPptx.save(b) : null }); mark('mounted');   // [PPTX로 저장]은 덱을 그렸을 때만(assets/deck-pptx.js)
+      pptx: window.PFPptx && info.meta ? (b) => PFPptx.save(b) : null }); mark('mounted');   // [PPTX로 저장]은 슬라이드를 그렸을 때만(assets/deck-pptx.js)
   }));
 
   async function start() {
@@ -59,8 +59,8 @@
     try { md = await PF.loadText(PF.srcPath(p.id, p.doc)); }
     catch (e) {
       info.errors.push('doc: ' + e.message);
-      deck.replaceChildren(PF.msgScene({ title: '기술 문서 파일을 찾지 못했습니다', eyebrow: 'PROJECT',
-        html: `<p>데이터에 적힌 기술 문서(<code>src/${esc(p.id)}/${esc(p.doc || '')}</code>)를 열 수 없습니다. <code>src/</code> 폴더를 확인한 뒤 <code>/portfolio-build</code>를 다시 실행해 주세요.</p><p class="pf-note-err">${esc(e.message)}</p>${back}` }));
+      deck.replaceChildren(PF.msgScene({ title: '프로젝트 문서 파일을 찾지 못했습니다', eyebrow: 'PROJECT',
+        html: `<p>데이터에 적힌 프로젝트 문서(<code>src/${esc(p.id)}/${esc(p.doc || '')}</code>)를 열 수 없습니다. <code>src/</code> 폴더를 확인한 뒤 <code>/portfolio-build</code>를 다시 실행해 주세요.</p><p class="pf-note-err">${esc(e.message)}</p>${back}` }));
       return;
     }
     const P = PF.md.parse(md, p.id);
@@ -150,11 +150,6 @@
     if (lang && window.hljs && hljs.getLanguage(lang)) { code.className = `language-${lang}`; try { hljs.highlightElement(code); } catch { /* 강조 없이 */ } }
     return code.outerHTML;
   }
-  // 이미지 자리(원문 `> 📷 이미지 자리 \`images/…\` — 설명`) → 점선 상자. 글은 원문 설명 그대로
-  function slotHtml(el) {
-    const s = PF.md.slotOf(el) || { src: '', desc: '' };
-    return `<div class="pf-slot" data-pf-ui="slot"><span class="pf-slot-k">📷 ${esc(PF.t('deck.slot'))}</span><code>${esc(s.src)}</code>${s.desc ? `<p>${esc(s.desc)}</p>` : ''}</div>`;
-  }
   function vboxHtml(v, chunk) {
     if (v.status === 'missing' || v.status === 'ambiguous') return `<figure class="vbox err">${PF.vband(`visual-${v.status}`, v.detail, v.edited)}</figure>`;
     const warn = v.status === 'changed' ? PF.vband('visual-changed', v.detail, v.edited) : '';
@@ -164,7 +159,6 @@
       const alt = v.ref.caption?.text || v.el?.getAttribute('alt') || '';
       return `<figure class="vbox" data-kind="image"${v.d ? ` data-w="${v.d.w}" data-h="${v.d.h}"` : ''}><div class="vmedia">${PF.imgTag(v.src, alt, v.d)}</div>${cap(inline(alt))}</figure>`;
     }
-    if (k === 'slot') return `<figure class="vbox" data-kind="image" data-slot="1" data-w="1600" data-h="900"><div class="vmedia">${slotHtml(v.el)}</div>${cap(v.ref.caption?.text ? inline(v.ref.caption.text) : '')}</figure>`;
     if (k === 'mermaid') {
       const r = svgCache.get(v.el) || {};
       if (!r.svg) return `<figure class="vbox err">${PF.vband('visual-missing', `다이어그램을 그리지 못했습니다: ${r.error || ''}`)}</figure>`;
@@ -269,7 +263,7 @@
       if (meta.err) s.dataset.pfErr = meta.err;
       if (sl.edited) s.dataset.pfEdited = '1';                       // 장면 고치기로 고친 장면(미리보기 개요에 ✎)
       PF.body(s).innerHTML = `<div class="pf-fill">${bodyHtml(sl, vs, v)}</div>`;
-      if (meta.auto) s.querySelector('.pf-foot > span').insertAdjacentHTML('beforeend', '<span class="pf-autoband" data-pf-ui="note">예전 데이터로 자동 구성 — /portfolio-build를 다시 실행하면 발표 덱이 됩니다</span>');
+      if (meta.auto) s.querySelector('.pf-foot > span').insertAdjacentHTML('beforeend', '<span class="pf-autoband" data-pf-ui="note">예전 데이터로 자동 구성 — /portfolio-build를 다시 실행하면 슬라이드가 됩니다</span>');
       return PF.fitVisuals(s);
     };
     // 들어가는 변형 중 시각 자료가 가장 크게 보이는 것(같으면 앞의 것). 가로로 긴 다이어그램은 위아래 배치가, 세로로 긴 것은 옆 배치가 이김
@@ -313,14 +307,8 @@
       { k: PF.t('en.techdoc'), label: PF.t('name.doc'), href: PF.docUrl(p.id), kind: 'page', visible: PF.visibleUrl(PF.docUrl(p.id)) },
       { k: PF.t('en.portfolio'), label: PF.t('name.portfolio'), href: 'index.html', kind: 'page', visible: PF.visibleUrl('') },
     ];
-    // 대표 이미지가 아직 없으면 deck.cover(원문 이미지 자리)를 점선 상자로
-    let coverSlot = '';
-    if (!p.cover && p.deck?.cover?.kind === 'slot' && P) {
-      const r = PF.md.pick(P, p.deck.cover, p.deck.cover.sectionPath || []);
-      if (r.status === 'ok') coverSlot = slotHtml(r.el); else info.unresolved.push(`cover: ${r.detail}`);
-    }
-    const cover = await PF.projectIntro(p, { id: 'cover', titleTag: 'h1', eyebrow: PF.t('deck.cover-eyebrow'), links: cards, foot, sec: PF.t('deck.cover'), stats: info.overflow, coverSlot });
-    if (auto) cover.querySelector('.pf-foot > span').insertAdjacentHTML('beforeend', '<span class="pf-autoband" data-pf-ui="note">예전 데이터로 자동 구성 — /portfolio-build를 다시 실행하면 발표 덱이 됩니다</span>');
+    const cover = await PF.projectIntro(p, { id: 'cover', titleTag: 'h1', eyebrow: PF.t('deck.cover-eyebrow'), links: cards, foot, sec: PF.t('deck.cover'), stats: info.overflow });
+    if (auto) cover.querySelector('.pf-foot > span').insertAdjacentHTML('beforeend', '<span class="pf-autoband" data-pf-ui="note">예전 데이터로 자동 구성 — /portfolio-build를 다시 실행하면 슬라이드가 됩니다</span>');
 
     // 장 → 장 표지 + 장면들
     const chapterScenes = [];
@@ -348,7 +336,7 @@
     const toc = tocScene(p, foot, tocItems, retro, auto);
     const all = [cover, toc, ...chapterScenes, ...retro, end];
     PF.noteFill(all, { fill: !auto });                                  // 예전 데이터 자동 구성은 채움률 참고를 내지 않음(다시 빌드 안내 1건만)
-    if (auto) PF.note('cover', 'auto-mode', 1, '예전 데이터로 자동 구성(다시 빌드하면 발표 덱)');
+    if (auto) PF.note('cover', 'auto-mode', 1, '예전 데이터로 자동 구성(다시 빌드하면 슬라이드)');
     else if (all.length > 30) PF.note('cover', 'many-scenes', all.length, `장면 ${all.length}장(권장 15~30장)`);
     Object.assign(info.summary, { scenes: all.length, chapters: model.length, slides: model.reduce((a, c) => a + c.slides.length, 0), mode: info.mode });
     mark('summary');
@@ -382,7 +370,7 @@
     if (to) try { history.replaceState(null, '', `${location.pathname}${location.search}#s=${encodeURIComponent(to)}`); } catch { /* */ }
   }
 
-  // 목록 한 줄(같은 덱 안 이동 = 같은 탭). 쪽 번호(p.N)는 키트가 채움
+  // 목록 한 줄(같은 슬라이드 안 이동 = 같은 탭). 쪽 번호(p.N)는 키트가 채움
   //   ld = 장 표지 넉넉한 변형에서 그 장면의 도입(lead, 데이터의 글 조각 그대로)
   const item = (n, t, d, ref, ld = '') => `<li><a href="#${esc(ref)}" data-pf-ref="${esc(ref)}"><span class="n">${esc(n)}</span><span class="tx"><span class="t">${inline(t)}</span>${d ? `<span class="d">${esc(d)}</span>` : ''}${ld ? `<span class="ld">${inline(ld)}</span>` : ''}</span><span class="pg"><span class="pf-n-screen">p.00</span><span class="pf-n-print"></span></span></a></li>`;
   const band = (s, auto) => { if (auto) s.querySelector('.pf-foot > span').insertAdjacentHTML('beforeend', '<span class="pf-autoband" data-pf-ui="note">예전 데이터로 자동 구성</span>'); return s; };
@@ -401,26 +389,6 @@
     };
     const modes = slides.length <= ROOMY_MAX ? ['roomy', 'normal', 'compact'] : ['normal', 'compact'];
     for (const m of modes) { const s = make(m); if (PF.fitsM(s)) return s; }
-    // 장면이 많아 목록이 넘치면 절(장 바로 아래 제목) 단위로 묶어 보여 줌 — 절마다 첫 장면으로 이동
-    const groups = [];
-    for (const x of slides) {
-      const sp = x.sl.sectionPath || [];
-      const key = sp.length > 1 ? sp[1] : (txt(x.sl.title) || c.title);
-      const g = groups.find((y) => y.key === key);
-      if (g) g.n += 1; else groups.push({ key, n: 1, ref: x.scenes[0].id });
-    }
-    if (groups.length < slides.length) {
-      const makeG = (mode) => {
-        const s = PF.scene({ id: chId, tpl: 'CH', kind: 'bare', cls: mode === 'compact' ? 'compact' : '', foot, sec: c.title, group: c.title, stitle: c.title });
-        const list = groups.map((g, i) => item(String(i + 1), g.key, PF.t('deck.ch-count', { n: g.n }), g.ref)).join('');
-        PF.body(s).innerHTML = `<div class="toprow"><span class="pf-eyebrow long">${esc(ptitle)}</span><span class="rl">${esc(PF.t('deck.ch-count', { n: slides.length }))}</span></div>
-          <div class="ch-mid"><div><p class="ch-no">${esc(PF.t('en.chapter'))} ${String(ci + 1).padStart(2, '0')}</p><h2 class="ch-t">${esc(c.title)}</h2>${DOT}</div>
-          <div class="ch-list t-P2${mode === 'normal' ? '' : ' ' + mode}"><ol class="toc-list sub">${list}</ol></div></div>`;
-        return band(s, auto);
-      };
-      for (const m of ['normal', 'compact']) { const s = makeG(m); if (PF.fitsM(s)) return s; }
-      return PF.shrinkOrClip(makeG('compact'), PFScene.refUrl(chId), info.overflow);
-    }
     return PF.shrinkOrClip(make('compact'), PFScene.refUrl(chId), info.overflow);
   }
 
@@ -458,7 +426,7 @@
     return two.map((x) => (PF.fitsM(x) ? x : PF.shrinkOrClip(x, PFScene.refUrl(x.id), info.overflow)));
   }
 
-  // 맺음: 상세 기술문서(전문) · 바깥 링크 · 포트폴리오. 덱 → 상세 문서 링크는 표지와 여기에만(G1)
+  // 맺음: 프로젝트 상세 문서(전문) · 바깥 링크 · 포트폴리오. 슬라이드 → 상세 문서 링크는 표지와 여기에만(G1)
   function endScene(p, foot, ext, auto) {
     const card = (k, label, href, kind, visible, primary) => `<div class="lcard${primary ? ' primary' : ''}">${link({ href, kind, label: `<span class="lc-k">${esc(k)}</span><span class="lc-t">${esc(label)}</span><span class="url">${esc(visible)}</span>` })}</div>`;
     const make = () => {
