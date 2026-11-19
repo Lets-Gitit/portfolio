@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-17",
+  "generatedAt": "2026-11-19",
   "profile": {
     "name": "이찬영",
     "nameEn": "ChanYoung Lee",
@@ -23,16 +23,16 @@
       "name": "Unity",
       "evidence": [
         {
-          "text": "`Rigidbody2D.MovePosition`으로 충돌은 물리 엔진에, 속도·감속은 코드로 제어하는 이동",
+          "text": "FixedUpdate·MovePosition으로 구현한 공통 이동 모터 `SwimMotor`를 네 객체가 공유",
           "project": "0-super-phage"
         },
         {
-          "text": "유영·세균 내부를 별도 씬으로 나누고 `DontDestroyOnLoad`로 진행 기록 유지",
-          "project": "0-super-phage"
-        },
-        {
-          "text": "`NavMeshAgent`를 잠시 끄고 착지 뒤 되돌리는 보스 등장 낙하",
+          "text": "Raycast로 착탄 지점을 찾고 `NavMeshAgent`를 떼어 보스 등장 낙하 구현",
           "project": "1-hive-purge"
+        },
+        {
+          "text": "Unity 6·URP로 3스테이지 눈덩이 골프 프로토타입 기획·레벨 디자인",
+          "project": "3-snowball-golf"
         }
       ]
     },
@@ -40,15 +40,11 @@
       "name": "C#",
       "evidence": [
         {
-          "text": "`MicroEntityEmitter` 상속으로 리보솜·핵양체·RNA 중합효소의 생성·배출 공유",
+          "text": "코루틴 감지(`DetectPhage`)·제네릭 `SingletonBase<T>`·상속 기반 생성기 `MicroEntityEmitter` 구현",
           "project": "0-super-phage"
         },
         {
-          "text": "0.5초 간격 코루틴 + `sqrMagnitude` 비교로 항체 25마리의 감지 검사",
-          "project": "0-super-phage"
-        },
-        {
-          "text": "`BossAttack` 추상 클래스를 상속해 보스 공격 5종을 같은 단계 진행으로 구현",
+          "text": "`BossAttack` 추상 클래스를 상속해 공격 5종을 만들고 `finally`로 취소 정리",
           "project": "1-hive-purge"
         }
       ]
@@ -57,20 +53,11 @@
       "name": "컴포넌트 기반 설계",
       "evidence": [
         {
-          "text": "공통 `BossController`와 보스 전용 컨트롤러·패턴 선택기·공격 5종을 한 프리팹에 조합",
-          "project": "1-hive-purge"
-        }
-      ]
-    },
-    {
-      "name": "디자인 패턴",
-      "evidence": [
-        {
-          "text": "`SingletonBase<T>` 싱글톤으로 씬 전환 너머 진행 기록(`SwimFieldState`) 보관",
+          "text": "플레이어를 입력·이동·에너지·사망 네 컴포넌트로 나누고 이동 모터를 공유",
           "project": "0-super-phage"
         },
         {
-          "text": "보스 등장을 `BossAppearedEvent` 이벤트로 알리고 플레이어·사운드·보상이 각자 구독",
+          "text": "공통 계층에 둔 기능을 다른 보스에도 붙일 수 있게 함(건물 부수기)",
           "project": "1-hive-purge"
         }
       ]
@@ -78,6 +65,7 @@
   ],
   "projects": [
     "0-super-phage",
-    "1-hive-purge"
+    "1-hive-purge",
+    "3-snowball-golf"
   ]
 }

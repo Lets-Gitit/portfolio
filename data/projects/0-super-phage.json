@@ -43,7 +43,7 @@
     "extra": []
   },
   "intent": {
-    "text": "그래서 의도한 경험은 복잡한 현실의 증식 과정을 추상화해, 직관적인 조작만으로 체험하게 하는 것이었다.",
+    "text": "앞 단계의 산물이 다음 단계의 재료가 되고, 이 연결이 반복되면서 증식이 완료된다. 그래서 의도한 경험은 복잡한 현실의 증식 과정을 추상화해, 직관적인 조작만으로 체험하게 하는 것이었다.",
     "verbatim": true
   },
   "highlights": [
@@ -85,7 +85,7 @@
       "title": "세균 내부를 다시 들어가면 싱글톤이 동작하지 않던 문제",
       "problem": "유영 필드로 나갔다가 다시 박테리아 필드로 들어오면 박테리아 필드의 싱글톤들이 작동하지 않았습니다.",
       "cause": "공통 부모 `SingletonBase<T>`의 `OnDestroy`가 `applicationIsQuitting = true`를 켜, 씬 전용 싱글톤이 씬 전환으로 파괴되는 것을 앱 종료로 처리했습니다. 그 뒤 `Instance`가 계속 `null`을 돌려줬습니다.",
-      "solution": "`OnDestroy`의 `applicationIsQuitting = true`를 제거했습니다(앱 종료 처리는 `OnApplicationQuit`에 이미 있음). 같은 커밋에서 `RandomAreaSpawner`를 일반 `MonoBehaviour`로 바꿨습니다.",
+      "solution": "`OnDestroy`의 `applicationIsQuitting = true`를 제거했습니다(앱 종료 처리는 `OnApplicationQuit`에 이미 있음). 같은 수정에서 `RandomAreaSpawner`를 일반 `MonoBehaviour`로 바꿨습니다.",
       "result": "유영 필드와 박테리아 필드를 여러 번 드나들어도 싱글톤이 정상적으로 동작했습니다.",
       "lesson": "`OnDestroy`는 씬이 바뀔 때도 불립니다. 종료에만 해야 할 처리는 `OnApplicationQuit`처럼 그 시점에만 불리는 곳에 두어야 합니다.",
       "section": "(b) 세균 내부를 다시 들어가면 싱글톤이 동작하지 않던 문제"
@@ -132,13 +132,6 @@
     "section": "7. 결과 및 회고"
   },
   "deck": {
-    "cover": {
-      "kind": "slot",
-      "src": "images/cover.png",
-      "sectionPath": [
-        "Super Phage 기술 문서"
-      ]
-    },
     "chapters": [
       {
         "key": "overview",
@@ -181,104 +174,9 @@
         "sectionPath": [
           "6. 트러블슈팅"
         ]
-      },
-      {
-        "key": "result",
-        "title": "결과 및 회고",
-        "sectionPath": [
-          "7. 결과 및 회고"
-        ]
       }
     ],
     "slides": [
-      {
-        "key": "intro",
-        "chapter": "overview",
-        "layout": "overview",
-        "tab": "개요",
-        "title": {
-          "text": "1.1 프로젝트 소개",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "세균에 침투해 증식하는 과정을 플레이로 옮긴 2D 탑뷰 게임이다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "1. 개요",
-          "1.1 프로젝트 소개"
-        ],
-        "points": [
-          {
-            "label": "게임 기획 의도",
-            "text": "경험을 먼저 설계하고, 그 의도에 맞게 구현하려 노력했다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "그래서 의도한 경험은 복잡한 현실의 증식 과정을 추상화해, 직관적인 조작만으로 체험하게 하는 것이었다.",
-            "verbatim": true
-          },
-          {
-            "label": "기술 설계 의도",
-            "text": "여러 객체가 똑같이 하는 동작은 공통 클래스 하나로 묶어 재사용하고, 객체마다 다른 판단만 각자에게 맡겼다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "두 씬이 공유하는 이동 컴포넌트, 드롭에서 파지 배출까지 이어지는 생산 구조, 씬을 오가도 진행이 남는 상태 관리 세 가지를 중심으로 다룬다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "slot",
-            "src": "images/loop_swim_to_bacteria.gif",
-            "sectionPath": [
-              "1. 개요",
-              "1.2 핵심 플레이 루프"
-            ]
-          }
-        ]
-      },
-      {
-        "key": "intent-detail",
-        "chapter": "overview",
-        "layout": "overview",
-        "tab": "개요",
-        "title": {
-          "text": "1.1 프로젝트 소개",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.1 프로젝트 소개"
-        ],
-        "points": [
-          {
-            "label": "구조와 수치",
-            "text": "이 의도에 맞춰 정했다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "에너지는 스트레스가 아니라 짧은 목표를 주도록, 파지 생산은 반복할수록 속도가 붙도록 설계했다.",
-            "verbatim": false
-          },
-          {
-            "label": "에셋",
-            "text": "만들었다. 실제 분자의 생김새를 최대한 반영해 이미지 에셋을 만드는 것에 집중했다.",
-            "verbatim": true
-          },
-          {
-            "label": "개발자로서의 목표",
-            "text": "2주라는 한정된 시간 안에 핵심 루프를 구현해 하나의 완성된 프로젝트를 만들어 보는 것이었다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": []
-      },
       {
         "key": "loop",
         "chapter": "overview",
@@ -310,98 +208,6 @@
             "kind": "mermaid",
             "n": 1,
             "fp": "flowchart LR"
-          }
-        ]
-      },
-      {
-        "key": "content",
-        "chapter": "overview",
-        "layout": "full",
-        "tab": "개요",
-        "title": {
-          "text": "1.3 콘텐츠 구성",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.3 콘텐츠 구성"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "구분|유영 필드 (SwimField)|세균 내부 (BacteriaField)"
-          }
-        ]
-      },
-      {
-        "key": "controls",
-        "chapter": "overview",
-        "layout": "full",
-        "tab": "개요",
-        "title": {
-          "text": "1.4 조작법",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.4 조작법"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "씬|입력|동작"
-          }
-        ]
-      },
-      {
-        "key": "summary",
-        "chapter": "overview",
-        "layout": "full",
-        "tab": "개요",
-        "title": {
-          "text": "1.5 기술 핵심 요약",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.5 기술 핵심 요약"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "핵심|무엇을 했나|자세히"
-          }
-        ]
-      },
-      {
-        "key": "scope",
-        "chapter": "overview",
-        "layout": "full",
-        "tab": "결과",
-        "title": {
-          "text": "1.6 구현 범위",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "1. 개요",
-          "1.6 구현 범위"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "기획 항목|구현|비고"
           }
         ]
       },
@@ -470,7 +276,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "함께 쓰는 공통 클래스는 네 개다.",
+          "text": "여러 객체가 함께 쓰는 공통 클래스는 네 개다. 각 클래스가 묶은 동작과 객체마다 남긴 판단은 다음과 같다.",
           "verbatim": true
         },
         "sectionPath": [
@@ -479,13 +285,8 @@
         ],
         "points": [
           {
-            "label": "나누는 기준",
-            "text": "\"하나의 기능 단위로 구분할 수 있는가\"였다. 두 개 이상의 기능이 과도하게 연결되어 서로에게 영향을 끼치지 않도록 하기 위해서다.",
-            "verbatim": true
-          },
-          {
-            "label": "예",
-            "text": "에너지 섭취에 따른 파지의 행동 규칙을 바꾸고 싶다면 `PhageEnergy`만 수정하면 된다.",
+            "label": "",
+            "text": "스크립트를 나누는 기준은 \"하나의 기능 단위로 구분할 수 있는가\"였다. 두 개 이상의 기능이 과도하게 연결되어 서로에게 영향을 끼치지 않도록 하기 위해서다.",
             "verbatim": true
           }
         ],
@@ -494,104 +295,6 @@
             "kind": "table",
             "n": 1,
             "fp": "공통 클래스|함께 묶은 동작|객체마다 정하는 것|쓰는 곳|자세히"
-          }
-        ]
-      },
-      {
-        "key": "swim-parts",
-        "chapter": "swim",
-        "layout": "visual",
-        "tab": "구조",
-        "title": {
-          "text": "3.1 개요: 이동과 추격 회피, 네 컴포넌트로 나눈 플레이어",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "이동과 추격 회피가 중심이다. 플레이어 파지는 입력, 물리 이동, 에너지, 사망을 네 컴포넌트로 나눴다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.1 개요: 이동과 추격 회피, 네 컴포넌트로 나눈 플레이어"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "컴포넌트|담당하는 기능|코드에서 하는 일"
-          },
-          {
-            "kind": "slot",
-            "src": "images/player_components.png"
-          }
-        ]
-      },
-      {
-        "key": "motor-api",
-        "chapter": "swim",
-        "layout": "full",
-        "tab": "구현",
-        "title": {
-          "text": "`SwimMotor` 사용법: 방향 명령 · 정지 · 속도 변경",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.2 핵심 동작: `SwimMotor`의 회전 속도 제한과 감속",
-          "`SwimMotor` 사용법: 방향 명령 · 정지 · 속도 변경"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "공통으로 `SetGoalDirection`을 호출한다. AI는 방향만 전달하고, 플레이어는 `SetGoalDirection(direction, isBackward)`로 후진 여부까지 함께 전달한다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "`Brake()`를 호출하면 목표 방향으로 회전하는 동작이 멈추고, 모터는 이후 물리 프레임에서 남은 속도를 감쇠시킨다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "호출|입력|역할"
-          }
-        ]
-      },
-      {
-        "key": "motor-command",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "이동 명령: 액셀(`SetGoalDirection`)과 브레이크(`Brake`)",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "운전자라면, `SwimMotor`는 액셀(`SetGoalDirection`)과 브레이크(`Brake`)를 제공하는 자동차다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.2 핵심 동작: `SwimMotor`의 회전 속도 제한과 감속",
-          "이동 명령: 액셀(`SetGoalDirection`)과 브레이크(`Brake`)"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "운전자는 어디로 갈지만 정하고, 회전 속도·이동 속도·관성은 모터가 정한다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// SwimMotor.cs — 호출하는 쪽이 쓰는 이동 명령(액셀)과 정지 명령(브레이크)"
           }
         ]
       },
@@ -643,11 +346,6 @@
             "verbatim": true
           },
           {
-            "label": "얻은 것",
-            "text": "이 경계 덕분에 플레이어 입력 외에도 세 곳에서 같은 모터를 사용할 수 있었다(아래 표).",
-            "verbatim": true
-          },
-          {
             "label": "감수한 대가",
             "text": "핵산 분해효소가 핵양체 안으로 파고드는 문제가 생겼을 때 모터를 고치면 파지와 항체의 움직임에도 영향을 줄 수 있었다.",
             "verbatim": true
@@ -658,35 +356,6 @@
             "kind": "table",
             "n": 1,
             "fp": "|[A] 객체마다 이동 코드 작성|[B] 공통 SwimMotor + 방향만 넘기기 ✓"
-          }
-        ]
-      },
-      {
-        "key": "motor-objects",
-        "chapter": "swim",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "3.3 고민과 선택 ① 이동 로직을 어디에 둘 것인가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.3 고민과 선택 ① 이동 로직을 어디에 둘 것인가"
-        ],
-        "points": [
-          {
-            "label": "얻은 것",
-            "text": "이 경계 덕분에 플레이어 입력 외에도 세 곳에서 같은 모터를 사용할 수 있었다(아래 표). 새 객체는 방향만 정하면 된다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 2,
-            "fp": "객체|언제, 어디로 (각자 정함)|어떻게 (SwimMotor 공통)"
           }
         ]
       },
@@ -707,12 +376,12 @@
         "points": [
           {
             "label": "증상",
-            "text": "의도한 것은 분해효소가 핵양체 표면에 딱 걸려 붙는 모습이었다.",
+            "text": "실제로는 콜라이더로 핵양체를 감지하고 멈추더라도, 관성 때문에 안쪽으로 파고들어 가듯 이동했다.",
             "verbatim": true
           },
           {
             "label": "원인",
-            "text": "분해효소도 공통 모터 `SwimMotor`로 움직인다.",
+            "text": "그래서 도착을 감지한 순간 방향 갱신을 멈춰도, 남은 관성만큼 더 밀려 들어갔다.",
             "verbatim": true
           },
           {
@@ -736,149 +405,20 @@
             "kind": "table",
             "n": 1,
             "fp": "|[A] 분해효소 전용 이동 로직|[B] 관성 정도를 수치로 빼서 모터 수정|[C] 콜라이더 앞부분 늘리기 ✓"
-          },
-          {
-            "kind": "slot",
-            "src": "images/nuclease_trigger_collider.png"
-          }
-        ]
-      },
-      {
-        "key": "movepos",
-        "chapter": "swim",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "3.5 고민과 선택 ② 이동을 `MovePosition`으로 처리",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "`SwimMotor`가 계산한 이동을 어떤 방식으로 `Rigidbody2D`에 적용할지.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.5 고민과 선택 ② 이동을 `MovePosition`으로 처리"
-        ],
-        "points": [
-          {
-            "label": "의도",
-            "text": "불필요한 미끄러짐과 관성은 빼고, 속도와 감속은 코드에서 직접 제어하고 싶었다.",
-            "verbatim": true
-          },
-          {
-            "label": "최종 결정",
-            "text": "탑다운 뷰나 아케이드성 액션 게임에서 정해진 속도로 정확히 움직이는 조작감을 만들 때 많이 쓰는 방식이다.",
-            "verbatim": true
-          },
-          {
-            "label": "얻은 것",
-            "text": "이동이 물리 단계에서 처리되어, 경로에 콜라이더가 있으면 충돌 반응이 정상적으로 처리된다.",
-            "verbatim": true
-          },
-          {
-            "label": "감수한 대가",
-            "text": "파지는 물리 주기에서만 움직이므로, 매 프레임 따라가는 카메라와 움직이는 시점이 어긋나 화면이 떨려 보였다([§3.6](#36-②가-낳은-문제-카메라를-따라가는-화면이-떨림)).",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "|[A] transform.position += …|[B] rb.linearVelocity · AddForce (속도·힘 기반)|[C] rb.MovePosition ✓"
-          }
-        ]
-      },
-      {
-        "key": "ts-jitter",
-        "chapter": "swim",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "3.6 ②가 낳은 문제: 카메라를 따라가는 화면이 떨림",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.6 ②가 낳은 문제: 카메라를 따라가는 화면이 떨림"
-        ],
-        "points": [
-          {
-            "label": "증상",
-            "text": "카메라가 파지를 따라갈 때, 카메라와 이미지 렌더링 시점 차이로 이미지가 떨리는 것처럼 보였다.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "파지가 움직이는 시점과 화면을 그리는 시점이 어긋나 있었다.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "두 방향으로 시점을 맞췄다.",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "수정한 뒤 파지를 움직여도 화면이 떨리지 않는 것을 확인했다.",
-            "verbatim": true
-          },
-          {
-            "label": "배운 점",
-            "text": "Unity에서는 움직임을 처리하는 시점(`FixedUpdate`, `Update`, `LateUpdate`)이 저마다 다르다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "바뀐 곳|Before|After|효과"
-          }
-        ]
-      },
-      {
-        "key": "jitter-code",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "문제 해결",
-        "title": {
-          "text": "3.6 ②가 낳은 문제: 카메라를 따라가는 화면이 떨림",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.6 ②가 낳은 문제: 카메라를 따라가는 화면이 떨림"
-        ],
-        "points": [
-          {
-            "label": "원인",
-            "text": "물리로 움직이는 대상을 일반 프레임에서 따라가게 만들어, 움직이는 시점과 보여 주는 시점이 다르다는 것을 고려하지 않은 것이 문제였다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// FollowCamera.cs — 플레이어를 따라가는 카메라의 갱신 시점"
           }
         ]
       },
       {
         "key": "energy",
         "chapter": "swim",
-        "layout": "visual",
+        "layout": "full",
         "tab": "구현",
         "title": {
           "text": "3.7 에너지와 이동 속도: 에너지 구간에 따라 3단계 감속",
           "verbatim": true
         },
         "lead": {
-          "text": "지나면 줄어들고, 현재 수치에 따라 두 번에 걸쳐 이동 속도가 낮아진다.",
+          "text": "에너지는 시간이 지나면 줄어들고, 현재 수치에 따라 두 번에 걸쳐 이동 속도가 낮아진다.",
           "verbatim": true
         },
         "sectionPath": [
@@ -893,7 +433,7 @@
           },
           {
             "label": "",
-            "text": "사망하지는 않는다. 0에서 멈추고 가장 느린 속도(2)가 유지된다. 유영 필드의 사망 조건은 항체 접촉뿐이다.",
+            "text": "에너지가 0이 되어도 사망하지는 않는다. 0에서 멈추고 가장 느린 속도(2)가 유지된다.",
             "verbatim": true
           }
         ],
@@ -902,435 +442,6 @@
             "kind": "table",
             "n": 1,
             "fp": "에너지 구간|단계|파지 전진 속도|항체(3)와 비교|100에서 시작해 도달하는 시간(초당 3 감소)"
-          },
-          {
-            "kind": "slot",
-            "src": "images/energy_gauge.gif"
-          }
-        ]
-      },
-      {
-        "key": "energy-code",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "3.7 에너지와 이동 속도: 에너지 구간에 따라 3단계 감속",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.7 에너지와 이동 속도: 에너지 구간에 따라 3단계 감속"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// PhageEnergy.cs — 에너지를 줄이고, 단계가 바뀌면 모터에 새 속도를 전달"
-          }
-        ]
-      },
-      {
-        "key": "orb",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "에너지 오브: 파지에게 끌려와 에너지 +5",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.7 에너지와 이동 속도: 에너지 구간에 따라 3단계 감속",
-          "에너지 오브: 파지에게 끌려와 에너지 +5"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "`Player` 태그가 들어오면 끌려오기 시작하고, 거리가 `offset`(0.2)보다 가까워지면 에너지를 주고 사라진다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "사라질 때는 등록된 스포너의 개수를 줄여 빈자리를 다시 채우게 한다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// EnergyOrb.cs — 파지에게 끌려가다가 충분히 가까워지면 에너지를 주고 사라짐"
-          }
-        ]
-      },
-      {
-        "key": "energy-choice",
-        "chapter": "swim",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "고민과 선택 ③ 에너지에 따라 속도를 어떻게 낮출 것인가",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "에너지가 줄어들 때 이동 속도를 어떤 방식으로 낮출지.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.7 에너지와 이동 속도: 에너지 구간에 따라 3단계 감속",
-          "고민과 선택 ③ 에너지에 따라 속도를 어떻게 낮출 것인가"
-        ],
-        "points": [
-          {
-            "label": "최종 결정",
-            "text": "에너지는 밋밋할 수 있는 이동에 짧은 목표를 계속 부여해, 플레이어가 끊임없이 움직일 동기를 얻게 하려는 장치다.",
-            "verbatim": true
-          },
-          {
-            "label": "얻은 것",
-            "text": "구간 안에서는 속도가 그대로라, 에너지가 줄 때마다 느려지지 않는다.",
-            "verbatim": true
-          },
-          {
-            "label": "감수한 대가",
-            "text": "경계에서 속도가 한 번에 바뀐다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "|[A] 에너지 비율만큼 연속으로 감속|[B] 구간 3단계로 끊어서 감속 ✓"
-          }
-        ]
-      },
-      {
-        "key": "ts-orb",
-        "chapter": "swim",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "에너지 오브가 파지를 끝없이 쫓아오던 문제",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.7 에너지와 이동 속도: 에너지 구간에 따라 3단계 감속",
-          "에너지 오브가 파지를 끝없이 쫓아오던 문제"
-        ],
-        "points": [
-          {
-            "label": "증상",
-            "text": "플레이 테스트 도중, 플레이어가 에너지를 먹으려고 충분히 다가갔는데도 먹지 못하는 경우가 생겼다.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "오브는 파지가 트리거에 들어온 순간부터 파지 쪽으로 끌려온다.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "오브 속도를 4 → 6으로 올려, 파지의 최고 속도보다 빠르게 했다(`EnergyOrb.cs` 기본값과 프리팹 둘 다).",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "오브가 파지를 따라잡게 되어, 플레이어가 원활하게 에너지를 섭취할 수 있게 됐다.",
-            "verbatim": true
-          },
-          {
-            "label": "배운 점",
-            "text": "의도를 정해 두고 수치를 넣어도, 실제로 플레이해 보기 전까지는 그 수치가 의도대로 느껴지는지 알 수 없다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "slot",
-            "src": "images/energy_orb_before.gif"
-          },
-          {
-            "kind": "slot",
-            "src": "images/energy_orb_after.gif"
-          }
-        ]
-      },
-      {
-        "key": "antibody",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "3.8 항체의 추격: 0.5초마다 감지, 감지 중에는 플레이어 방향으로",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "0.5초마다 플레이어가 감지 반경 안에 있는지 거리로 검사한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.8 항체의 추격: 0.5초마다 감지, 감지 중에는 플레이어 방향으로"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "거리는 루트 연산이 필요한 실제 거리 대신, 벡터의 각 성분을 제곱해 더한 `sqrMagnitude`를 감지 반경의 제곱과 비교한다. 판정 결과는 같으면서 더 가볍다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// AntiBodyAI.cs — 0.5초마다 플레이어가 감지 반경 안에 있는지 검사"
-          }
-        ]
-      },
-      {
-        "key": "antibody-chase",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "3.8 항체의 추격: 0.5초마다 감지, 감지 중에는 플레이어 방향으로",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "프레임마다 플레이어 방향을 모터에 전달한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.8 항체의 추격: 0.5초마다 감지, 감지 중에는 플레이어 방향으로"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "실제 접촉은 별도 트리거로 처리해 감속을 지시한다. 검사 사이에 플레이어가 범위에 들어오거나 나가면, 추격 상태는 다음 검사에서 바뀐다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 2,
-            "fp": "// AntiBodyAI.cs — 검사 결과(isChasing)에 따라 모터에 방향 또는 정지를 지시"
-          }
-        ]
-      },
-      {
-        "key": "detect-choice",
-        "chapter": "swim",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "고민과 선택 ④ 항체의 감지를 어떻게, 얼마나 자주 할 것인가",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "플레이어가 감지 반경 안에 들어왔는지를 무엇으로, 얼마나 자주 검사할지.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.8 항체의 추격: 0.5초마다 감지, 감지 중에는 플레이어 방향으로",
-          "고민과 선택 ④ 항체의 감지를 어떻게, 얼마나 자주 할 것인가"
-        ],
-        "points": [
-          {
-            "label": "최종 결정",
-            "text": "감지 대상이 플레이어 하나뿐이고 가까운지 여부만 판단하면 되므로, 간단한 거리 계산으로 충분했다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "실제 성능 측정에서 나온 것이 아니고, 두 방식을 실제로 비교해 보지도 않았다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "|[A] 감지 반경 크기의 트리거 콜라이더|[B] 매 프레임 거리 검사|[C] 0.5초 간격 코루틴 + 제곱거리 비교 ✓"
-          }
-        ]
-      },
-      {
-        "key": "input",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "플레이어 입력: 입력 유무와 후진만 판단해 모터에 전달",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.9 세부 기능: 입력 · 후진 · 사망 판정 · 추적기 · 카메라",
-          "플레이어 입력: 입력 유무와 후진만 판단해 모터에 전달"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "`Brake()`, 있으면 후진 여부와 함께 방향을 넘긴다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// PhageController.cs — 입력을 읽어 모터에 방향 또는 정지를 지시"
-          }
-        ]
-      },
-      {
-        "key": "backward",
-        "chapter": "swim",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "후진: 입력은 그대로 두고 속도만 낮춤",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "후진은 머리 방향은 그대로 둔 채 이동만 반대 방향으로 해서, 플레이어에게는 조작이 반전된 것처럼 느껴진다. 이 어려움을 어떻게 줄일지.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.9 세부 기능: 입력 · 후진 · 사망 판정 · 추적기 · 카메라",
-          "후진: 입력은 그대로 두고 속도만 낮춤"
-        ],
-        "points": [
-          {
-            "label": "최종 결정",
-            "text": "후진 이동 속도를 줄여(전진 5 → 후진 2) 더 정밀하게 조작할 수 있게 했다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "|[A] 전진과 같은 속도|[B] 입력까지 반전|[C] 후진 이동 속도만 낮춤 ✓"
-          }
-        ]
-      },
-      {
-        "key": "death",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "사망 판정: 0.6초 유예를 둔 2초 접촉",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "머무는 동안 마지막 접촉 시각을 갱신하고, 마지막 접촉 후 0.6초 안이면 접촉이 이어지는 것으로 본다. 이 상태가 2초 이어지면 사망한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.9 세부 기능: 입력 · 후진 · 사망 판정 · 추적기 · 카메라",
-          "사망 판정: 0.6초 유예를 둔 2초 접촉"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "사망하면 조작과 모터를 끄고, 머리를 떼어 날려 보낸 뒤 화면을 어둡게 하고 진행 기록을 초기화해 씬을 다시 불러온다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// PhageDeathController.cs — 항체와의 접촉 시간을 누적해 2초가 되면 사망"
-          }
-        ]
-      },
-      {
-        "key": "tracker",
-        "chapter": "swim",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "세균 추적기: 활성화된 세균 중 가장 가까운 곳을 가리킴",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "추적기는 매 프레임 활성화된 세균 가운데 가장 가까운 것을 찾아 그쪽으로 회전한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "3. 유영 필드 · 이동과 생존",
-          "3.9 세부 기능: 입력 · 후진 · 사망 판정 · 추적기 · 카메라",
-          "세균 추적기: 활성화된 세균 중 가장 가까운 곳을 가리킴"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// PhageBacteriaTracker.cs — 활성화된 세균 가운데 가장 가까운 것을 찾음"
-          }
-        ]
-      },
-      {
-        "key": "bacteria-intent",
-        "chapter": "bacteria",
-        "layout": "overview",
-        "tab": "개요",
-        "title": {
-          "text": "4.1 개요: 다음 단계가 열리는 지점에 플레이어 개입",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "열리는 지점에 플레이어의 개입을 배치했다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.1 개요: 다음 단계가 열리는 지점에 플레이어 개입"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "실제 포식 과정을 최대한 온전히 담으면서, 세균 내부에서 상태 변화가 일어나는 지점을 플레이어가 무언가 해야 하는 지점으로 정했다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "이렇게 개입하는 순간 다음 변화가 일어나므로, 플레이어는 그 변화를 바로 체감한다.",
-            "verbatim": true
-          },
-          {
-            "label": "단순화",
-            "text": "단계적 절차로 단순화하는 것도 꼭 필요했다. 실제 과정은 훨씬 길고 복잡해서, 모두 체험하게 하면 지루해할 것이라 생각했다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "이 조립 단계를 생략하고, 게이지가 차면 완성체가 리보솜에서 튀어나와 바로 세균 내부를 돌아다니게 했다. 재료를 넣은 결과를 화면에서 바로 보며, 내가 파지를 증식시켰다는 감각을 직관적으로 느끼게 하려는 것이다. 같은 리보솜에서 파지 생산을 반복할수록 다음 생산까지 걸리는 시간도 줄였다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "slot",
-            "src": "images/bacteria_overview.png"
           }
         ]
       },
@@ -1344,7 +455,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "생산 대상이 정해지고, 필요한 재료를 공급하면 생산이 진행된다.",
+          "text": "리보솜에 mRNA를 드롭하면 생산 대상이 정해지고, 필요한 재료를 공급하면 생산이 진행된다.",
           "verbatim": true
         },
         "sectionPath": [
@@ -1381,7 +492,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "드롭한 오브젝트가 리보솜의 생산 설정이나 재료로 바뀌고, 각 생산자가 공통 배출 로직을 이용하는 경계다.",
+          "text": "이 그림에서 볼 것은 드롭한 오브젝트가 리보솜의 생산 설정이나 재료로 바뀌고, 각 생산자가 공통 배출 로직을 이용하는 경계다.",
           "verbatim": true
         },
         "sectionPath": [
@@ -1391,7 +502,7 @@
         "points": [
           {
             "label": "",
-            "text": "증식과 직접 연결되는 여덟 클래스로 좁혔다. 씬 상태의 수명과 `SwimMotor` 재사용은 각각 씬 간 상태 관리와 유영 필드 장에서 다룬다.",
+            "text": "관계도는 증식과 직접 연결되는 여덟 클래스로 좁혔다. 씬 상태의 수명과 `SwimMotor` 재사용은 각각 씬 간 상태 관리와 유영 필드 장에서 다룬다.",
             "verbatim": true
           }
         ],
@@ -1400,136 +511,6 @@
             "kind": "mermaid",
             "n": 1,
             "fp": "classDiagram"
-          }
-        ]
-      },
-      {
-        "key": "class-roles",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "구조",
-        "title": {
-          "text": "4.2 증식 시스템의 클래스와 책임",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.2 증식 시스템의 클래스와 책임"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "클래스|맡은 일과 분리한 이유"
-          }
-        ]
-      },
-      {
-        "key": "drop-api",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "구현",
-        "title": {
-          "text": "드롭 처리 사용법: 수신기와 리보솜 호출",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.3 핵심 동작: 드롭이 생산 설정으로 바뀌는 경계",
-          "드롭 처리 사용법: 수신기와 리보솜 호출"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "호출|입력|반환값 또는 효과"
-          }
-        ]
-      },
-      {
-        "key": "drop-controller",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "드롭 처리 사용법: 수신기와 리보솜 호출",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "드롭 대상 레이어에 무엇이 있는지만 알고, 그 오브젝트가 생산 종류인지 재료인지는 수신기가 판단한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.3 핵심 동작: 드롭이 생산 설정으로 바뀌는 경계",
-          "드롭 처리 사용법: 수신기와 리보솜 호출"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// BacteriaFieldDargController.cs — 놓은 위치의 수신기에 넘기고, 받아들였을 때"
-          }
-        ]
-      },
-      {
-        "key": "dragdrop",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "드롭 처리 사용법: 수신기와 리보솜 호출",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.3 핵심 동작: 드롭이 생산 설정으로 바뀌는 경계",
-          "드롭 처리 사용법: 수신기와 리보솜 호출"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "수신기가 `false`를 돌려주면(파지 AI나 분해효소를 놓은 경우) 오브젝트는 그 자리에 남는다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 2,
-            "fp": "// RibosomeDropReceiver.cs — 드롭된 종류를 생산 종류 선택 또는 재료 추가로 바꿈"
-          }
-        ]
-      },
-      {
-        "key": "produce-table",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "구현",
-        "title": {
-          "text": "4.4 핵심 동작: 리보솜의 생산 조건과 타이머",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "드롭하면 바로 바뀌는 것은 리보솜의 생산 종류다. 아미노산과 AGTC가 모두 충분해진 프레임부터 생산 타이머가 진행된다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.4 핵심 동작: 리보솜의 생산 조건과 타이머"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "생산 종류|한 회차의 소비|한 회차의 배출 요청|생산 간격"
           }
         ]
       },
@@ -1543,7 +524,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "상태가 어떤 조건을 거쳐 실제 생산 호출로 이어지는지 보여준다.",
+          "text": "드롭으로 바뀐 상태가 어떤 조건을 거쳐 실제 생산 호출로 이어지는지 보여준다.",
           "verbatim": true
         },
         "sectionPath": [
@@ -1556,7 +537,11 @@
           {
             "kind": "code",
             "n": 1,
-            "fp": "// Ribosome.cs — 조건이 맞는 프레임에만 타이머를 진행하고, 주기가 끝나면 생산"
+            "fp": "// Ribosome.cs — 조건이 맞는 프레임에만 타이머를 진행하고, 주기가 끝나면 생산",
+            "lines": [
+              2,
+              21
+            ]
           }
         ]
       },
@@ -1603,304 +588,6 @@
         ]
       },
       {
-        "key": "interval-code",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "선택",
-        "title": {
-          "text": "4.5 고민과 선택 ⑤ 파지 생산 간격을 고정할 것인가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.5 고민과 선택 ⑤ 파지 생산 간격을 고정할 것인가"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "목표는 '증식에 속도가 붙는 느낌'이었다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// Ribosome.cs — 파지 생산만 회차가 쌓일수록 간격을 줄임"
-          }
-        ]
-      },
-      {
-        "key": "interval-steps",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "4.5 고민과 선택 ⑤ 파지 생산 간격을 고정할 것인가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.5 고민과 선택 ⑤ 파지 생산 간격을 고정할 것인가"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 2,
-            "fp": "파지 생산 회차|그때까지 요청한 파지 수|다음 생산 간격"
-          }
-        ]
-      },
-      {
-        "key": "emitter-api",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "구현",
-        "title": {
-          "text": "4.6 핵심 동작: 공통 생성기 `MicroEntityEmitter`",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.6 핵심 동작: 공통 생성기 `MicroEntityEmitter`"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "호출|입력|반환값 또는 효과"
-          }
-        ]
-      },
-      {
-        "key": "emitter",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "4.6 핵심 동작: 공통 생성기 `MicroEntityEmitter`",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.6 핵심 동작: 공통 생성기 `MicroEntityEmitter`"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "`Eject` 코루틴에서 `emitDuration`(1초) 동안 배출 속도가 0까지 줄어들며 밀려난다. 생성된 오브젝트는 종류별 부모 아래로 정리된다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// MicroEntityEmitter.cs — 생산자가 넘긴 프리팹을 상한 안에서 생성·초기화하고 배출"
-          }
-        ]
-      },
-      {
-        "key": "prefab-choice",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "고민과 선택 ⑥ 어떤 프리팹을 낼지는 누가 정하는가",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "리보솜·핵양체·RNA 중합효소가 같은 배출 절차를 쓰는데, 무엇을 낼지(프리팹 선택)를 어디에 둘지.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.6 핵심 동작: 공통 생성기 `MicroEntityEmitter`",
-          "고민과 선택 ⑥ 어떤 프리팹을 낼지는 누가 정하는가"
-        ],
-        "points": [
-          {
-            "label": "최종 결정",
-            "text": "기반 클래스의 프리팹 배열과 하위 클래스의 프리팹 필드가 중복되는 문제를 정리해, 각 생산자가 자신의 프리팹을 `Emit`에 넘기도록 바꿨다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "|[A] 기반 클래스가 emitPrefabs 배열을 보유 (이전 방식)|[B] 하위 클래스가 프리팹을 보유하고 Emit(prefab)에 넘김 ✓"
-          }
-        ]
-      },
-      {
-        "key": "prefab-code",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "선택",
-        "title": {
-          "text": "고민과 선택 ⑥ 어떤 프리팹을 낼지는 누가 정하는가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.6 핵심 동작: 공통 생성기 `MicroEntityEmitter`",
-          "고민과 선택 ⑥ 어떤 프리팹을 낼지는 누가 정하는가"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// As-Is (이전 방식) — 기반 클래스가 프리팹 배열을 들고 무작위로 고름"
-          }
-        ]
-      },
-      {
-        "key": "rna",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "mRNA 공급과 AGTC 방출: 2초 코루틴 공급, 도착 위치 기준 배출",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "2초마다 mRNA 프리팹(파지용·분해효소용) 가운데 하나를 무작위로 골라 배출한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.7 세부 기능: mRNA 공급 · AGTC 방출 · 파지 배회 · 카메라",
-          "mRNA 공급과 AGTC 방출: 2초 코루틴 공급, 도착 위치 기준 배출"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// RNAPolymearse.cs — 2초마다 mRNA 프리팹 하나를 무작위로 골라 배출"
-          }
-        ]
-      },
-      {
-        "key": "nuclease",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "mRNA 공급과 AGTC 방출: 2초 코루틴 공급, 도착 위치 기준 배출",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "생성되면 핵양체 쪽으로 방향을 넘기며 이동하고, 핵양체의 트리거에 닿으면 방향 갱신을 멈춘다. 2초 뒤 핵양체에 AGTC 방출을 요청하고 사라진다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.7 세부 기능: mRNA 공급 · AGTC 방출 · 파지 배회 · 카메라",
-          "mRNA 공급과 AGTC 방출: 2초 코루틴 공급, 도착 위치 기준 배출"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 2,
-            "fp": "// Nuclease.cs — 핵양체 쪽으로 방향을 넘기다가, 닿으면 멈추고 AGTC 방출을 요청"
-          }
-        ]
-      },
-      {
-        "key": "nucleoid",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "mRNA 공급과 AGTC 방출: 2초 코루틴 공급, 도착 위치 기준 배출",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "핵양체는 자신과 분해효소 사이 80% 지점을 배출 위치로, 분해효소 쪽을 배출 방향으로 정한다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.7 세부 기능: mRNA 공급 · AGTC 방출 · 파지 배회 · 카메라",
-          "mRNA 공급과 AGTC 방출: 2초 코루틴 공급, 도착 위치 기준 배출"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 3,
-            "fp": "// Nucleoid.cs — 분해효소가 닿은 쪽으로 AGTC를 배출"
-          }
-        ]
-      },
-      {
-        "key": "phage-ai",
-        "chapter": "bacteria",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "파지 배회와 폭발: 범위 안 무작위 배회, 90마리에서 폭발 버튼",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "파지는 3초(±0.5초)마다 무작위 방향을 골라 같은 `SwimMotor`로 헤엄친다. 배회 범위를 벗어나면 중심 쪽으로 방향을 돌린다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.7 세부 기능: mRNA 공급 · AGTC 방출 · 파지 배회 · 카메라",
-          "파지 배회와 폭발: 범위 안 무작위 배회, 90마리에서 폭발 버튼"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "생성될 때 `Init`에서 `PredationProcessManager`의 파지 수를 1 올리고, 이 수가 90에 도달하면 폭발 버튼이 나타난다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// PhageAI.cs — 일정 간격마다 무작위 방향을 고르고, 범위를 벗어나면 중심으로"
-          }
-        ]
-      },
-      {
-        "key": "exceptions",
-        "chapter": "bacteria",
-        "layout": "full",
-        "tab": "구현",
-        "title": {
-          "text": "4.8 예외 처리와 현재 구현의 한계",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "4. 세균 내부 · 드롭에서 파지 배출까지",
-          "4.8 예외 처리와 현재 구현의 한계"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "구분|상황|코드에서 처리하는 방식"
-          }
-        ]
-      },
-      {
         "key": "transition",
         "chapter": "scene",
         "layout": "visual",
@@ -1910,7 +597,7 @@
           "verbatim": true
         },
         "lead": {
-          "text": "이동과 추격 회피, `BacteriaField`는 드래그와 생산이 중심이다. 두 파트는 각각의 Unity 씬으로 구성했고, 이 장은 두 씬을 오갈 때 진행 기록을 어떻게 이어 가는지 다룬다.",
+          "text": "두 파트는 각각의 Unity 씬으로 구성했고, 이 장은 두 씬을 오갈 때 진행 기록을 어떻게 이어 가는지 다룬다.",
           "verbatim": true
         },
         "sectionPath": [
@@ -1950,75 +637,6 @@
         ]
       },
       {
-        "key": "receptor",
-        "chapter": "scene",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "5.2 누가 언제 상태를 읽고 쓰는가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "5. 씬 간 상태 관리 · 유영과 증식 연결하기",
-          "5.2 누가 언제 상태를 읽고 쓰는가"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// Receptor.cs — 3초 부착 후 기록하고 씬 전환"
-          }
-        ]
-      },
-      {
-        "key": "state-record",
-        "chapter": "scene",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "5.2 누가 언제 상태를 읽고 쓰는가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "5. 씬 간 상태 관리 · 유영과 증식 연결하기",
-          "5.2 누가 언제 상태를 읽고 쓰는가"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 2,
-            "fp": "// SwimFieldState.cs — 씬 전환 너머로 남는 기록"
-          }
-        ]
-      },
-      {
-        "key": "restorer",
-        "chapter": "scene",
-        "layout": "code",
-        "tab": "구현",
-        "title": {
-          "text": "5.2 누가 언제 상태를 읽고 쓰는가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "5. 씬 간 상태 관리 · 유영과 증식 연결하기",
-          "5.2 누가 언제 상태를 읽고 쓰는가"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 3,
-            "fp": "// SwimFieldRestorer.cs — 유영 씬 로드 직후 기록 반영"
-          }
-        ]
-      },
-      {
         "key": "scene-choice",
         "chapter": "scene",
         "layout": "full",
@@ -2048,8 +666,8 @@
           },
           {
             "label": "감수한 대가",
-            "text": "진행 기록을 씬 밖에 둘 곳이 필요해 `SwimFieldState`를 만들었고(아래 ⑧), 씬 전환 때 싱글톤이 사라지는 문제를 겪었다([§6.1](#b-세균-내부를-다시-들어가면-싱글톤이-동작하지-않던-문제)).",
-            "verbatim": true
+            "text": "진행 기록을 씬 밖에 둘 곳이 필요해 `SwimFieldState`를 만들었고(아래 ⑧), 씬 전환 때 싱글톤이 사라지는 문제를 겪었다(§6.1).",
+            "verbatim": false
           }
         ],
         "visuals": [
@@ -2103,202 +721,6 @@
         ]
       },
       {
-        "key": "singleton-awake",
-        "chapter": "scene",
-        "layout": "code",
-        "tab": "선택",
-        "title": {
-          "text": "5.4 고민과 선택 ⑧ 진행 기록을 어디에 둘 것인가",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "5. 씬 간 상태 관리 · 유영과 증식 연결하기",
-          "5.4 고민과 선택 ⑧ 진행 기록을 어디에 둘 것인가"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// SingletonBase.cs — 처음 생긴 인스턴스만 남기고 씬 전환 중에도 유지"
-          }
-        ]
-      },
-      {
-        "key": "energy-reset",
-        "chapter": "scene",
-        "layout": "full",
-        "tab": "선택",
-        "title": {
-          "text": "5.5 고민과 선택 ⑨ 복귀한 파지의 에너지",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "세균을 터뜨리고 유영 필드로 돌아왔을 때 에너지를 이어갈지, 새로 시작할지.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "5. 씬 간 상태 관리 · 유영과 증식 연결하기",
-          "5.5 고민과 선택 ⑨ 복귀한 파지의 에너지"
-        ],
-        "points": [
-          {
-            "label": "서사",
-            "text": "새로 시작하는 것이 맞다.",
-            "verbatim": true
-          },
-          {
-            "label": "최종 결정",
-            "text": "복귀하면 에너지를 새로 채우도록 의도했다.",
-            "verbatim": true
-          },
-          {
-            "label": "얻은 것",
-            "text": "아슬아슬한 에너지로 들어갔더라도, 복귀한 뒤 진행이 끊기지 않는다.",
-            "verbatim": true
-          },
-          {
-            "label": "감수한 대가",
-            "text": "진입 전 에너지 관리의 의미가 복귀 후에는 이어지지 않는다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "|[A] 진입 직전 에너지 유지|[B] 초기값 100에서 새로 시작 ✓"
-          }
-        ]
-      },
-      {
-        "key": "scene-exceptions",
-        "chapter": "scene",
-        "layout": "full",
-        "tab": "구현",
-        "title": {
-          "text": "5.6 예외 처리: 전환 시 전제하는 씬 설정",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "남기려면 아래 씬 설정이 필요하다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "5. 씬 간 상태 관리 · 유영과 증식 연결하기",
-          "5.6 예외 처리: 전환 시 전제하는 씬 설정"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "구분|상황|코드에서 처리하는 방식"
-          }
-        ]
-      },
-      {
-        "key": "ts-list",
-        "chapter": "trouble",
-        "layout": "full",
-        "tab": "문제 해결",
-        "title": {
-          "text": "트러블슈팅",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "생긴 문제는 각 장에서 다뤘다([§3.4](#34-①이-낳은-문제-분해효소가-핵양체-안으로-파고듦), [§3.6](#36-②가-낳은-문제-카메라를-따라가는-화면이-떨림), [§3.7](#에너지-오브가-파지를-끝없이-쫓아오던-문제)). 아래 표는 전체 목록이다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "6. 트러블슈팅"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "위치|문제|원인|해결"
-          }
-        ]
-      },
-      {
-        "key": "ts-mrna",
-        "chapter": "trouble",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "(a) mRNA 파괴 후 생성 수량이 줄지 않던 문제",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "6. 트러블슈팅",
-          "6.1 공통 클래스의 삭제·종료 처리 문제 2건",
-          "(a) mRNA 파괴 후 생성 수량이 줄지 않던 문제"
-        ],
-        "points": [
-          {
-            "label": "증상",
-            "text": "mRNA는 최대 생성 개수가 정해져 있다.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "`MicroEntity`는 mRNA, 아미노산 등 모든 생성물이 함께 쓰는 공통 클래스다.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "if문을 둘로 나눠, 들어 있는 쪽의 개수만 각각 줄이도록 바꿨다.",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "삭제 조건을 수정한 뒤, 오브젝트가 삭제되면 그 자리에 새 오브젝트가 정상적으로 생성되는 것을 확인했다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "생성물|만든 쪽|emitter|spawner"
-          }
-        ]
-      },
-      {
-        "key": "mrna-code",
-        "chapter": "trouble",
-        "layout": "code",
-        "tab": "문제 해결",
-        "title": {
-          "text": "(a) mRNA 파괴 후 생성 수량이 줄지 않던 문제",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "6. 트러블슈팅",
-          "6.1 공통 클래스의 삭제·종료 처리 문제 2건",
-          "(a) mRNA 파괴 후 생성 수량이 줄지 않던 문제"
-        ],
-        "points": [
-          {
-            "label": "원인",
-            "text": "조건을 추가하면서, 따로 처리해야 할 두 경우를 `emitter == null || spawner == null` 하나의 종료 조건으로 묶었다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// MicroEntity.cs — 파괴될 때 자신을 만든 쪽의 수량을 줄임"
-          }
-        ]
-      },
-      {
         "key": "ts-singleton",
         "chapter": "trouble",
         "layout": "problem",
@@ -2316,12 +738,12 @@
         "points": [
           {
             "label": "증상",
-            "text": "박테리아 필드에 처음 들어갔을 때는 정상이었다.",
+            "text": "그런데 유영 필드로 나갔다가 다시 박테리아 필드로 들어오면, 박테리아 필드의 싱글톤들이 작동하지 않았다.",
             "verbatim": true
           },
           {
             "label": "원인",
-            "text": "이 프로젝트의 싱글톤은 모두 공통 부모 클래스 `SingletonBase<T>`를 상속한다.",
+            "text": "공통 부모의 `OnDestroy`는 파괴될 때 `applicationIsQuitting = true`, 즉 \"앱이 종료 중\"이라는 표시를 켰다.",
             "verbatim": true
           },
           {
@@ -2347,316 +769,6 @@
             "fp": "종류|클래스|Awake|씬을 나가면"
           }
         ]
-      },
-      {
-        "key": "singleton-destroy",
-        "chapter": "trouble",
-        "layout": "code",
-        "tab": "문제 해결",
-        "title": {
-          "text": "(b) 세균 내부를 다시 들어가면 싱글톤이 동작하지 않던 문제",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "6. 트러블슈팅",
-          "6.1 공통 클래스의 삭제·종료 처리 문제 2건",
-          "(b) 세균 내부를 다시 들어가면 싱글톤이 동작하지 않던 문제"
-        ],
-        "points": [
-          {
-            "label": "원인",
-            "text": "`OnDestroy`는 파괴될 때 `applicationIsQuitting = true`, 즉 \"앱이 종료 중\"이라는 표시를 켰다. 이 표시가 켜지면 `Instance`는 그 뒤로 계속 `null`을 돌려준다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "code",
-            "n": 1,
-            "fp": "// SingletonBase.cs — 인스턴스가 파괴될 때 정리"
-          }
-        ]
-      },
-      {
-        "key": "ts-orbit",
-        "chapter": "trouble",
-        "layout": "problem",
-        "tab": "문제 해결",
-        "title": {
-          "text": "6.2 항체가 파지 주변을 공전하던 문제",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "6. 트러블슈팅",
-          "6.2 항체가 파지 주변을 공전하던 문제"
-        ],
-        "points": [
-          {
-            "label": "증상",
-            "text": "항체가 파지에 가까워지면 파지에 다가오지 않고 그 주변을 빙빙 돌았다.",
-            "verbatim": true
-          },
-          {
-            "label": "원인",
-            "text": "항체 스프라이트(자식 오브젝트)의 위치가 원점에서 (-0.68, -2.56)만큼 어긋나 있었다.",
-            "verbatim": true
-          },
-          {
-            "label": "해결",
-            "text": "스프라이트의 로컬 위치를 원점 (0, 0, 0)으로 맞췄다.",
-            "verbatim": true
-          },
-          {
-            "label": "결과",
-            "text": "스프라이트 위치를 원점으로 맞추자 공전이 사라지고, 항체가 파지를 향해 곧바로 쫓아오게 됐다.",
-            "verbatim": true
-          },
-          {
-            "label": "배운 점",
-            "text": "문제가 해결되지 않을 때 한 곳만 깊이 파고들면 시간을 오래 쓰게 된다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "바뀐 곳|Before|After"
-          }
-        ]
-      },
-      {
-        "key": "result",
-        "chapter": "result",
-        "layout": "overview",
-        "tab": "결과",
-        "title": {
-          "text": "7.1 구현 결과",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "핵심 플레이 루프를 처음부터 끝까지 구현했다([§1.2](#12-핵심-플레이-루프)).",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.1 구현 결과"
-        ],
-        "points": [
-          {
-            "label": "",
-            "text": "유영 필드에서 항체를 피해 세균에 부착하고, 세균 내부에서 파지를 90마리까지 증식시킨 뒤 폭발시키면 유영 필드로 돌아온다.",
-            "verbatim": true
-          },
-          {
-            "label": "",
-            "text": "이 과정을 유영 필드의 세균 세 개에 반복하면 클리어 UI가 열린다. 한 판이 처음부터 끝까지 끊기지 않고 이어진다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": [
-          {
-            "kind": "slot",
-            "src": "images/ending_clear.png"
-          }
-        ]
-      },
-      {
-        "key": "reaction",
-        "chapter": "result",
-        "layout": "full",
-        "tab": "결과",
-        "title": {
-          "text": "플레이어 반응: 좋았던 점과 아쉬웠던 점",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.1 구현 결과",
-          "플레이어 반응: 좋았던 점과 아쉬웠던 점"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "좋았던 점|아쉬웠던 점"
-          }
-        ]
-      },
-      {
-        "key": "dev-goals",
-        "chapter": "result",
-        "layout": "full",
-        "tab": "결과",
-        "title": {
-          "text": "개발 목표 vs 구현",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.1 구현 결과",
-          "개발 목표 vs 구현"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "개발 목표 (§1.1)|구현 결과|어디서"
-          }
-        ]
-      },
-      {
-        "key": "goal-review",
-        "chapter": "result",
-        "layout": "full",
-        "tab": "결과",
-        "title": {
-          "text": "7.2 기획 의도 돌아보기: 목표 경험 → 구현한 시스템",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.2 기획 의도 돌아보기: 목표 경험 → 구현한 시스템"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "목표 경험 (§1.1)|구현한 시스템|자세히"
-          }
-        ]
-      },
-      {
-        "key": "tuning",
-        "chapter": "result",
-        "layout": "full",
-        "tab": "결과",
-        "title": {
-          "text": "플레이테스트와 수치 조정: 의도에 맞춰 바꾼 값",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.2 기획 의도 돌아보기: 목표 경험 → 구현한 시스템",
-          "플레이테스트와 수치 조정: 의도에 맞춰 바꾼 값"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "항목|변경 전|변경 후|근거"
-          }
-        ]
-      },
-      {
-        "key": "tech-review",
-        "chapter": "result",
-        "layout": "overview",
-        "tab": "결과",
-        "title": {
-          "text": "7.3 기술 의도 돌아보기: 공통 클래스의 이점과 비용",
-          "verbatim": true
-        },
-        "lead": null,
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.3 기술 의도 돌아보기: 공통 클래스의 이점과 비용"
-        ],
-        "points": [
-          {
-            "label": "결정과 의도",
-            "text": "기능 단위로 스크립트를 나누고, 여러 객체가 똑같이 하는 동작은 공통 클래스로 묶었다([§2.3](#23-공통-클래스와-객체별-판단-무엇을-묶고-무엇을-남겼나)).",
-            "verbatim": true
-          },
-          {
-            "label": "의도대로 된 것",
-            "text": "기능마다 스크립트가 나뉘어 있어, 고칠 곳이 한 스크립트로 모였다.",
-            "verbatim": true
-          },
-          {
-            "label": "의도와 달랐던 것",
-            "text": "여러 객체가 함께 쓰는 만큼, 공통 클래스는 한 객체를 위해 쉽게 바꿀 수 없었다.",
-            "verbatim": true
-          },
-          {
-            "label": "지금의 판단",
-            "text": "이런 공통 클래스는 기획 단계에서 공통으로 쓰일 기능이 명확하게 정의되어 있을 때 유용하다.",
-            "verbatim": true
-          }
-        ],
-        "visuals": []
-      },
-      {
-        "key": "plans",
-        "chapter": "result",
-        "layout": "full",
-        "tab": "결과",
-        "title": {
-          "text": "7.4 아쉬운 점과 개선 계획",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "파지의 침투 → 증식 → 폭발 루프를 플레이어가 더 명확하게 이해하고, 위험과 성취를 감각적으로 느끼게 하는 것이다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.4 아쉬운 점과 개선 계획"
-        ],
-        "points": [],
-        "visuals": [
-          {
-            "kind": "table",
-            "n": 1,
-            "fp": "#|아쉬운 점|원인 구분|설명|개선 계획"
-          }
-        ]
-      },
-      {
-        "key": "lessons",
-        "chapter": "result",
-        "layout": "overview",
-        "tab": "결과",
-        "title": {
-          "text": "7.5 배운 점",
-          "verbatim": true
-        },
-        "lead": {
-          "text": "특정 문제 하나에서 얻은 것이 아니라, 2주 동안 형태를 바꿔 가며 되풀이해 나타난 것들이다.",
-          "verbatim": true
-        },
-        "sectionPath": [
-          "7. 결과 및 회고",
-          "7.5 배운 점"
-        ],
-        "points": [
-          {
-            "label": "1",
-            "text": "공통 코드는 모든 쓰임새를 함께 고려할 필요가 있다",
-            "verbatim": true
-          },
-          {
-            "label": "2",
-            "text": "기획 의도가 구현과 수치를 정하는 기준이었다",
-            "verbatim": true
-          },
-          {
-            "label": "3",
-            "text": "문제가 풀리지 않으면 보는 범위를 넓혀 볼 필요가 있다",
-            "verbatim": true
-          }
-        ],
-        "visuals": []
       }
     ]
   }
