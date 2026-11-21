@@ -100,6 +100,17 @@ const PF = (() => {
     return marked.parse(md, { gfm: true });
   }
 
+  // Mermaid ELK 배치(`config: layout: elk`) — 그런 다이어그램이 있을 때만 한 번 받아 등록. 못 받으면 Mermaid 기본 배치로 그림
+  // (layout-elk 0.1.7 = Mermaid 11.4.1 짝. Mermaid 버전을 올리면 이것도 맞춰 올림)
+  let elkReady = null;
+  function useElk(texts) {
+    if (!window.mermaid?.registerLayoutLoaders) return Promise.resolve(false);
+    if (!texts.some((s) => /^\s*layout\s*:\s*elk\b/m.test(s || ''))) return Promise.resolve(false);
+    return elkReady ||= import('https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.7/dist/mermaid-layout-elk.esm.min.mjs')
+      .then((m) => { mermaid.registerLayoutLoaders(m.default); return true; })
+      .catch((err) => { console.warn('[mermaid] ELK 배치를 불러오지 못했습니다:', err); return false; });
+  }
+
   // md → 제목 목록(상세 문서와 같은 파이프라인: marked gfm → 제목 textContent → slugger). 제목 목록이 필요한 곳용(원문 블록까지 필요하면 md-blocks.js의 PF.md.parse)
   //   <template>에 넣는 이유: 그 안의 내용은 비활성이라 문서 속 이미지(GIF 수십 MB)를 받지 않음. div에 넣으면 DOM에 붙이지 않아도 이미지를 받기 시작함
   function headingsOf(md) {
@@ -206,6 +217,6 @@ const PF = (() => {
   const { t, tab, label, load: loadStrings, report: stringsReport } = PFStr;
 
   return { esc, inline, isUrl, shortUrl, loadJSON, loadText, encodePath, srcPath, projectUrl, docUrl, siteBase, visibleUrl, metaValue, teamLabel,
-           slugger, normTitle, resolveHeading, keyOk, deckSceneFor, mdHtml, headingsOf, ICON, NEWTAB, link, markNewTab, themeTokens, applyTheme, contrast, hexRgb,
+           slugger, normTitle, resolveHeading, keyOk, deckSceneFor, mdHtml, useElk, headingsOf, ICON, NEWTAB, link, markNewTab, themeTokens, applyTheme, contrast, hexRgb,
            FILE_HELP, noDataHtml, isFile, notice, guardFileProtocol, noData, t, tab, label, loadStrings, stringsReport };
 })();
