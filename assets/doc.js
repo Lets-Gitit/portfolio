@@ -211,7 +211,8 @@
     markPrintWide();
     document.fonts?.addEventListener('loadingdone', markPrintWide);
     if (window.mermaid && figs.length) {                                // 설정(startOnLoad 끔)은 파일 맨 위에서 이미 함
-      await PF.useElk([...doc.querySelectorAll('.mermaid')].map((el) => el.textContent));
+      // (Why) 브라우저에 예전 common.js가 남아 있어도(useElk 없음) 다이어그램은 기본 배치로 그린다
+      if (typeof PF.useElk === 'function') await PF.useElk([...doc.querySelectorAll('.mermaid')].map((el) => el.textContent));
       try { await mermaid.run({ nodes: doc.querySelectorAll('.mermaid') }); }
       catch (err) { console.warn('[doc] Mermaid 렌더 오류:', err); errors.push(`mermaid: ${String(err?.message || err).split('\n')[0].slice(0, 160)}`); }
     } else if (figs.length) errors.push('mermaid: 다이어그램 라이브러리(Mermaid)를 불러오지 못했습니다');
