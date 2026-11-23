@@ -4,6 +4,7 @@
   "schemaVersion": 2,
   "title": "Hive Purge",
   "tagline": "1인칭으로 사방에서 밀려드는 군중을 상대하다가, 보스가 나타나면 3인칭으로 전환해 패턴과 공격 범위를 읽고 맞서는 라운드형 액션 슈터",
+  "pitch": "1인칭 군중전과 3인칭 보스전을 잇는 라운드형 액션 슈터",
   "cover": null,
   "team": {
     "type": "team",

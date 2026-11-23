@@ -9,9 +9,8 @@
 - 이름: 이찬영
 - 영문 이름: ChanYoung Lee
 - 한 줄 정체성: 의도에서 출발해 구조로 설명하는 유니티 클라이언트 개발자
-- 이메일: you@example.com
-- GitHub: https://github.com/your-id
-- 기타 링크: 블로그 https://your-blog.example.com
+- 이메일: cksdudnov8@naver.com
+- GitHub: https://github.com/Lets-Gitit
 
 ## 자기소개
 

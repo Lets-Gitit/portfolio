@@ -1,43 +1,38 @@
 /* ─────────────────────────────────────────────────────────────
    테마 (theme/theme.css) — /portfolio-theme가 만듦 · 2026-11-23
-   참고한 화면: 따뜻한 미색 바탕 위에 흰빛 카드를 각지게 쌓은 기록 보관소풍 설정집 페이지
-   뽑은 인상: 미색 바탕 · 흰빛 카드 · 토프(회갈색) 단색 강조 · 각진 카드와 네모 버튼 · 세리프 영문 · 평평한 바탕
+   참고한 화면: 짙은 남색 바탕에 왼쪽 목록과 게임 카드가 놓인 PC 게임 런처의 라이브러리 화면
+   뽑은 인상: 짙은 남색 바탕 · 한 단 밝은 남색 판 · 하늘색 단색 강조 · 거의 각진 카드와 네모 버튼 · 담백한 산세리프 영문 · 광채 없음
    값을 고쳐도 됩니다(저장 → 새로고침). 손잡이 설명: .claude/skills/portfolio-theme/rules.md
    이 파일은 /portfolio-update가 건드리지 않습니다. 기본 테마로 되돌리기: /portfolio-theme 되돌리기
    ───────────────────────────────────────────────────────────── */
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0/latin-700.css");   /* 영문 라벨 글꼴 */
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.3.0/latin-800.css");
 
 :root {
   /* ① 바탕과 글자 — 바탕 대비: 제목 12 · 본문 7 · 보조 4.5 이상(check-theme.py가 확인) */
-  --t-scheme: light;
-  --t-bg: #F1EEE9;              /* 페이지·장면 바탕 */
-  --t-surface: #FBF9F6;         /* 카드·판 */
-  --t-ink: #312B29;             /* 제목·강한 글자 */
-  --t-body: #524942;            /* 본문 */
-  --t-muted: #76665B;           /* 보조 글자(날짜·캡션) */
-  --t-line: #E2D9D0;            /* 얇은 구분선·카드 테두리 */
-  --t-line-2: #C6A998;          /* 네모 버튼·태그 테두리 */
+  --t-scheme: dark;
+  --t-bg: #1B2838;              /* 페이지·장면 바탕 */
+  --t-surface: #233142;         /* 카드·판 */
+  --t-ink: #FFFFFF;             /* 제목·강한 글자 */
+  --t-body: #C7D5E0;            /* 본문 */
+  --t-muted: #8F9CAA;           /* 보조 글자(날짜·캡션) */
+  --t-line: #2E3E51;            /* 얇은 구분선·카드 테두리 */
+  --t-line-2: #3F546B;          /* 네모 버튼·태그 테두리 */
 
   /* ② 강조색 — 이 줄을 지우면 profile.md의 강조색을 씀. 글자용 진하기·흰 글자 칠은 페이지가 자동으로 맞춤 */
-  --t-accent: #A78D7A;
-  --t-accent-2: #A78D7A;        /* 강조가 한 색 — 강조색과 같은 값 */
-  --t-accent-3: #A78D7A;
+  --t-accent: #1A9FFF;
+  --t-accent-2: #1A9FFF;        /* 강조가 한 색 — 강조색과 같은 값 */
+  --t-accent-3: #1A9FFF;
 
   /* ③ 모양 */
-  --t-radius: 0px;              /* 각진 카드 */
-  --t-pill: 0px;                /* 네모 버튼·태그 */
-  --t-shadow: rgb(20 22 30 / .08);
+  --t-radius: 4px;              /* 거의 각진 카드 */
+  --t-pill: 2px;                /* 네모 버튼·태그 */
+  --t-shadow: rgb(0 0 0 / .8);
 
   /* ④ 영문 라벨 글꼴 — 한글은 늘 Pretendard */
-  --t-display: 'Playfair Display';
+  --t-display: 'Montserrat';
 
   /* ⑤ 효과 */
   --t-grad: linear-gradient(var(--accent-ink), var(--accent-ink));
   --t-badge: var(--accent-fill);
   --t-glow: 0;
-  --t-mark: 1;
-
-  /* ⑥ 다이어그램 판 — 카드 색과 같게 */
-  --t-diagram: #FBF9F6;
+  --t-mark: 0;
 }
