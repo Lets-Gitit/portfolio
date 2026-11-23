@@ -1,4 +1,4 @@
-// 라이브러리형 포트폴리오 페이지(library.html)
+// 라이브러리형 포트폴리오 페이지(index.html, 메인)
 //   화면: 상단바(작은 메뉴 줄 + 큰 탭 줄) · 왼쪽 라이브러리(맨 위 "내 소개" + 프로젝트 칸) · 오른쪽 화면
 //   #home = 내 소개(이름 → 연락 링크 → 자기소개 → 기술 스택 → 프로젝트 선반 → 연락처) · #p-<폴더> = 그 프로젝트(배너 → 버튼 → 게임 소개 → 기능 소개 | 정보)
 //   모든 글은 data/ 값 그대로. 게임 한 줄 설명은 pitch(없으면 tagline)
@@ -8,7 +8,7 @@
   const { esc, inline, isUrl, shortUrl, link, t } = PF;
   const T = (k, v) => esc(t(k, v));
   const pad2 = (n) => String(n).padStart(2, '0');
-  const CLASSIC = 'index.html';                                         // 아래로 읽는 한 페이지(인쇄 = 제출 PDF)
+  const CLASSIC = 'classic.html';                                         // 아래로 읽는 한 페이지(인쇄 = 제출 PDF)
   const info = { errors: [], views: [], projects: 0 };
   let pf = null, projects = [], byId = {};
   html.dataset.pfReady = 'no';
@@ -118,7 +118,7 @@
     const view = document.getElementById('view');
     const pid = /^p-(.+?)(-core)?$/.exec(h)?.[1];
     const p = pid && byId[pid];
-    const sub = ['intro', 'stack', 'glance', 'contact', 'cover'].includes(h) ? h : '';   // index.html의 예전 절 주소도 받음
+    const sub = ['intro', 'stack', 'glance', 'contact', 'cover'].includes(h) ? h : '';   // 한 페이지판(classic.html)의 예전 절 주소도 받음
     view.innerHTML = p ? projectView(p) : homeView();
     view.querySelectorAll('img').forEach((i) => { i.loading = 'lazy'; i.decoding = 'async'; });
     const v = p ? `p-${p.id}` : 'home';
