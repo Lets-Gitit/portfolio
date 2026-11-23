@@ -138,6 +138,7 @@ code { font-family: D2Coding, ui-monospace, monospace; font-size: .92em; color: 
 .contact .ct { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; padding: 20px 24px; border: 1px solid var(--ln); border-radius: var(--r);
   background: linear-gradient(90deg, color-mix(in srgb, var(--acf) 22%, var(--sf)), var(--sf)); }
 .ct-t { flex: 1 1 320px; }
+.outro { margin-top: 8px; padding-top: 18px; border-top: 1px solid var(--ln); font-size: 14px; color: var(--mu); text-align: center; }
 .ct-t h2 { margin: 0 0 4px; font-size: 16px; color: var(--ink); }
 .contact p { margin: 0; font-size: 14px; color: color-mix(in srgb, var(--tx) 80%, #fff); }
 

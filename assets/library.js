@@ -54,6 +54,11 @@
   }
 
   const prof = () => pf.profile || {};
+  const mono = () => {                                                  // 머리 글자: 영문 이름 첫 단어의 대문자(ChanYoung → CY)
+    const me = prof(), first = (me.nameEn || '').trim().split(/\s+/)[0] || '';
+    const caps = first.replace(/[^A-Z]/g, '');
+    return (caps.length >= 2 ? caps : (me.nameEn || me.name || '').split(/\s+/).map((w) => w[0] || '').join('')).toUpperCase();
+  };
   const pitch = (p) => p.pitch || p.tagline || '';
   const metaOf = (p, ...labels) => (p.meta || []).find((m) => labels.some((l) => m.label.includes(l)))?.value || '';
   const slot = (p, cls) => (p.cover
@@ -78,14 +83,13 @@
         <span class="li-m">${esc(PF.teamLabel(p.team))}</span></span></a></li>`).join('');
     root.innerHTML = `
       <header class="top">
-        <div class="bar1"><div class="b1-l"><span class="mono">${esc((me.nameEn || name).split(/\s+/).map((w) => w[0]).join('').toUpperCase())}</span>
+        <div class="bar1"><div class="b1-l"><span class="mono">${esc(mono())}</span>
           <nav class="menu" aria-label="주요 링크">${contactLinks('mi')}${link({ href: CLASSIC, label: '<span>PDF용 페이지</span>', kind: 'page', cls: 'mi' })}</nav></div>
           <div class="b1-r"><span class="me">${esc(name)}</span></div></div>
         <div class="bar2">
           <div class="hist"><button type="button" data-hist="-1" aria-label="뒤로">${I.back}</button><button type="button" data-hist="1" aria-label="앞으로">${I.fwd}</button></div>
           <nav class="tabs" aria-label="화면 이동">
-            <a href="#home" data-tab="home" data-jump="top">소개</a><a href="#p-${esc(projects[0]?.id || '')}" data-tab="lib">라이브러리</a>
-            <a href="#home" data-tab="stack" data-jump="stack">기술 스택</a><a href="#home" data-tab="contact" data-jump="contact">연락처</a></nav>
+            <a href="#home" data-tab="home" data-jump="top">소개</a><a href="#p-${esc(projects[0]?.id || '')}" data-tab="lib">라이브러리</a></nav>
           <span class="brand" lang="en">${esc((me.nameEn || name).toUpperCase())}</span></div>
       </header>
       <div class="body">
@@ -96,8 +100,7 @@
         </aside>
         <main id="view" tabindex="-1"></main>
       </div>
-      <footer class="bot"><span>프로젝트 ${projects.length}개</span><span>${pf.generatedAt ? `업데이트 ${esc(pf.generatedAt)}` : ''}</span>
-        <a href="#home" data-jump="contact">연락처</a></footer>`;
+      <footer class="bot"><span>프로젝트 ${projects.length}개</span></footer>`;
     const top = root.querySelector('.top');
     const fit = () => html.style.setProperty('--top-h', getComputedStyle(top).position === 'sticky' ? `${top.offsetHeight}px` : '0px');
     fit();
@@ -151,7 +154,7 @@
     const me = prof();
     const skills = pf.skills || [];
     const sh = (title, icon = '', note = '') => `<h2 class="sh">${icon ? `<i class="sh-i">${icon}</i>` : ''}<span>${title}</span>${note ? `<small>${note}</small>` : ''}</h2>`;
-    const initials = esc((me.nameEn || me.name || '').split(/\s+/).map((w) => w[0] || '').join('').toUpperCase());
+    const initials = esc(mono());
     const SKI = [I.cube, I.code, I.puzzle];
     return `<div class="band-up">
       <section class="hero">
@@ -175,9 +178,7 @@
           const p = byId[e.project];
           return `<li><span>${inline(e.text)}</span>${p ? `<a class="src" href="#p-${esc(p.id)}">${esc(p.title)}</a>` : ''}</li>`;   // 기술 설명이 본문, 프로젝트는 끝에 붙는 출처
         }).join('')}</ul></li>`).join('')}</ul></section>` : ''}
-      <section class="pane contact" id="contact">
-        <div class="ct"><div class="ct-t"><h2>${T('page.nav-contact')}</h2><p>읽어 주셔서 감사합니다. 궁금하신 점은 메일로 연락 주시면 빠르게 답변드리겠습니다.</p></div>
-          <div class="links">${contactLinks('btn', 'btn go')}</div></div></section>
+      <p class="pane outro" id="contact">읽어 주셔서 감사합니다. 궁금하신 점은 메일로 연락 주시면 빠르게 답변드리겠습니다.</p>
       </div>`;
   }
   const PCOLORS = ['#4FC3A1', '#E8A33D', '#E06B6B', '#8FB8FF', '#C792EA', '#F2D16B'];   // 프로젝트 순서대로(목록·선반·기술 근거에 같은 색)
