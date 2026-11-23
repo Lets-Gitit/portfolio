@@ -17,6 +17,11 @@
   window.PFPage = { whenReady: () => ready, report };
 
   const I = {
+    user: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    stack: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+    cube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+    code: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    puzzle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H4v-4a2 2 0 1 0 0-4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
     play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>',
     doc: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
     home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
@@ -55,9 +60,9 @@
     ? `<figure class="${cls}"><img src="${esc(PF.srcPath(p.id, p.cover))}" alt="${esc(p.title)} 대표 화면"></figure>`
     : `<figure class="${cls} slot" aria-hidden="true"><span>${slotText()}</span></figure>`);
   const slotText = () => { const s = t('page.cover-slot'); return esc(!s || s === 'page.cover-slot' ? '대표 이미지 자리' : s); };
-  const contactLinks = (cls = 'lk') => {
+  const contactLinks = (cls = 'lk', mailCls = cls) => {
     const me = prof();
-    return [me.email && `<a class="${cls}" href="mailto:${esc(me.email)}">${I.mail}<span>${esc(me.email)}</span></a>`,
+    return [me.email && `<a class="${mailCls}" href="mailto:${esc(me.email)}">${I.mail}<span>${esc(me.email)}</span></a>`,
       isUrl(me.github) && link({ href: me.github, label: `${I.gh}<span>GitHub</span>`, kind: 'external', cls }),
       ...(me.links || []).filter((l) => isUrl(l.url)).map((l) => link({ href: l.url, label: `<span>${esc(l.label)}</span>`, kind: 'external', cls }))].filter(Boolean).join('');
   };
@@ -145,25 +150,33 @@
   function homeView() {
     const me = prof();
     const skills = pf.skills || [];
-    const sh = (title, note = '') => `<h2 class="sh"><span>${title}</span>${note ? `<small>${note}</small>` : ''}</h2>`;
+    const sh = (title, icon = '', note = '') => `<h2 class="sh">${icon ? `<i class="sh-i">${icon}</i>` : ''}<span>${title}</span>${note ? `<small>${note}</small>` : ''}</h2>`;
+    const initials = esc((me.nameEn || me.name || '').split(/\s+/).map((w) => w[0] || '').join('').toUpperCase());
+    const SKI = [I.cube, I.code, I.puzzle];
     return `<div class="band-up">
       <section class="hero">
-        <p class="eb" lang="en">${T('en.portfolio')}</p>
-        <h1>${esc(me.name || '')}${me.nameEn ? `<span lang="en">${esc(me.nameEn)}</span>` : ''}</h1>
-        ${me.headline ? `<p class="hl">${inline(me.headline)}</p>` : ''}
-        <div class="links">${contactLinks('btn')}</div>
+        <div class="hero-top">
+          <figure class="avatar" aria-hidden="true"><span>${initials}</span><small>프로필 사진 자리</small></figure>
+          <div class="hero-id">
+            <p class="eb" lang="en">${T('en.portfolio')}</p>
+            <h1>${esc(me.name || '')}${me.nameEn ? `<span lang="en">${esc(me.nameEn)}</span>` : ''}</h1>
+            ${me.headline ? `<p class="hl">${inline(me.headline)}</p>` : ''}
+          </div>
+        </div>
+        <div class="hero-bot"><div class="links">${contactLinks('btn', 'btn go')}</div>
+          ${skills.length ? `<ul class="hchips" aria-label="주력 기술">${skills.map((s) => `<li>${esc(s.name)}</li>`).join('')}</ul>` : ''}</div>
       </section>
       </div>
       <div class="band-down">
-      ${me.intro ? `<section class="pane" id="intro">${sh(T('page.intro'))}<div class="about"><p>${inline(me.intro.replace(/\s*\n+\s*/g, ' '))}</p></div></section>` : ''}
-      ${skills.length ? `<section class="pane" id="stack">${sh(T('page.stack'), '오른쪽은 근거 프로젝트')}
-        <ul class="skills">${skills.map((s) => `<li><h3>${esc(s.name)}</h3><ul>${(s.evidence || []).map((e) => {
+      ${me.intro ? `<section class="pane" id="intro">${sh(T('page.intro'), I.user)}<div class="about"><p>${inline(me.intro.replace(/\s*\n+\s*/g, ' '))}</p></div></section>` : ''}
+      ${skills.length ? `<section class="pane" id="stack">${sh(T('page.stack'), I.stack, '오른쪽은 근거 프로젝트')}
+        <ul class="skills">${skills.map((s, k) => `<li><h3><i class="sk-i">${SKI[k % SKI.length]}</i>${esc(s.name)}</h3><ul>${(s.evidence || []).map((e) => {
           const p = byId[e.project];
           return `<li><span>${inline(e.text)}</span>${p ? `<a class="src" href="#p-${esc(p.id)}">${esc(p.title)}</a>` : ''}</li>`;   // 기술 설명이 본문, 프로젝트는 끝에 붙는 출처
         }).join('')}</ul></li>`).join('')}</ul></section>` : ''}
-      <section class="pane contact" id="contact">${sh(T('page.nav-contact'))}
-        <div class="ct"><p>함께 이야기 나누고 싶으시면 편하게 연락해 주세요.</p><div class="links">${contactLinks('btn')}
-        ${link({ href: CLASSIC, label: '<span>한 페이지로 보기 · PDF 저장</span>', kind: 'page', cls: 'btn' })}</div></div></section>
+      <section class="pane contact" id="contact">
+        <div class="ct"><div class="ct-t"><h2>${T('page.nav-contact')}</h2><p>읽어 주셔서 감사합니다. 궁금하신 점은 메일로 연락 주시면 빠르게 답변드리겠습니다.</p></div>
+          <div class="links">${contactLinks('btn', 'btn go')}</div></div></section>
       </div>`;
   }
   const PCOLORS = ['#4FC3A1', '#E8A33D', '#E06B6B', '#8FB8FF', '#C792EA', '#F2D16B'];   // 프로젝트 순서대로(목록·선반·기술 근거에 같은 색)
