@@ -36,6 +36,7 @@
 | 필드 | 규칙 |
 |---|---|
 | `profile.*` | **`profile.md`에서만.** 자기소개(`intro`)는 고쳐 쓰지 않고 그대로 |
+| `profile.photo` | `profile.md`의 "프로필 사진" 경로(레포 루트 기준, 예 `images/profile.jpg`) 그대로. 없으면 넣지 않음(라이브러리 페이지 액자에 이니셜) |
 | `settings.layout` | `"project"` 또는 `"stack"` (profile.md `구성 방식`, 없으면 `"project"`) |
 | `settings.accent` | `#RRGGBB` 형식. 형식이 틀리면 `"#2F6FEB"` + 리포트에 알림 |
 | `skills[]` | 3~8개. 기술마다 `evidence`(근거)가 **1개 이상**. 근거 없는 기술은 넣지 않음 |

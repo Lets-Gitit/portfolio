@@ -11,6 +11,7 @@
 - 한 줄 정체성: 기능을 작업으로 나누고, 끝까지 완성하는 유니티 클라이언트 개발자
 - 이메일: cksdudnov8@naver.com
 - GitHub: https://github.com/Lets-Gitit
+- 프로필 사진: images/profile.jpg
 
 ## 자기소개
 

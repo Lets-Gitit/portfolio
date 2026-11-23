@@ -156,7 +156,8 @@
     return `<div class="band-up">
       <section class="hero">
         <div class="hero-top">
-          <figure class="avatar" aria-hidden="true"><span>${initials}</span><small>프로필 사진 자리</small></figure>
+          ${me.photo ? `<figure class="avatar"><img src="${esc(PF.encodePath ? PF.encodePath(me.photo) : me.photo)}" alt="${esc(me.name || '')} 프로필 사진"></figure>`
+            : `<figure class="avatar" aria-hidden="true"><span>${initials}</span><small>프로필 사진 자리</small></figure>`}
           <div class="hero-id">
             <p class="eb" lang="en">${T('en.portfolio')}</p>
             <h1>${esc(me.name || '')}${me.nameEn ? `<span lang="en">${esc(me.nameEn)}</span>` : ''}</h1>
