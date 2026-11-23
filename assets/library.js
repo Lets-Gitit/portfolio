@@ -79,7 +79,7 @@
         <div class="bar2">
           <div class="hist"><button type="button" data-hist="-1" aria-label="뒤로">${I.back}</button><button type="button" data-hist="1" aria-label="앞으로">${I.fwd}</button></div>
           <nav class="tabs" aria-label="화면 이동">
-            <a href="#home" data-tab="home">소개</a><a href="#p-${esc(projects[0]?.id || '')}" data-tab="lib">라이브러리</a>
+            <a href="#home" data-tab="home" data-jump="top">소개</a><a href="#p-${esc(projects[0]?.id || '')}" data-tab="lib">라이브러리</a>
             <a href="#home" data-tab="stack" data-jump="stack">기술 스택</a><a href="#home" data-tab="contact" data-jump="contact">연락처</a></nav>
           <span class="brand" lang="en">${esc((me.nameEn || name).toUpperCase())}</span></div>
       </header>
@@ -107,10 +107,12 @@
 
   function jump(id) {
     if (location.hash !== '#home') { pendingJump = id; location.hash = '#home'; return; }
-    document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (id === 'top') { scrollTo({ top: 0, behavior: smooth() }); mark('home'); return; }
+    document.getElementById(id)?.scrollIntoView({ behavior: smooth(), block: 'start' });
     mark(id);
   }
   let pendingJump = '';
+  const smooth = () => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth');   // 탭으로 절 이동은 스르륵
 
   function route() {
     let h = location.hash.slice(1);
@@ -124,9 +126,13 @@
     const v = p ? `p-${p.id}` : 'home';
     root.querySelectorAll('[data-v]').forEach((a) => { const on = a.dataset.v === v; a.classList.toggle('on', on); on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); });
     root.querySelector(`.lib [data-v="${v}"]`)?.scrollIntoView({ block: 'nearest' });
-    const target = pendingJump || (sub && sub !== 'cover' ? (sub === 'intro' ? '' : sub) : '');
+    const target = (pendingJump === 'top' ? '' : pendingJump) || (sub && sub !== 'cover' ? (sub === 'intro' ? '' : sub) : '');
     pendingJump = '';
-    if (target) { document.getElementById(target)?.scrollIntoView({ behavior: 'instant', block: 'start' }); mark(target); }
+    if (target) {
+      scrollTo({ top: 0, behavior: 'instant' });
+      requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView({ behavior: smooth(), block: 'start' }));
+      mark(target);
+    }
     else { scrollTo({ top: 0, behavior: 'instant' }); mark(p ? 'lib' : 'home'); }
     if (!info.views.includes(v)) info.views.push(v);
     if (document.activeElement?.closest?.('.side, .shelf, .tabs')) view.focus({ preventScroll: true });
@@ -147,9 +153,6 @@
         ${me.headline ? `<p class="hl">${inline(me.headline)}</p>` : ''}
         <div class="links">${contactLinks('btn')}</div>
       </section>
-      ${projects.length ? `<section class="pane" id="glance">${sh(`프로젝트 <b>${projects.length}</b>`, '눌러서 자세히')}
-        <ul class="shelf">${projects.map((p) => `<li style="--pc:${pcolor(p)}"><a href="#p-${esc(p.id)}">${slot(p, 'cap')}<b>${esc(p.title)}</b><span>${esc(pitch(p))}</span>
-          <em>${esc(PF.teamLabel(p.team))}${metaOf(p, '기간') ? ' · ' + esc(shortPeriod(metaOf(p, '기간'))) : ''}</em></a></li>`).join('')}</ul></section>` : ''}
       </div>
       <div class="band-down">
       ${me.intro ? `<section class="pane" id="intro">${sh(T('page.intro'))}<div class="about"><p>${inline(me.intro.replace(/\s*\n+\s*/g, ' '))}</p></div></section>` : ''}
