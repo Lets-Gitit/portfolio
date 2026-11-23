@@ -103,8 +103,8 @@ figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
   border: 3px solid var(--ac); outline: 3px solid color-mix(in srgb, var(--bg) 80%, #000); background: color-mix(in srgb, var(--sf) 80%, var(--acf)); }
 .avatar span { font-family: var(--t-display, 'Montserrat'), sans-serif; font-weight: 800; font-size: 36px; color: var(--ink); letter-spacing: .04em; }
 .avatar small { font-size: 11px; color: var(--mu); }
-.avatar:has(img) { display: block; }
-.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+.avatar:has(img) { display: block; aspect-ratio: auto; }   /* 사진은 원본 비율 그대로 */
+.avatar img { width: 100%; height: auto; display: block; }
 .hero-id { min-width: 0; }
 .hero-bot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 22px; }
 .hchips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }

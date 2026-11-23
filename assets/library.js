@@ -127,7 +127,7 @@
     const p = pid && byId[pid];
     const sub = ['intro', 'stack', 'glance', 'contact', 'cover'].includes(h) ? h : '';   // 한 페이지판(classic.html)의 예전 절 주소도 받음
     view.innerHTML = p ? projectView(p) : homeView();
-    view.querySelectorAll('img').forEach((i) => { i.loading = 'lazy'; i.decoding = 'async'; });
+    view.querySelectorAll('img:not(.avatar img)').forEach((i) => { i.loading = 'lazy'; i.decoding = 'async'; });   // 프로필 사진은 바로 받음(머리 높이가 늦게 바뀌지 않게)
     const v = p ? `p-${p.id}` : 'home';
     root.querySelectorAll('[data-v]').forEach((a) => { const on = a.dataset.v === v; a.classList.toggle('on', on); on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); });
     root.querySelector(`.lib [data-v="${v}"]`)?.scrollIntoView({ block: 'nearest' });
