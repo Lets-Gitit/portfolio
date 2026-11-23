@@ -145,6 +145,7 @@ code { font-family: D2Coding, ui-monospace, monospace; font-size: .92em; color: 
 /* 프로젝트 화면 */
 .banner { position: relative; margin: 0 0 0; }
 .ban { margin: 0; aspect-ratio: 16 / 5; min-height: 220px; border-width: 0 0 1px; border-radius: 0; }
+.ban img { object-position: 50% 0%; }   /* 가로로 긴 배너는 그림 위쪽부터(인물·보스가 위에 있는 화면이 많음) */
 .ban.slot span { position: absolute; top: 16px; right: 20px; }
 .ban-t { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 32px 20px; background: linear-gradient(transparent, color-mix(in srgb, var(--bg) 92%, transparent)); }
 .ban-s { margin: 8px 0 0; font-size: 17px; color: color-mix(in srgb, var(--tx) 75%, #fff); }
