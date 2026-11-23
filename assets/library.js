@@ -156,10 +156,10 @@
       </div>
       <div class="band-down">
       ${me.intro ? `<section class="pane" id="intro">${sh(T('page.intro'))}<div class="about"><p>${inline(me.intro.replace(/\s*\n+\s*/g, ' '))}</p></div></section>` : ''}
-      ${skills.length ? `<section class="pane" id="stack">${sh(T('page.stack'), '근거는 프로젝트 색으로')}
+      ${skills.length ? `<section class="pane" id="stack">${sh(T('page.stack'), '오른쪽은 근거 프로젝트')}
         <ul class="skills">${skills.map((s) => `<li><h3>${esc(s.name)}</h3><ul>${(s.evidence || []).map((e) => {
           const p = byId[e.project];
-          return `<li${p ? ` style="--pc:${pcolor(p)}"` : ''}>${p ? `<a class="src" href="#p-${esc(p.id)}">${esc(p.title)}</a>` : ''}<span>${inline(e.text)}</span></li>`;
+          return `<li><span>${inline(e.text)}</span>${p ? `<a class="src" href="#p-${esc(p.id)}">${esc(p.title)}</a>` : ''}</li>`;   // 기술 설명이 본문, 프로젝트는 끝에 붙는 출처
         }).join('')}</ul></li>`).join('')}</ul></section>` : ''}
       <section class="pane contact" id="contact">${sh(T('page.nav-contact'))}
         <div class="ct"><p>함께 이야기 나누고 싶으시면 편하게 연락해 주세요.</p><div class="links">${contactLinks('btn')}
