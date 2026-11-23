@@ -180,25 +180,20 @@
     const meta = (p.meta || []).map((m) => `<div><dt>${esc(m.label)}</dt><dd>${inline(m.value)}</dd></div>`);
     if (p.team?.role) meta.push(`<div><dt>${T('name.role')}</dt><dd>${inline(p.team.role)}</dd></div>`);
     const hl = (p.highlights || []).slice(0, 4);
-    return `<section class="banner">${slot(p, 'ban')}<div class="ban-t"><p class="eb" lang="en">PROJECT ${pad2(j + 1)} / ${pad2(projects.length)}</p><h1>${esc(p.title)}</h1></div></section>
+    return `<section class="banner">${slot(p, 'ban')}<div class="ban-t"><p class="eb" lang="en">PROJECT ${pad2(j + 1)} / ${pad2(projects.length)}</p><h1>${esc(p.title)}</h1>${pitch(p) ? `<p class="ban-s">${inline(pitch(p))}</p>` : ''}</div></section>
       <div class="act"><div class="act-b">${btns.join('')}</div>
         <dl class="stats">${stats.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></div>
-      <div class="pgrid">
-        <div class="pmain">
-          ${pitch(p) ? `<section class="pane"><h2 class="sh">어떤 게임인가요</h2><p class="pitch">${inline(pitch(p))}</p>
-            ${p.tagline && p.tagline !== pitch(p) ? `<p class="tl">${inline(p.tagline)}</p>` : ''}</section>` : ''}
-          ${p.intent?.text ? `<section class="pane"><h2 class="sh">${T('name.intent')}</h2><p class="intent">${inline(p.intent.text)}</p></section>` : ''}
-          ${hl.length ? `<section class="pane"><h2 class="sh">${T('page.features')}</h2><ol class="feats">${hl.map((h, i) => `<li>
-            ${h.image?.src ? `<figure><img src="${esc(PF.srcPath(p.id, h.image.src))}" alt="${esc(h.title)}"></figure>` : ''}
-            <p class="fk" lang="en">FEATURE ${pad2(i + 1)}</p><h3>${inline(h.title)}</h3>${h.what ? `<p>${inline(h.what)}</p>` : ''}
-            ${link({ href: PF.projectUrl(p.id, PF.deckSceneFor(p, h.section)), label: T('page.see-in-deck'), kind: 'page', cls: 'more' })}</li>`).join('')}</ol></section>` : ''}
-        </div>
-        <aside class="pside">
-          <section class="pane"><h2 class="sh">정보</h2><dl class="meta">${meta.join('')}</dl></section>
-          ${(p.tags || []).length ? `<section class="pane"><h2 class="sh">태그</h2><ul class="tags">${p.tags.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>` : ''}
-          <nav class="pn" aria-label="다른 프로젝트">${j > 0 ? `<a href="#p-${esc(projects[j - 1].id)}">← ${esc(projects[j - 1].title)}</a>` : '<span></span>'}
-            ${j < projects.length - 1 ? `<a href="#p-${esc(projects[j + 1].id)}">${esc(projects[j + 1].title)} →</a>` : ''}</nav>
-        </aside>
+      <div class="pcol">
+        <section class="pane info"><h2 class="sh">정보</h2><dl class="meta">${meta.join('')}</dl></section>
+        ${p.tagline ? `<section class="pane"><h2 class="sh">프로젝트 소개</h2><p class="pitch">${inline(p.tagline)}</p></section>` : ''}
+        ${p.intent?.text ? `<section class="pane"><h2 class="sh">${T('name.intent')}</h2><p class="intent">${inline(p.intent.text)}</p></section>` : ''}
+        ${hl.length ? `<section class="pane"><h2 class="sh">${T('page.features')}</h2><ol class="feats">${hl.map((h, i) => `<li>
+          ${h.image?.src ? `<figure><img src="${esc(PF.srcPath(p.id, h.image.src))}" alt="${esc(h.title)}"></figure>` : ''}
+          <p class="fk" lang="en">FEATURE ${pad2(i + 1)}</p><h3>${inline(h.title)}</h3>${h.what ? `<p>${inline(h.what)}</p>` : ''}
+          ${link({ href: PF.projectUrl(p.id, PF.deckSceneFor(p, h.section)), label: T('page.see-in-deck'), kind: 'page', cls: 'more' })}</li>`).join('')}</ol></section>` : ''}
+        ${(p.tags || []).length ? `<section class="pane"><h2 class="sh">태그</h2><ul class="tags">${p.tags.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></section>` : ''}
+        <nav class="pn" aria-label="다른 프로젝트">${j > 0 ? `<a href="#p-${esc(projects[j - 1].id)}">← ${esc(projects[j - 1].title)}</a>` : '<span></span>'}
+          ${j < projects.length - 1 ? `<a href="#p-${esc(projects[j + 1].id)}">${esc(projects[j + 1].title)} →</a>` : ''}</nav>
       </div>`;
   }
 
