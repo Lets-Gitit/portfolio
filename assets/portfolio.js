@@ -109,18 +109,18 @@
     if ((pf.skills || []).length) out.push(sec('stack', t('en.skills'), t('page.stack'), t('page.stack-note'),`<ul class="skills">${pf.skills.map((s) => `<li class="skill">
       <h3>${esc(s.name)}</h3><ul>${(s.evidence || []).map((e) => `<li><span>${inline(e.text)}</span>${byId[e.project] ? link({ href: `#p-${e.project}`, label: esc(byId[e.project].title), kind: 'anchor', cls: 'chip' }) : ''}</li>`).join('')}</ul></li>`).join('')}</ul>`, 'tint'));
 
-    // ④ 프로젝트마다 한 절: 소개(대표 이미지 · 메타 · 개발 의도) 아래에 기능 소개
-    projects.forEach((p, j) => {
-      const no = t('page.project-no', { no: pad2(j + 1), total });
-      out.push(sec(`p-${p.id}`, no, p.title, PF.teamLabel(p.team), projectIntro(p, btn, printUrls) + features(p), 'proj'));
-    });
-
-    // ⑤ 한눈에 보기(format/01 §1 프로젝트 요약 표) — 좁은 화면에서도 가로 스크롤이 없도록 표 대신 행 목록
+    // ④ 한눈에 보기(기술 스택 바로 아래, 프로젝트 절 앞)(format/01 §1 프로젝트 요약 표) — 좁은 화면에서도 가로 스크롤이 없도록 표 대신 행 목록
     if (projects.length) out.push(sec('glance', t('en.glance'), t('page.glance'), '',`<ul class="glance">${projects.map((p) => `<li>
       <div class="g-t">${link({ href: `#p-${p.id}`, label: esc(p.title), kind: 'anchor' })}<p>${esc(PF.teamLabel(p.team))}</p></div>
       <div class="g-b">${p.tagline ? `<p>${inline(p.tagline)}</p>` : ''}${(p.tags || []).length ? `<p class="g-tags">${esc(p.tags.slice(0, 4).join(' · '))}</p>` : ''}
         ${p.team?.role ? `<p class="g-role"><b>${T('name.role-short')}</b> ${inline(p.team.role)}</p>` : ''}</div>
-      <div class="g-l">${projLinks(p)}</div></li>`).join('')}</ul>`, 'tint'));
+      <div class="g-l">${projLinks(p)}</div></li>`).join('')}</ul>`));
+
+    // ⑤ 프로젝트마다 한 절: 소개(대표 이미지 · 메타 · 개발 의도) 아래에 기능 소개
+    projects.forEach((p, j) => {
+      const no = t('page.project-no', { no: pad2(j + 1), total });
+      out.push(sec(`p-${p.id}`, no, p.title, PF.teamLabel(p.team), projectIntro(p, btn, printUrls) + features(p), 'proj'));
+    });
 
     // ⑥ 연락처 + 프로젝트별 링크(그 밖의 링크는 주소까지)
     out.push(`<footer id="contact" class="sec contact"><div class="wrap">
@@ -135,8 +135,8 @@
           .map((l) => `<span class="ex">${esc(l.label)} ${link({ href: l.url, label: `<span class="url">${esc(shortUrl(l.url))}</span>` })}</span>`).join('')}</div>`).join('')}</div>
       </div></div></footer>`);
 
-    const nav = [['intro', t('page.nav-intro'), prof.intro], ['stack', t('page.nav-stack'), (pf.skills || []).length], [projects[0] ? `p-${projects[0].id}` : '', t('page.nav-projects'), projects.length],
-      ['glance', t('page.nav-glance'), projects.length], ['contact', t('page.nav-contact'), true]].filter((x) => x[0] && x[2]);
+    const nav = [['intro', t('page.nav-intro'), prof.intro], ['stack', t('page.nav-stack'), (pf.skills || []).length], ['glance', t('page.nav-glance'), projects.length],
+      [projects[0] ? `p-${projects[0].id}` : '', t('page.nav-projects'), projects.length], ['contact', t('page.nav-contact'), true]].filter((x) => x[0] && x[2]);
     root.innerHTML = `<header class="top no-print"><div class="wrap top-in">
         <a class="top-name" href="#cover">${esc(nameT)}</a>
         <nav aria-label="절 이동"><ul>${nav.map(([id, label]) => `<li><a href="#${esc(id)}">${esc(label)}</a></li>`).join('')}</ul></nav>
