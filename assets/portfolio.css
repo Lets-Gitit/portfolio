@@ -129,6 +129,8 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .cover { display: flex; align-items: center; justify-content: center; height: clamp(240px, 42vw, 400px); padding: 12px;
          background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
 .cover img { max-height: 100%; width: auto; height: auto; border-radius: 8px; }
+.cover-slot { border: 1.5px dashed var(--line-2); background: repeating-linear-gradient(135deg, transparent 0 12px, color-mix(in srgb, var(--line) 45%, transparent) 12px 13px), var(--paper); }
+.cs-k { font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--muted); }
 .meta { display: grid; grid-template-columns: 1fr; gap: 14px 28px; }
 .meta dt, .intent .k, .purls dt { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
 .meta dd { margin-top: 2px; font-size: 15px; font-weight: 600; }
@@ -139,7 +141,9 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
 .tags li { padding: 4px 12px; border-radius: var(--pill); border: 1px solid var(--line-2); color: var(--ink); font-size: 12.5px; font-weight: 600; }
 .pi-r .btns { margin-top: 28px; }
 
-/* ④-2 기능 소개: 화면 왼쪽 · 설명과 [슬라이드 열기] 오른쪽 */
+/* ④-2 기능 소개(같은 절 안, 소개 아래): 화면 왼쪽 · 설명과 [슬라이드 열기] 오른쪽 */
+.pcore { margin-top: clamp(32px, 5vw, 48px); scroll-margin-top: var(--top-h); }
+.pc-h { margin-bottom: 14px; }
 .fe { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
 .shots { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 .shot { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: box-shadow .15s, border-color .15s; }
@@ -267,7 +271,8 @@ code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft
   .intent p + p { font-size: 10pt; }
   .tags { margin-top: 10pt; }
   .tags li { font-size: 8.5pt; padding: 2pt 8pt; }
-  .sec.core { break-before: page; margin-top: 0; }                   /* 프로젝트마다 소개 1쪽 + 기능 소개 1쪽(화면 칸이 쪽 사이에서 갈리지 않게) */
+  .pcore { break-before: page; margin-top: 0; }                      /* 한 절이지만 인쇄는 소개 1쪽 + 기능 소개 1쪽(화면 칸이 쪽 사이에서 갈리지 않게) */
+  .cover-slot { background: none; }
   .fe { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 14pt; }
   .fe.noshot { grid-template-columns: 1fr; }
   .shots { position: static; }

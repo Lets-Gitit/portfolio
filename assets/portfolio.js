@@ -109,12 +109,10 @@
     if ((pf.skills || []).length) out.push(sec('stack', t('en.skills'), t('page.stack'), t('page.stack-note'),`<ul class="skills">${pf.skills.map((s) => `<li class="skill">
       <h3>${esc(s.name)}</h3><ul>${(s.evidence || []).map((e) => `<li><span>${inline(e.text)}</span>${byId[e.project] ? link({ href: `#p-${e.project}`, label: esc(byId[e.project].title), kind: 'anchor', cls: 'chip' }) : ''}</li>`).join('')}</ul></li>`).join('')}</ul>`, 'tint'));
 
-    // ④ 프로젝트마다 소개 + 기능 소개
+    // ④ 프로젝트마다 한 절: 소개(대표 이미지 · 메타 · 개발 의도) 아래에 기능 소개
     projects.forEach((p, j) => {
       const no = t('page.project-no', { no: pad2(j + 1), total });
-      out.push(projectIntro(p, no, sec, btn, printUrls));
-      const fe = features(p, no, sec, btn);
-      if (fe) out.push(fe);
+      out.push(sec(`p-${p.id}`, no, p.title, PF.teamLabel(p.team), projectIntro(p, btn, printUrls) + features(p), 'proj'));
     });
 
     // ⑤ 한눈에 보기(format/01 §1 프로젝트 요약 표) — 좁은 화면에서도 가로 스크롤이 없도록 표 대신 행 목록
@@ -150,7 +148,7 @@
   }
 
   // 프로젝트 소개: 대표 이미지 · 메타(장르·기간·인원·환경) · 내 역할 · 개발 의도 · 태그 · 링크
-  function projectIntro(p, no, sec, btn, printUrls) {
+  function projectIntro(p, btn, printUrls) {
     const meta = (p.meta || []).map((m) => `<div><dt>${esc(m.label)}</dt><dd>${inline(m.value)}</dd></div>`);
     if (p.team?.role) meta.push(`<div class="wide"><dt>${T('name.role')}</dt><dd>${inline(p.team.role)}</dd></div>`);
     const extra = (p.links?.extra || []).filter((l) => isUrl(l.url));
@@ -160,18 +158,20 @@
     const urls = [[t('name.deck'), PF.visibleUrl(PF.projectUrl(p.id)), PF.projectUrl(p.id), 'page'], [t('name.doc'), PF.visibleUrl(PF.docUrl(p.id)), PF.docUrl(p.id), 'page'],
       isUrl(p.links?.github) && ['GitHub', shortUrl(p.links.github), p.links.github, 'external'], isUrl(p.links?.video) && [t('name.video'), shortUrl(p.links.video), p.links.video, 'external'],
       ...extra.map((l) => [l.label, shortUrl(l.url), l.url, 'external'])].filter(Boolean);
-    const cover = p.cover ? `<figure class="cover"><img src="${esc(PF.srcPath(p.id, p.cover))}" alt="${esc(p.title)} 대표 화면"></figure>` : '';
-    const body = `${p.tagline ? `<p class="tagline">${inline(p.tagline)}</p>` : ''}
-      <div class="pi${cover ? '' : ' nocover'}">${cover}<div class="pi-r">
+    // 대표 이미지가 아직 없으면 같은 크기의 점선 자리(프로젝트 문서에 이미지를 넣고 다시 빌드하면 그 그림으로 바뀜)
+    const cover = p.cover ? `<figure class="cover"><img src="${esc(PF.srcPath(p.id, p.cover))}" alt="${esc(p.title)} 대표 화면"></figure>`
+      : `<figure class="cover cover-slot" aria-hidden="true"><span class="cs-k">${T('page.cover-slot')}</span></figure>`;
+    return `${p.tagline ? `<p class="tagline">${inline(p.tagline)}</p>` : ''}
+      <div class="pi">${cover}<div class="pi-r">
         ${meta.length ? `<dl class="meta">${meta.join('')}</dl>` : ''}
         ${p.intent?.text ? `<div class="intent"><p class="k">${T('name.intent')}</p><p>${inline(p.intent.text)}</p></div>` : ''}
         ${(p.tags || []).length ? `<ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
         <div class="btns no-print">${btns.join('')}</div>${printUrls(urls)}</div></div>`;
-    return sec(`p-${p.id}`, no, p.title, PF.teamLabel(p.team), body, 'proj');
   }
 
-  // 기능 소개: 화면은 왼쪽(기능 번호와 함께), 기능 설명과 [슬라이드 열기]는 오른쪽 목록. 화면이 하나도 없으면 목록이 폭 전체
-  function features(p, no, sec, btn) {
+  // 기능 소개(같은 절 안, 소개 아래): 화면은 왼쪽(기능 번호와 함께), 기능 설명과 [슬라이드 열기]는 오른쪽 목록. 화면이 하나도 없으면 목록이 폭 전체
+  // 예전 주소 #p-<폴더>-core는 이 묶음의 id로 남겨 그대로 열림
+  function features(p) {
     const hl = (p.highlights || []).slice(0, 4);
     if (!hl.length) return '';
     const capText = (c) => (typeof c === 'string' ? c : c?.text || '');      // 그림 설명은 글 조각 또는 글자
@@ -184,10 +184,9 @@
     const rows = hl.map((h, i) => `<li data-fi="${i}"><div class="fr-t"><p class="fk">${T('en.feature')} ${pad2(i + 1)}</p><h3>${inline(h.title)}</h3>${h.what ? `<p>${inline(h.what)}</p>` : ''}</div>
       <div class="fr-a">${link({ href: PF.projectUrl(p.id, PF.deckSceneFor(p, h.section)), label: T('page.see-in-deck'), kind: 'page', cls: 'pill',
         attrs: `aria-label="${esc(PF.normTitle(h.title))} — ${T('page.see-in-deck')} (새 탭)"` })}</div></li>`).join('');
-    const body = `<div class="fe${shots.length ? '' : ' noshot'}" style="--shots:${shots.length}">${shots.length ? `<div class="shots">${tiles}</div>` : ''}
-      <div class="fe-r"><ol class="flist">${rows}</ol>
-        <div class="btns end no-print">${btn(PF.projectUrl(p.id), T('page.deck-all'), 'page', 'btn primary')}${btn(PF.docUrl(p.id), T('name.doc'), 'page')}</div></div></div>`;
-    return sec(`p-${p.id}-core`, `${no} · ${t('page.features')}`, p.title, PF.teamLabel(p.team), body, 'tint core');
+    return `<div id="p-${esc(p.id)}-core" class="pcore"><p class="eyebrow pc-h">${T('page.features')}</p>
+      <div class="fe${shots.length ? '' : ' noshot'}" style="--shots:${shots.length}">${shots.length ? `<div class="shots">${tiles}</div>` : ''}
+      <div class="fe-r"><ol class="flist">${rows}</ol></div></div></div>`;
   }
 
   function projLinks(p) {
