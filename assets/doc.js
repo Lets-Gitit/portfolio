@@ -65,7 +65,6 @@
     ...(p.links?.extra || []).filter((l) => PF.isUrl(l.url)).map((l) => link({ href: l.url, label: esc(l.label), kind: 'external', cls: 'btn' })),
   ].filter(Boolean);
   const deckBtn = link({ href: deckUrl(), label: T('name.deck'), kind: 'page', cls: 'btn primary' });
-  const tags = (p.tags || []).length ? `<ul class="tags">${p.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '';
 
   root.innerHTML = `
     <header class="doc-head">
@@ -84,9 +83,6 @@
         <div class="doc-intro">
           <p class="eyebrow">${T('name.doc')}</p>
           <h1>${esc(p.title)}</h1>
-          ${p.tagline ? `<p class="tagline">${inline(p.tagline)}</p>` : ''}
-          <dl class="meta-line">${metaRows}</dl>
-          ${tags}
           <details class="glance" id="glance"><summary>${T('doc.glance')}</summary>
             <div class="glance-body"><div class="actions">${deckBtn}${ext.join('')}</div>
             <p class="newtab-note">${T('doc.deck-note')}</p></div>
@@ -160,6 +156,7 @@
       const only = kids.length === 1 && kids[0].nodeType === 1 ? kids[0] : null;
       const img = only && (only.tagName === 'IMG' ? only : (only.tagName === 'A' && only.children.length >= 1 && [...only.childNodes].every((n) => n.nodeType === 1 ? n.tagName === 'IMG' || n.classList.contains('pf-newtab-icon') || n.classList.contains('pf-newtab-sr') : !n.textContent.trim()) ? only.querySelector('img') : null));
       if (img) para.classList.add('pf-figure');
+      else if (kids.length >= 2 && kids.every((k) => k.nodeType === 1 && k.tagName === 'IMG')) para.classList.add('pf-figure', 'pf-figure-row');
     });
 
     // ⑦ Mermaid (theme default, securityLevel loose). 글꼴을 먼저 받아 글자 폭을 맞춤

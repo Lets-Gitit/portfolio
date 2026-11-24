@@ -211,7 +211,10 @@ dialog.lightbox::backdrop { background: rgba(10, 11, 14, .82); }
 /* ── ① 가운데 정렬 폭 규칙: 글줄 40rem을 본문 칸 가운데에, 코드·표는 글줄 왼쪽에서 오른쪽으로만, 도식·그림은 가운데 최대 1200 ── */
 .doc-intro, .md > * { max-width: min(var(--measure), 100%); }
 .md > :is(pre, .table-wrap) { width: max-content; min-width: min(var(--measure), 100%); max-width: 100%; overflow-x: auto; }
-.md > :is(.mmd, .pf-figure) { width: fit-content; max-width: min(100%, var(--fig-max)); }
+.md > .mmd { width: fit-content; max-width: min(100%, var(--fig-max)); }
+.md > .pf-figure { width: fit-content; max-width: min(100%, var(--measure)); }
+.md > .pf-figure-row { width: min(100%, var(--measure)); display: flex; gap: 12px; align-items: flex-start; }
+.md .pf-figure-row img { flex: 1 1 0; min-width: 0; height: auto; border-radius: calc(var(--r) * .5); border: 1px solid var(--line); }
 .md > .print-only { max-width: none; }
 .doc-intro, .md > :not(pre, .table-wrap, .mmd, .pf-figure) { margin-inline: auto; }
 .md > :is(pre, .table-wrap) { margin-left: max(0px, (100% - var(--measure)) / 2); max-width: calc(100% - max(0px, (100% - var(--measure)) / 2)); }
@@ -275,6 +278,7 @@ dialog.lightbox::backdrop { background: rgba(10, 11, 14, .82); }
   .md h4 { font-size: 11pt; }
   .md > * { max-width: none !important; width: auto !important; min-width: 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
   .md > :is(.mmd, .pf-figure) { width: fit-content !important; }
+  .md > .pf-figure-row { width: 100% !important; }
   pre, .table-wrap, .mmd, .mermaid, .pf-figure, blockquote, tr, img { break-inside: avoid; }
   h2, h3, h4 { break-after: avoid; }
   /* .fade-r(화면용 흐림 mask)이 인쇄에 남으면 코드가 그림으로 바뀌고 글자가 두 번 들어감(시안 검증에서 발견) → 인쇄에서 mask를 끔 */
