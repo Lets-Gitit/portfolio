@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23",
+  "generatedAt": "2026-11-25",
   "profile": {
     "name": "이찬영",
     "nameEn": "ChanYoung Lee",
@@ -19,20 +19,20 @@
       "name": "Unity",
       "evidence": [
         {
-          "text": "FixedUpdate·MovePosition으로 구현한 공통 이동 모터 `SwimMotor`를 네 객체가 공유",
+          "text": "`FixedUpdate`·`MovePosition`으로 움직여 충돌은 물리 엔진이, 속도·감속은 코드가 맡게 함",
           "project": "0-super-phage"
         },
         {
-          "text": "Raycast로 착탄 지점을 찾고 `NavMeshAgent`를 떼어 보스 등장 낙하 구현",
+          "text": "등장 낙하 동안 `NavMeshAgent`를 끄고 착지 때 되돌리는 보스 등장 구현",
           "project": "1-hive-purge"
         },
         {
-          "text": "Unity 6·URP로 3스테이지 눈덩이 골프 프로토타입 기획·레벨 디자인",
-          "project": "4-snowball-golf"
+          "text": "호스트가 네 명의 입력을 합쳐 `Rigidbody2D`로 차 한 대를 움직이는 협동 운전",
+          "project": "3-Thief"
         },
         {
-          "text": "`SingletonBase<T>`와 `DontDestroyOnLoad`로 씬 전환에도 끊기지 않는 네트워크 연결",
-          "project": "3-Thief"
+          "text": "장애물 파괴 조건(요구 크기·소모량·최소 충돌 속도)을 Inspector에서 직접 조정",
+          "project": "4-snowball-golf"
         }
       ]
     },
@@ -40,15 +40,15 @@
       "name": "C#",
       "evidence": [
         {
-          "text": "코루틴 감지(`DetectPhage`)·제네릭 `SingletonBase<T>`·상속 기반 생성기 `MicroEntityEmitter` 구현",
+          "text": "0.5초 간격 코루틴과 `sqrMagnitude` 제곱거리 비교로 항체의 플레이어 감지",
           "project": "0-super-phage"
         },
         {
-          "text": "`BossAttack` 추상 클래스를 상속해 공격 5종을 만들고 `finally`로 취소 정리",
+          "text": "`BossAttack`을 상속해 `OnActiveStarted()` 하나만 구현하면 공격이 되는 구조, `finally`로 취소 정리",
           "project": "1-hive-purge"
         },
         {
-          "text": "`SemaphoreSlim`·`Channel`·`ConcurrentDictionary`로 비동기 송수신과 미니게임 상태를 동시성 안전하게 처리",
+          "text": "ASP.NET Core WebSocket 방 서버를 직접 작성하고 `SemaphoreSlim`으로 미니게임 상태를 한 흐름씩만 변경",
           "project": "3-Thief"
         }
       ]
@@ -57,12 +57,12 @@
       "name": "컴포넌트 기반 설계",
       "evidence": [
         {
-          "text": "플레이어를 입력·이동·에너지·사망 네 컴포넌트로 나누고 이동 모터를 공유",
+          "text": "회전·이동·감속을 공통 컴포넌트 `SwimMotor`에 두고 네 객체는 갈 방향만 정하게 함",
           "project": "0-super-phage"
         },
         {
-          "text": "공통 계층에 둔 기능을 다른 보스에도 붙일 수 있게 함(건물 부수기)",
-          "project": "1-hive-purge"
+          "text": "공통 컴포넌트 하나로 모든 장애물에 흔들림·축소·파편 연출을 적용",
+          "project": "4-snowball-golf"
         }
       ]
     }
