@@ -5,7 +5,7 @@
   "title": "Super Phage",
   "tagline": "박테리오파지가 세균에 침투해 증식하는 과정을 플레이로 옮긴 2D 탑뷰 게임",
   "pitch": "세균에 침투해 파지를 증식시키는 2D 탑뷰 게임",
-  "cover": null,
+  "cover": "images/cover.png",
   "team": {
     "type": "solo",
     "size": "1인",
