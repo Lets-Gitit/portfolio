@@ -36,3 +36,7 @@
   --t-glow: 0;
   --t-mark: 0;
 }
+
+/* ⑥ 상세 문서의 Part 제목 강조 (직접 더한 규칙 — 상세 문서에만 적용) */
+.md h1:not(:first-child) { margin-top: 72px; margin-bottom: 8px; padding: 22px 24px; background: var(--t-surface); border-left: 4px solid var(--t-accent); border-radius: var(--t-radius); }
+.md hr:has(+ h1) { display: none; }
