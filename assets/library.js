@@ -189,10 +189,11 @@
   function projectView(p) {
     const j = projects.indexOf(p);
     const extra = (p.links?.extra || []).filter((l) => isUrl(l.url));
-    const btns = [link({ href: PF.projectUrl(p.id), label: `${I.play}<span>${T('name.deck')}</span>`, kind: 'page', cls: 'play' }),
-      link({ href: PF.docUrl(p.id), label: `${I.doc}<span>${T('name.doc')}</span>`, kind: 'page', cls: 'btn' }),
-      isUrl(p.links?.github) && link({ href: p.links.github, label: `${I.gh}<span>GitHub</span>`, kind: 'external', cls: 'btn' }),
+    // 순서: 상세 문서(초록) → 슬라이드 → 시연 영상 → GitHub → 그 밖의 링크(예: 서버 GitHub)
+    const btns = [link({ href: PF.docUrl(p.id), label: `${I.doc}<span>${T('name.doc')}</span>`, kind: 'page', cls: 'play' }),
+      link({ href: PF.projectUrl(p.id), label: `${I.play}<span>${T('name.deck')}</span>`, kind: 'page', cls: 'btn' }),
       isUrl(p.links?.video) && link({ href: p.links.video, label: `<span>${T('name.video')}</span>`, kind: 'external', cls: 'btn' }),
+      isUrl(p.links?.github) && link({ href: p.links.github, label: `${I.gh}<span>GitHub</span>`, kind: 'external', cls: 'btn' }),
       ...extra.map((l) => link({ href: l.url, label: `<span>${esc(l.label)}</span>`, kind: 'external', cls: 'btn' }))].filter(Boolean);
     const stats = [['인원', PF.teamLabel(p.team)], ['기간', shortPeriod(metaOf(p, '기간'))]].filter((x) => x[1]);
     const meta = (p.meta || []).map((m) => `<div><dt>${esc(m.label)}</dt><dd>${inline(m.value)}</dd></div>`);
