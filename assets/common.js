@@ -27,7 +27,7 @@ const PF = (() => {
   const srcPath = (id, rel) => `src/${encodeURIComponent(id)}/${encodePath(String(rel).replace(/^\.\//, ''))}`;
   // 페이지 사이 주소(상대경로, 앞에 / 없음 — 프로젝트 Pages는 /<레포>/ 아래에 있음)
   // 손으로 배치한 전용 슬라이드가 있는 프로젝트는 project.html 대신 그 페이지로 보낸다(장면 id는 전용 페이지에 없으므로 첫 장부터)
-  const CUSTOM_DECKS = { '3-Thief': 'src/3-Thief/slides.html' };
+  const CUSTOM_DECKS = {};
   const projectUrl = (id, sid = '') => CUSTOM_DECKS[id]
     || `project.html?p=${encodeURIComponent(id)}${sid ? `#s=${sid}` : ''}`;
   const docUrl = (id, anchor = '') => `doc.html?p=${encodeURIComponent(id)}${anchor ? `#${anchor}` : ''}`;
