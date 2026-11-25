@@ -168,7 +168,8 @@
       {"key": "spec", "title": "기획서 · 구현 AI에게 넘길 한 장", "sectionPath": ["4. 기획서 · 구현 AI에게 넘길 한 장"]},
       {"key": "iterate", "title": "플레이 → 요청 → 수정", "sectionPath": ["5. 플레이 → 요청 → 수정"]},
       {"key": "playtest", "title": "플레이가 바꾼 기획", "sectionPath": ["6. 플레이가 바꾼 기획"]},
-      {"key": "issues", "title": "만들며 생긴 문제", "sectionPath": ["7. 만들며 생긴 문제"]}
+      {"key": "issues", "title": "만들며 생긴 문제", "sectionPath": ["7. 만들며 생긴 문제"]},
+      {"key": "results", "title": "결과와 돌아보기", "sectionPath": ["8. 결과와 돌아보기"], "added": true}
     ],
     "slides": [
       {
@@ -177,7 +178,7 @@
         "layout": "overview",
         "tab": "개요",
         "title": {"text": "1. 개요", "verbatim": true},
-        "lead": {"text": "미니골프 레벨 디자인 과제로 만든, 세 스테이지로 이루어진 프로토타입입니다.", "verbatim": true},
+        "lead": {"text": "굴리면 커지고 커지면 부수는 미니골프 프로토타입", "verbatim": false},
         "sectionPath": ["1. 개요"],
         "points": [
           {"label": "", "text": "눈덩이는 눈 위를 구를수록 커지고, 충분히 커지면 앞을 막는 장애물을 부술 수 있습니다.", "verbatim": true},
@@ -193,7 +194,8 @@
             "h": 720,
             "caption": {"text": "1스테이지에서 눈 구역을 굴러 커진 눈덩이가 노란색으로 바뀐 통나무를 부수고 목표 펭귄을 맞히는 장면", "verbatim": true}
           }
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "stage-rules",
@@ -201,10 +203,19 @@
         "layout": "full",
         "tab": "개요",
         "title": {"text": "2.1 세 스테이지", "verbatim": true},
-        "lead": {"text": "세 스테이지 모두 \"굴리면 커지고, 커지면 부순다\"는 규칙 하나 위에서 조건만 바뀝니다.", "verbatim": true},
+        "lead": {"text": "규칙 하나 위에서 조건만 바뀌는 세 스테이지", "verbatim": false},
         "sectionPath": ["2. 플레이", "2.1 세 스테이지"],
-        "points": [],
-        "visuals": [{"kind": "table", "n": 1, "fp": "1. 굴리면 커진다|2. 눈더미는 크게 키운다|3. 펭귄 보스전"}]
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "세 스테이지 모두 \"굴리면 커지고, 커지면 부순다\"는 규칙 하나 위에서 조건만 바뀝니다.",
+            "verbatim": true
+          }
+        ],
+        "visuals": [{"kind": "table", "n": 1, "fp": "1. 굴리면 커진다|2. 눈더미는 크게 키운다|3. 펭귄 보스전"}],
+        "edited": true
       },
       {
         "key": "core-loop",
@@ -212,7 +223,7 @@
         "layout": "visual",
         "tab": "흐름",
         "title": {"text": "2.1 세 스테이지", "verbatim": true},
-        "lead": null,
+        "lead": {"text": "샷 → 성장 → 파괴 → 목표, 3스테이지는 공격 반복", "verbatim": false},
         "sectionPath": ["2. 플레이", "2.1 세 스테이지"],
         "points": [{"label": "", "text": "3스테이지에서는 공격하면 처음 크기로 돌아가므로, 눈더미를 먹고 다시 공격하는 루프를 수행합니다.", "verbatim": true}],
         "visuals": [{"kind": "mermaid", "n": 1, "fp": "flowchart TD"}],
@@ -224,9 +235,16 @@
         "layout": "visual",
         "tab": "선택",
         "title": {"text": "3.1 후보는 넓게 받고, 고르기는 직접 한다", "verbatim": true},
-        "lead": {"text": "후보 가운데 카타마리와 보스전을 골라 세 스테이지의 첫 구상을 답했습니다.", "verbatim": true},
+        "lead": {"text": "후보는 넓게, 고르기는 직접", "verbatim": false},
         "sectionPath": ["3. 컨셉 · 골프에서 무엇을 바꾸고 무엇을 남겼나", "3.1 후보는 넓게 받고, 고르기는 직접 한다"],
         "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "후보 가운데 카타마리와 보스전을 골라 세 스테이지의 첫 구상을 답했습니다.",
+            "verbatim": true
+          },
           {"label": "", "text": "아이디어를 고를 때는 넓게 펼치게 했고, 방향이 정해진 뒤에는 기준을 줘서 좁혔습니다.", "verbatim": true},
           {"label": "", "text": "카타마리와 탄막 보스전을 따로 두지 않고 \"크기\" 하나로 묶기로 했습니다.", "verbatim": true},
           {"label": "", "text": "지나갈 길, 부술 장애물, 보스에게 주는 피해를 모두 눈덩이의 크기가 정한다는 핵심 규칙을 이 답장에서 처음 세웠습니다.", "verbatim": true}
@@ -239,7 +257,8 @@
             "h": 653,
             "caption": {"text": "AI가 낸 후보 열 가지 답변", "verbatim": true}
           }
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "keep-golf",
@@ -247,7 +266,7 @@
         "layout": "visual",
         "tab": "선택",
         "title": {"text": "3.2 공과 목적을 바꾸고, 샷과 타수는 남긴다", "verbatim": true},
-        "lead": {"text": "익숙한 것이 바뀌면, 적은 변경으로도 \"기존과 확실히 다르다\"는 차이가 크게 다가올 것이라고 생각했습니다.", "verbatim": true},
+        "lead": {"text": "공과 목적은 바꾸고 샷과 타수는 남긴다", "verbatim": false},
         "sectionPath": ["3. 컨셉 · 골프에서 무엇을 바꾸고 무엇을 남겼나", "3.2 공과 목적을 바꾸고, 샷과 타수는 남긴다"],
         "points": [
           {"label": "", "text": "그래서 공 자체가 바뀌는 카타마리식 성장을 선택했고, 굴러가며 커지는 공에서 눈덩이를 떠올렸습니다.", "verbatim": true},
@@ -255,7 +274,8 @@
           {"label": "조준하고 세기를 정해 치는 샷", "text": "조작은 기존 골프 게임 그대로 두어 새로 익힐 규칙을 줄였습니다.", "verbatim": true},
           {"label": "타수로 매기는 결과", "text": "보스를 쓰러뜨려도 성과를 가르는 기준은 라운드별 타수와 총 타수입니다.", "verbatim": true}
         ],
-        "visuals": [{"kind": "table", "n": 1, "fp": "|"}]
+        "visuals": [{"kind": "table", "n": 1, "fp": "|"}],
+        "edited": true
       },
       {
         "key": "unify-grow",
@@ -263,10 +283,11 @@
         "layout": "full",
         "tab": "선택",
         "title": {"text": "3.3 앞선 두 스테이지가 보스전으로 이어지도록", "verbatim": true},
-        "lead": {"text": "세 스테이지를 키우기 하나로 통일했습니다.", "verbatim": true},
+        "lead": {"text": "세 스테이지를 키우기 하나로", "verbatim": false},
         "sectionPath": ["3. 컨셉 · 골프에서 무엇을 바꾸고 무엇을 남겼나", "3.3 앞선 두 스테이지가 보스전으로 이어지도록"],
-        "points": [],
-        "visuals": [{"kind": "table", "n": 1, "fp": "|보스전에 작은 상태 기믹을 더한다 (AI 안)|세 스테이지를 키우기로 통일 ✅"}]
+        "points": [{"style": "text", "place": "above", "label": "", "text": "세 스테이지를 키우기 하나로 통일했습니다.", "verbatim": true}],
+        "visuals": [{"kind": "table", "n": 1, "fp": "|보스전에 작은 상태 기믹을 더한다 (AI 안)|세 스테이지를 키우기로 통일 ✅"}],
+        "edited": true
       },
       {
         "key": "boss-rounds",
@@ -274,10 +295,11 @@
         "layout": "full",
         "tab": "선택",
         "title": {"text": "3.4 제안과 피드백을 반복하며 기준 정하기", "verbatim": true},
-        "lead": {"text": "거절의 이유가 다음 제안의 기준이 됐습니다.", "verbatim": true},
+        "lead": {"text": "거절의 이유가 다음 제안의 기준으로", "verbatim": false},
         "sectionPath": ["3. 컨셉 · 골프에서 무엇을 바꾸고 무엇을 남겼나", "3.4 제안과 피드백을 반복하며 기준 정하기"],
-        "points": [],
-        "visuals": [{"kind": "table", "n": 1, "fp": "회차|AI의 제안|살린 것 ✓ / 버린 것 ✗|쌓인 기준"}]
+        "points": [{"style": "text", "place": "above", "label": "", "text": "거절의 이유가 다음 제안의 기준이 됐습니다.", "verbatim": true}],
+        "visuals": [{"kind": "table", "n": 1, "fp": "회차|AI의 제안|살린 것 ✓ / 버린 것 ✗|쌓인 기준"}],
+        "edited": true
       },
       {
         "key": "pipeline",
@@ -285,13 +307,14 @@
         "layout": "visual",
         "tab": "흐름",
         "title": {"text": "4. 기획서 · 구현 AI에게 넘길 한 장", "verbatim": true},
-        "lead": null,
+        "lead": {"text": "기획에서 구현까지 넘기는 흐름", "verbatim": false},
         "sectionPath": ["4. 기획서 · 구현 AI에게 넘길 한 장"],
         "points": [
           {"label": "", "text": "두 세션을 잇는 것은 기능 기획서 한 장입니다.", "verbatim": true},
           {"label": "", "text": "데모가 나온 뒤에는 \"플레이 → 요청 → 수정\"을 반복했습니다.", "verbatim": true}
         ],
-        "visuals": [{"kind": "mermaid", "n": 1, "fp": "---"}]
+        "visuals": [{"kind": "mermaid", "n": 1, "fp": "---"}],
+        "edited": true
       },
       {
         "key": "session-split",
@@ -299,16 +322,24 @@
         "layout": "full",
         "tab": "선택",
         "title": {"text": "4.1 기획과 구현을 한 세션에서 할 것인가", "verbatim": true},
-        "lead": {"text": "그래서 확정된 것만 기획서 한 장으로 정리하고, 구현은 새 세션에서 기획서만 보고 시작하게 했습니다.", "verbatim": true},
+        "lead": {"text": "기획 세션과 구현 세션을 나눈다", "verbatim": false},
         "sectionPath": ["4. 기획서 · 구현 AI에게 넘길 한 장", "4.1 기획과 구현을 한 세션에서 할 것인가"],
         "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "그래서 확정된 것만 기획서 한 장으로 정리하고, 구현은 새 세션에서 기획서만 보고 시작하게 했습니다.",
+            "verbatim": true
+          },
           {
             "label": "이유",
             "text": "잠입, 눈사람, 모닥불처럼 버린 아이디어가 세션에 그대로 남아 있었고, 이 세션에서 구현을 맡기면 AI가 이미 버린 제안을 근거로 판단할 위험이 있었습니다.",
             "verbatim": true
           }
         ],
-        "visuals": [{"kind": "table", "n": 1, "fp": "|한 세션에서 기획부터 구현까지|기획 세션과 구현 세션을 나눈다 ✅"}]
+        "visuals": [{"kind": "table", "n": 1, "fp": "|한 세션에서 기획부터 구현까지|기획 세션과 구현 세션을 나눈다 ✅"}],
+        "edited": true
       },
       {
         "key": "spec-check",
@@ -316,7 +347,7 @@
         "layout": "code",
         "tab": "구현",
         "title": {"text": "4.2 AI가 읽을 기획서", "verbatim": true},
-        "lead": {"text": "기능은 장애물 파괴(F04)처럼 조건을 하나씩 적게 했고, 기획서 끝에는 작업이 끝났는지를 판단할 완료 확인 항목을 두었습니다.", "verbatim": true},
+        "lead": {"text": "조건과 완료 확인 항목을 적은 기획서", "verbatim": false},
         "sectionPath": ["4. 기획서 · 구현 AI에게 넘길 한 장", "4.2 AI가 읽을 기획서"],
         "points": [
           {
@@ -326,7 +357,8 @@
           },
           {"label": "완료 기준을 먼저 정했습니다", "text": "완료 확인 항목이 없으면 AI가 작업의 끝을 판단할 수 없습니다.", "verbatim": true}
         ],
-        "visuals": [{"kind": "code", "n": 1, "fp": "**F04. 크기 조건에 따른 장애물 파괴**"}, {"kind": "code", "n": 2, "fp": "## 6. 완료 확인 항목"}]
+        "visuals": [{"kind": "code", "n": 1, "fp": "**F04. 크기 조건에 따른 장애물 파괴**"}, {"kind": "code", "n": 2, "fp": "## 6. 완료 확인 항목"}],
+        "edited": true
       },
       {
         "key": "ask-cause",
@@ -334,16 +366,24 @@
         "layout": "full",
         "tab": "흐름",
         "title": {"text": "5.1 원인부터 묻고, 단서를 함께 준다", "verbatim": true},
-        "lead": {"text": "데모에서 문제를 발견하면 바로 수정을 요청하지 않고 원인부터 물었습니다.", "verbatim": true},
+        "lead": {"text": "고치기 전에 원인부터 묻는다", "verbatim": false},
         "sectionPath": ["5. 플레이 → 요청 → 수정", "5.1 원인부터 묻고, 단서를 함께 준다"],
         "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "데모에서 문제를 발견하면 바로 수정을 요청하지 않고 원인부터 물었습니다.",
+            "verbatim": true
+          },
           {
             "label": "이유",
             "text": "원인을 먼저 보면 단계마다 확인하고 넘어갈 수 있고, 가설·시점·원칙 같은 단서를 함께 제시하면 AI가 원인을 더 빨리 좁힐 수 있습니다.",
             "verbatim": true
           }
         ],
-        "visuals": [{"kind": "table", "n": 1, "fp": "플레이에서 본 증상|함께 준 단서|AI가 찾은 원인"}]
+        "visuals": [{"kind": "table", "n": 1, "fp": "플레이에서 본 증상|함께 준 단서|AI가 찾은 원인"}],
+        "edited": true
       },
       {
         "key": "tune-values",
@@ -351,9 +391,16 @@
         "layout": "visual",
         "tab": "구현",
         "title": {"text": "5.3 수치는 내가 맞출 수 있게", "verbatim": true},
-        "lead": {"text": "수치는 결국 플레이하면서 직접 맞춰야 하므로, AI에게 값을 정해 달라고 하기보다 바로 바꿀 수 있게 만들어 달라고 했습니다.", "verbatim": true},
+        "lead": {"text": "수치는 내가 직접 맞출 수 있게", "verbatim": false},
         "sectionPath": ["5. 플레이 → 요청 → 수정", "5.3 수치는 내가 맞출 수 있게"],
         "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "수치는 결국 플레이하면서 직접 맞춰야 하므로, AI에게 값을 정해 달라고 하기보다 바로 바꿀 수 있게 만들어 달라고 했습니다.",
+            "verbatim": true
+          },
           {"label": "Required Size · Size Cost", "text": "장애물마다 다른 난이도를 준다", "verbatim": true},
           {"label": "Minimum Impact Speed", "text": "천천히 닿기만 해도 부서지는 것을 막는다", "verbatim": true},
           {"label": "Preserve Speed On Break", "text": "부숴도 멈추지 않고 뚫고 가는 약한 장애물을 만든다", "verbatim": true}
@@ -366,7 +413,8 @@
             "h": 276,
             "caption": {"text": "통나무 장애물 Inspector의 Snow Breakable 값", "verbatim": true}
           }
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "code-trust",
@@ -374,10 +422,20 @@
         "layout": "full",
         "tab": "선택",
         "title": {"text": "5.4 AI가 작성한 코드를 어디까지 들여다볼 것인가", "verbatim": true},
-        "lead": {"text": "그래서 코드의 구조나 품질에는 개입하지 않고, 판단 기준을 \"의도대로 움직이는가\" 하나로 두었습니다.", "verbatim": true},
+        "lead": {"text": "판단 기준은 \"의도대로 움직이는가\" 하나", "verbatim": false},
         "sectionPath": ["5. 플레이 → 요청 → 수정", "5.4 AI가 작성한 코드를 어디까지 들여다볼 것인가"],
-        "points": [{"label": "", "text": "코드를 직접 읽는 대신 AI가 구조를 설명하게 하는 것으로 이해를 대신했습니다.", "verbatim": true}],
-        "visuals": [{"kind": "table", "n": 1, "fp": "|코드를 검토하고 직접 다듬기|동작만 확인하고 코드는 AI에게 맡기기 ✅"}]
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "그래서 코드의 구조나 품질에는 개입하지 않고, 판단 기준을 \"의도대로 움직이는가\" 하나로 두었습니다.",
+            "verbatim": true
+          },
+          {"label": "", "text": "코드를 직접 읽는 대신 AI가 구조를 설명하게 하는 것으로 이해를 대신했습니다.", "verbatim": true}
+        ],
+        "visuals": [{"kind": "table", "n": 1, "fp": "|코드를 검토하고 직접 다듬기|동작만 확인하고 코드는 AI에게 맡기기 ✅"}],
+        "edited": true
       },
       {
         "key": "knockback",
@@ -385,9 +443,17 @@
         "layout": "visual",
         "tab": "결과",
         "title": {"text": "6.1 재미있는가 — 템포와 손맛", "verbatim": true},
-        "lead": {"text": "보스 넉백은 바로 앞에서 작아지기만 하는 것이 재미없다는 생각에서 나왔습니다.", "verbatim": true},
+        "lead": {"text": "작아지기만 하던 보스전에 넉백을", "verbatim": false},
         "sectionPath": ["6. 플레이가 바꾼 기획", "6.1 재미있는가 — 템포와 손맛"],
-        "points": [],
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "보스 넉백은 바로 앞에서 작아지기만 하는 것이 재미없다는 생각에서 나왔습니다.",
+            "verbatim": true
+          }
+        ],
         "visuals": [
           {
             "kind": "image",
@@ -397,7 +463,8 @@
             "caption": {"text": "커진 눈덩이가 보스에 부딪혀 멀리 튕겨 나가는 장면", "verbatim": true}
           },
           {"kind": "table", "n": 1, "fp": "기획서 (As-Is)|플레이 후 (To-Be)|계기"}
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "shatter",
@@ -405,9 +472,17 @@
         "layout": "visual",
         "tab": "선택",
         "title": {"text": "부서지는 느낌을 어디까지 만들 것인가", "verbatim": true},
-        "lead": {"text": "플레이어에게 필요한 것은 \"부서졌다\"는 느낌이지, 실제로 잘리는 메시가 아니었습니다.", "verbatim": true},
+        "lead": {"text": "잘리는 메시 대신 부서지는 느낌", "verbatim": false},
         "sectionPath": ["6. 플레이가 바꾼 기획", "6.1 재미있는가 — 템포와 손맛", "부서지는 느낌을 어디까지 만들 것인가"],
-        "points": [],
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "플레이어에게 필요한 것은 \"부서졌다\"는 느낌이지, 실제로 잘리는 메시가 아니었습니다.",
+            "verbatim": true
+          }
+        ],
         "visuals": [
           {
             "kind": "image",
@@ -417,7 +492,8 @@
             "caption": {"text": "커진 눈덩이가 통나무에 부딪혀 통나무가 흔들리고 작아지며 파편이 튀는 장면", "verbatim": true}
           },
           {"kind": "table", "n": 1, "fp": "|메시를 반으로 쪼갠다|흔들림 + 축소 + 파편 ✅"}
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "readable",
@@ -425,9 +501,17 @@
         "layout": "visual",
         "tab": "선택",
         "title": {"text": "부술 수 있다는 것을 어떻게 알릴 것인가", "verbatim": true},
-        "lead": {"text": "하지만 플레이어에게 필요한 정보는 \"지금 이 장애물을 부술 수 있는가\"이고, 이 정보는 색만으로도 전할 수 있습니다.", "verbatim": true},
+        "lead": {"text": "부술 수 있는지를 색으로 알린다", "verbatim": false},
         "sectionPath": ["6. 플레이가 바꾼 기획", "6.2 기획서에 무엇이 빠졌나 — 규칙을 읽을 수 있게", "부술 수 있다는 것을 어떻게 알릴 것인가"],
-        "points": [],
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "하지만 플레이어에게 필요한 정보는 \"지금 이 장애물을 부술 수 있는가\"이고, 이 정보는 색만으로도 전할 수 있습니다.",
+            "verbatim": true
+          }
+        ],
         "visuals": [
           {
             "kind": "image",
@@ -438,7 +522,8 @@
             "sectionPath": ["6. 플레이가 바꾼 기획", "6.2 기획서에 무엇이 빠졌나 — 규칙을 읽을 수 있게"]
           },
           {"kind": "table", "n": 1, "fp": "|주황색 윤곽선 (URP 셰이더)|부술 수 있을 때 색 바꾸기 ✅"}
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "heat-threat",
@@ -446,9 +531,17 @@
         "layout": "visual",
         "tab": "결과",
         "title": {"text": "6.3 수치와 감각은 맞았나 — 크기와 위협", "verbatim": true},
-        "lead": {"text": "넉백, 성장 구역, 노란색 표시, 열기 공격의 위협처럼 플레이하며 바꾼 것 대부분은 기획서를 쓸 때는 떠올리지 못한 것들입니다.", "verbatim": true},
+        "lead": {"text": "플레이해야 보이는 크기와 위협", "verbatim": false},
         "sectionPath": ["6. 플레이가 바꾼 기획", "6.3 수치와 감각은 맞았나 — 크기와 위협"],
-        "points": [],
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "넉백, 성장 구역, 노란색 표시, 열기 공격의 위협처럼 플레이하며 바꾼 것 대부분은 기획서를 쓸 때는 떠올리지 못한 것들입니다.",
+            "verbatim": true
+          }
+        ],
         "visuals": [
           {
             "kind": "image",
@@ -458,7 +551,8 @@
             "caption": {"text": "3스테이지에서 열기 공격 원이 켜지고, 초록색 표시 위로 떨어진 눈더미를 먹은 뒤 보스에 부딪히는 장면", "verbatim": true}
           },
           {"kind": "table", "n": 1, "fp": "기획서 (As-Is)|플레이 후 (To-Be)|계기"}
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "camera-shake",
@@ -466,7 +560,7 @@
         "layout": "problem",
         "tab": "문제 해결",
         "title": {"text": "7.1 눈더미를 먹을 때의 카메라 떨림 문제", "verbatim": true},
-        "lead": {"text": "AI는 코드를 읽고 그럴듯한 원인을 찾지만, 화면에서 무엇이 보이는지는 모릅니다.", "verbatim": true},
+        "lead": {"text": "눈더미를 먹을 때 떨리던 카메라", "verbatim": false},
         "sectionPath": ["7. 만들며 생긴 문제", "7.1 눈더미를 먹을 때의 카메라 떨림 문제"],
         "points": [
           {"label": "문제", "text": "눈더미를 먹어 커지는 동안 카메라가 계속 떨렸습니다.", "verbatim": true},
@@ -486,7 +580,8 @@
             "h": 720,
             "caption": {"text": "눈더미를 먹고 공이 커질 때 카메라가 끊기며 떨리는 모습(재현)", "verbatim": true}
           }
-        ]
+        ],
+        "edited": true
       },
       {
         "key": "penguin-null",
@@ -494,7 +589,7 @@
         "layout": "problem",
         "tab": "문제 해결",
         "title": {"text": "7.2 통나무 장애물을 고쳤더니 펭귄이 깨진 문제", "verbatim": true},
-        "lead": {"text": "\"잘 되는 쪽과 비교해 보라\"는 한 줄이 원인을 찾는 범위를 크게 줄였습니다.", "verbatim": true},
+        "lead": {"text": "통나무를 고쳤더니 깨진 펭귄", "verbatim": false},
         "sectionPath": ["7. 만들며 생긴 문제", "7.2 통나무 장애물을 고쳤더니 펭귄이 깨진 문제"],
         "points": [
           {
@@ -506,7 +601,76 @@
           {"label": "해결", "text": "저장된 목록 대신, 스테이지 루트 아래에 실제로 있는 `SnowBreakable`을 찾아 초기화하도록 바꿨습니다.", "verbatim": true},
           {"label": "배운 점", "text": "AI에게 문제 상황만 전하기보다 확인 가능한 정상 사례를 함께 주는 것이 빨랐습니다.", "verbatim": true}
         ],
-        "visuals": []
+        "visuals": [],
+        "edited": true
+      },
+      {
+        "key": "result",
+        "chapter": "results",
+        "layout": "full",
+        "tab": "결과",
+        "title": {"text": "8.1 결과", "verbatim": true},
+        "lead": {"text": "이틀 만에 보스전까지 이어진 최종 버전", "verbatim": false},
+        "sectionPath": ["8. 결과와 돌아보기", "8.1 결과"],
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "기획서대로 만든 3스테이지 데모를 플레이하며 고쳐, 보스전과 결과 화면까지 이어지는 최종 버전을 만들었습니다.",
+            "verbatim": true
+          },
+          {"style": "text", "at": 1, "label": "", "text": "개요에서 세운 세 질문에는 첫 데모 뒤의 플레이로 답할 수 있었습니다.", "verbatim": true}
+        ],
+        "visuals": [
+          {"kind": "table", "n": 1, "fp": "날짜|한 일|소요 시간", "arrange": "col"},
+          {"kind": "table", "n": 2, "fp": "개요의 질문|플레이로 찾은 것|어디서", "hideCols": [3]}
+        ],
+        "edited": true
+      },
+      {
+        "key": "regret",
+        "chapter": "results",
+        "layout": "full",
+        "tab": "결과",
+        "title": {"text": "8.2 아쉬운 점과 다음 계획", "verbatim": true},
+        "lead": {"text": "플레이를 검증하지 못한 AI, 흐름을 끊은 에셋 찾기", "verbatim": false},
+        "sectionPath": ["8. 결과와 돌아보기", "8.2 아쉬운 점과 다음 계획"],
+        "points": [],
+        "visuals": [{"kind": "table", "n": 1, "fp": "아쉬운 점|원인|다음에는"}],
+        "edited": true
+      },
+      {
+        "key": "learned",
+        "chapter": "results",
+        "layout": "full",
+        "tab": "결과",
+        "title": {"text": "8.3 배운 점: 검증에 필요한 만큼만 만들었는가", "verbatim": true},
+        "lead": {"text": "빨리 틀려 보고, 빨리 고친다", "verbatim": false},
+        "sectionPath": ["8. 결과와 돌아보기", "8.3 배운 점: 검증에 필요한 만큼만 만들었는가"],
+        "points": [
+          {
+            "style": "text",
+            "place": "above",
+            "label": "",
+            "text": "이 프로젝트의 선택은 대부분 \"가장 좋은 방법\"보다 검증에 필요한 만큼을 가장 빨리 만드는 방법이었습니다.",
+            "verbatim": true
+          },
+          {
+            "style": "box",
+            "label": "빠른 프로토타입",
+            "text": "빠른 프로토타입의 가치는 \"빨리 만든다\"가 아니라 \"빨리 틀려 보고, 빨리 고친다\"에 있다고 생각합니다.",
+            "verbatim": true
+          },
+          {
+            "style": "box",
+            "label": "사람의 몫",
+            "text": "AI가 구현을 맡을수록, 사람의 몫은 줄어드는 것이 아니라 더 분명해졌습니다. 판단 기준을 말로 전하고, 범위를 정하고, 직접 플레이해서 확인하는 일입니다.",
+            "verbatim": true
+          }
+        ],
+        "visuals": [{"kind": "table", "n": 1, "fp": "선택|얻은 것|대가로 치른 것"}],
+        "edited": true
       }
     ],
     "base": [
@@ -847,6 +1011,6 @@
         "visuals": []
       }
     ],
-    "applied": "715c8541307cf032"
+    "applied": "ae347be67fbadea4"
   }
 }

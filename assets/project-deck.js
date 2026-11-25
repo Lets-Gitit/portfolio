@@ -183,7 +183,7 @@
           prev.nodeValue = prev.nodeValue.replace(/\s*\(→\s*$/, ''); next.nodeValue = next.nodeValue.replace(/^\)/, ''); a.remove();
         }
       });
-      t.querySelectorAll('td, th').forEach((c) => c.childNodes.forEach((n) => { if (n.nodeType === 3) n.nodeValue = n.nodeValue.replace(/\s*\(→\s*[\d.]+\)/g, ''); }));   // 글자로 된 참조
+      t.querySelectorAll('td, th').forEach((c) => c.childNodes.forEach((n) => { if (n.nodeType === 3) n.nodeValue = n.nodeValue.replace(/\s*\(→\s*[\d.]+\)/g, '').replace(/\s*\(§[\d.]+(\s*·\s*§[\d.]+)*\)/g, ''); }));   // 글자로 된 참조 "(→ 4.2)" · "(§6.1)"
       t.querySelectorAll('td a[href^="#"], th a[href^="#"]').forEach((a) => a.replaceWith(document.createTextNode(a.textContent)));   // 남은 문서 안 링크(예: "[6.2](#…) 피드백")는 글자로
       t.querySelectorAll('img').forEach((i, n) => {                       // 행을 나누기 전에(원본과 같은 순서로) 크기를 적음
         const d = v.imgDims?.[n];

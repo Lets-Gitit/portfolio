@@ -6,16 +6,1123 @@
       "chapter": "play",
       "layout": "full",
       "tab": "흐름",
-      "title": {"text": "2.2 한 판의 흐름", "verbatim": true},
-      "lead": null,
-      "sectionPath": ["2. 플레이", "2.2 한 판의 흐름"],
+      "title": {
+        "text": "2.2 한 판의 흐름",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "유영 → 부착 → 증식 → 폭발 → 복귀로 도는 한 판",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "2. 플레이",
+        "2.2 한 판의 흐름"
+      ],
       "points": [],
       "visuals": [
-        {"kind": "mermaid", "n": 1, "fp": "flowchart TD"},
-        {"kind": "table", "n": 1, "fp": "구분|유영 필드 (SwimField)|세균 내부 필드 (BacteriaField)"}
+        {
+          "kind": "mermaid",
+          "n": 1,
+          "fp": "flowchart TD"
+        },
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "구분|유영 필드 (SwimField)|세균 내부 필드 (BacteriaField)"
+        }
       ],
-      "from": {"key": "loop", "sectionPath": ["2. 플레이", "2.2 한 판의 흐름"], "sig": ["2.2 한 판의 흐름|mermaid|1|---"]},
+      "from": {
+        "key": "loop",
+        "sectionPath": [
+          "2. 플레이",
+          "2.2 한 판의 흐름"
+        ],
+        "sig": [
+          "2.2 한 판의 흐름|mermaid|1|---"
+        ]
+      },
       "group": "merge-loop"
+    },
+    {
+      "key": "intro",
+      "chapter": "overview",
+      "layout": "overview",
+      "tab": "개요",
+      "title": {
+        "text": "1. 프로젝트 개요",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "항체를 피해 세균에 붙고, 세균 안에서 파지를 늘리는 2D 탑뷰 게임",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "1. 프로젝트 개요"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "유영 필드에서 항체를 피해 세균에 붙고, 세균 내부에서 리보솜에 mRNA와 재료를 넣어 파지를 증식시킵니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "박테리오파지가 되어 미시세계의 움직임을 경험합니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "여러 단계가 맞물리는 증식 과정을 직접 체험합니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "반복할수록 증식에 속도가 붙습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "image",
+          "src": "images/loop_swim_to_bacteria.gif",
+          "w": 1280,
+          "h": 720,
+          "caption": {
+            "text": "수용체에 붙어 세균 내부로 들어가 폭발한 뒤 유영 필드로 돌아오는 한 판의 흐름",
+            "verbatim": true
+          }
+        }
+      ],
+      "from": {
+        "key": "intro",
+        "sectionPath": [
+          "1. 프로젝트 개요"
+        ],
+        "sig": [
+          "1. 프로젝트 개요|image|images/loop_swim_to_bacteria.gif|1"
+        ]
+      }
+    },
+    {
+      "key": "objects",
+      "chapter": "play",
+      "layout": "screens",
+      "tab": "개요",
+      "title": {
+        "text": "2.1 등장하는 오브젝트",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "유영 필드와 세균 내부에 등장하는 오브젝트",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "2. 플레이",
+        "2.1 등장하는 오브젝트"
+      ],
+      "points": [],
+      "visuals": [
+        {
+          "kind": "image",
+          "src": "images/objects_swimfield.png",
+          "w": 1965,
+          "h": 512,
+          "caption": {
+            "text": "유영 필드의 오브젝트 ①~⑥",
+            "verbatim": true
+          }
+        },
+        {
+          "kind": "image",
+          "src": "images/objects_bacteria.png",
+          "w": 2000,
+          "h": 466,
+          "caption": {
+            "text": "세균 내부의 오브젝트 ①~⑦",
+            "verbatim": true
+          }
+        }
+      ],
+      "from": {
+        "key": "objects",
+        "sectionPath": [
+          "2. 플레이",
+          "2.1 등장하는 오브젝트"
+        ],
+        "sig": [
+          "2.1 등장하는 오브젝트|image|images/objects_bacteria.png|1",
+          "2.1 등장하는 오브젝트|image|images/objects_swimfield.png|1"
+        ]
+      }
+    },
+    {
+      "key": "controls",
+      "chapter": "play",
+      "layout": "full",
+      "tab": "개요",
+      "title": {
+        "text": "2.3 조작법",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "두 필드에서 쓰는 조작",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "2. 플레이",
+        "2.3 조작법"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "전진과 같은 속도로는 플레이 테스트에서 조작이 급격히 어려워져, 후진 속도를 5에서 2로 낮춰 정밀하게 움직이게 했습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "씬|입력|동작"
+        }
+      ],
+      "from": {
+        "key": "controls",
+        "sectionPath": [
+          "2. 플레이",
+          "2.3 조작법"
+        ],
+        "sig": [
+          "2.3 조작법|table|1|씬|입력|동작"
+        ]
+      }
+    },
+    {
+      "key": "motor",
+      "chapter": "swim",
+      "layout": "visual",
+      "tab": "구조",
+      "title": {
+        "text": "3.1 어디로 갈지는 각자, 어떻게 움직일지는 `SwimMotor`",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "방향은 각자, 움직임은 공통 모터가",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+        "3.1 어디로 갈지는 각자, 어떻게 움직일지는 `SwimMotor`"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "플레이어·항체·파지 AI·분해효소는 모두 방향을 바꾸며 헤엄칩니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "회전·이동·감속은 공통 컴포넌트 `SwimMotor` 하나에 두고, 각 객체는 어디로 갈지만 정해 넘기게 했습니다.",
+          "verbatim": false
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "mermaid",
+          "n": 1,
+          "fp": "---"
+        }
+      ],
+      "from": {
+        "key": "motor",
+        "sectionPath": [
+          "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+          "3.1 어디로 갈지는 각자, 어떻게 움직일지는 `SwimMotor`"
+        ],
+        "sig": [
+          "3.1 어디로 갈지는 각자, 어떻게 움직일지는 SwimMotor|mermaid|1|---"
+        ]
+      }
+    },
+    {
+      "key": "motor-code",
+      "chapter": "swim",
+      "layout": "code",
+      "tab": "구현",
+      "title": {
+        "text": "3.2 `SwimMotor`의 동작: 회전 속도 제한과 감속",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "회전 속도 제한과 감속으로 만든 관성",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+        "3.2 `SwimMotor`의 동작: 회전 속도 제한과 감속"
+      ],
+      "points": [
+        {
+          "label": "",
+          "text": "방향은 돌면서 바뀝니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "멈출 때는 미끄러집니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "충돌은 물리 엔진, 속도는 코드가 맡습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "code",
+          "n": 1,
+          "lines": [
+            2,
+            21
+          ],
+          "fp": "// SwimMotor.cs — 매 물리 프레임 회전 → 이동 → 감속"
+        }
+      ],
+      "from": {
+        "key": "motor-code",
+        "sectionPath": [
+          "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+          "3.2 `SwimMotor`의 동작: 회전 속도 제한과 감속"
+        ],
+        "sig": [
+          "3.2 SwimMotor의 동작: 회전 속도 제한과 감속|code|1|// SwimMotor.cs — 매 물리 프레임 회전 → 이동 → 감속"
+        ]
+      }
+    },
+    {
+      "key": "motor-choice",
+      "chapter": "swim",
+      "layout": "full",
+      "tab": "선택",
+      "title": {
+        "text": "3.3 이동 로직을 공유할 것인가",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "네 객체가 이동 코드를 함께 쓰기로",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+        "3.3 이동 로직을 공유할 것인가"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "이동 코드를 객체마다 둘지, 하나를 함께 쓸지 정해야 했습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "목표 방향을 언제, 어디로 보낼지는 입력이나 AI가 정하고, 그 방향으로 어떻게 움직일지는 `SwimMotor`가 맡습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "|[A] 객체마다 이동 코드 작성|[B] 공통 SwimMotor + 방향만 넘기기 ✓"
+        }
+      ],
+      "from": {
+        "key": "motor-choice",
+        "sectionPath": [
+          "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+          "3.3 이동 로직을 공유할 것인가"
+        ],
+        "sig": [
+          "3.3 이동 로직을 공유할 것인가|table|1||[A] 객체마다 이동 코드 작성|[B] 공통 SwimMotor + 방향만 넘기기 ✓"
+        ]
+      }
+    },
+    {
+      "key": "energy",
+      "chapter": "swim",
+      "layout": "visual",
+      "tab": "결과",
+      "title": {
+        "text": "3.4 에너지 · 속도를 3단계로 끊어 낮추기",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "에너지가 줄면 속도가 두 번 꺾인다",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+        "3.4 에너지 · 속도를 3단계로 끊어 낮추기"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "에너지는 초당 3씩 줄고, 40과 20을 경계로 이동 속도가 두 번 낮아집니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "속도는 항체의 이동 속도(3)를 기준으로 정해, 에너지가 떨어질수록 항체의 위협이 커집니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "에너지가 0이 되어도 죽지는 않고 가장 느린 속도(2)가 유지됩니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "에너지를 챙기는 동안 계속 느려지며 스트레스를 받는 경험은 원하지 않았습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "image",
+          "src": "images/energy_slowdown.gif",
+          "w": 1280,
+          "h": 720,
+          "caption": {
+            "text": "에너지가 줄며 점점 느려지다가 결국 항체에게 붙잡혀 죽는 파지",
+            "verbatim": true
+          }
+        }
+      ],
+      "from": {
+        "key": "energy",
+        "sectionPath": [
+          "3. 유영 필드 · 하나의 모터로 움직이는 네 객체",
+          "3.4 에너지 · 속도를 3단계로 끊어 낮추기"
+        ],
+        "sig": [
+          "3.4 에너지 · 속도를 3단계로 끊어 낮추기|image|images/energy_slowdown.gif|1"
+        ]
+      }
+    },
+    {
+      "key": "flow",
+      "chapter": "bacteria",
+      "layout": "visual",
+      "tab": "흐름",
+      "title": {
+        "text": "4.2 재료 흐름",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "앞 단계의 산물이 다음 재료가 되는 흐름",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+        "4.2 재료 흐름"
+      ],
+      "points": [],
+      "visuals": [
+        {
+          "kind": "mermaid",
+          "n": 1,
+          "fp": "flowchart TD"
+        }
+      ],
+      "from": {
+        "key": "flow",
+        "sectionPath": [
+          "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+          "4.2 재료 흐름"
+        ],
+        "sig": [
+          "4.2 재료 흐름|mermaid|1|flowchart TD"
+        ]
+      }
+    },
+    {
+      "key": "drop",
+      "chapter": "bacteria",
+      "layout": "code",
+      "tab": "구현",
+      "title": {
+        "text": "4.3 드롭에서 생산까지",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "드롭 한 번이 생산으로 이어지기까지",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+        "4.3 드롭에서 생산까지"
+      ],
+      "points": [
+        {
+          "label": "",
+          "text": "드래그 컨트롤러는 놓은 자리에 무엇이 있는지만 압니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "받아들였을 때만 원본이 사라집니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "재료가 모두 들어온 뒤부터 생산 게이지가 찹니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "code",
+          "n": 1,
+          "fp": "// RibosomeDropReceiver.cs — 드롭된 종류를 생산 종류 선택 또는 재료 추가로 바꿈"
+        }
+      ],
+      "from": {
+        "key": "drop",
+        "sectionPath": [
+          "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+          "4.3 드롭에서 생산까지"
+        ],
+        "sig": [
+          "4.3 드롭에서 생산까지|code|1|// RibosomeDropReceiver.cs — 드롭된 종류를 생산 종류 선택 또는 재료 추가로 바꿈"
+        ]
+      }
+    },
+    {
+      "key": "emitter",
+      "chapter": "bacteria",
+      "layout": "visual",
+      "tab": "구조",
+      "title": {
+        "text": "4.4 공통 생성기 `MicroEntityEmitter`",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "생산자 셋이 함께 쓰는 생성 절차",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+        "4.4 공통 생성기 `MicroEntityEmitter`"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "리보솜·핵양체·RNA 중합효소는 무엇을 내보낼지만 다르고, 생성·초기화·배출 절차는 같습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "생성기마다 상한이 있습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "생성물은 자기를 만든 쪽을 기억합니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "무엇을 낼지는 생산자가 정합니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "mermaid",
+          "n": 1,
+          "fp": "classDiagram"
+        }
+      ],
+      "from": {
+        "key": "emitter",
+        "sectionPath": [
+          "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+          "4.4 공통 생성기 `MicroEntityEmitter`"
+        ],
+        "sig": [
+          "4.4 공통 생성기 MicroEntityEmitter|mermaid|1|classDiagram"
+        ]
+      }
+    },
+    {
+      "key": "interval-choice",
+      "chapter": "bacteria",
+      "layout": "full",
+      "tab": "선택",
+      "title": {
+        "text": "4.5 파지 생산 간격을 고정할 것인가",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "반복할수록 빨라지는 파지 생산",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+        "4.5 파지 생산 간격을 고정할 것인가"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "같은 리보솜에서 파지를 반복 생산할 때 간격을 어떻게 둘지 정해야 했습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "증식은 반복할수록 더 큰 규모로 일어나야 대량 증식의 쾌감이 생긴다고 생각했습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "|[A] 고정 간격|[B] 생산할수록 간격 단축 + 하한 ✓"
+        }
+      ],
+      "from": {
+        "key": "interval-choice",
+        "sectionPath": [
+          "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+          "4.5 파지 생산 간격을 고정할 것인가"
+        ],
+        "sig": [
+          "4.5 파지 생산 간격을 고정할 것인가|table|1||[A] 고정 간격|[B] 생산할수록 간격 단축 + 하한 ✓"
+        ]
+      }
+    },
+    {
+      "key": "return",
+      "chapter": "scene",
+      "layout": "visual",
+      "tab": "결과",
+      "title": {
+        "text": "5.1 돌아오면 무엇이 남는가",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "세균 안에서 나와도 남는 진행",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "5. 씬 전환 · 다시 돌아와도 진행이 남도록",
+        "5.1 돌아오면 무엇이 남는가"
+      ],
+      "points": [
+        {
+          "label": "",
+          "text": "세균을 터뜨리고 유영 필드로 돌아오면, 플레이어는 들어가기 전 위치에서 다시 시작합니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "터뜨린 세균은 사라지고 그 자리에 파지 50마리가 퍼집니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "image",
+          "src": "images/return_swarm.gif",
+          "w": 1280,
+          "h": 720,
+          "caption": {
+            "text": "폭발 후 돌아온 유영 필드 — 세균이 사라진 자리에 퍼진 파지 무리",
+            "verbatim": true
+          }
+        }
+      ],
+      "from": {
+        "key": "return",
+        "sectionPath": [
+          "5. 씬 전환 · 다시 돌아와도 진행이 남도록",
+          "5.1 돌아오면 무엇이 남는가"
+        ],
+        "sig": [
+          "5.1 돌아오면 무엇이 남는가|image|images/return_swarm.gif|1"
+        ]
+      }
+    },
+    {
+      "key": "handover",
+      "chapter": "scene",
+      "layout": "visual",
+      "tab": "흐름",
+      "title": {
+        "text": "5.2 기록하고 되살리는 흐름",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "씬을 넘을 때 기록하고 되살리는 흐름",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "5. 씬 전환 · 다시 돌아와도 진행이 남도록",
+        "5.2 기록하고 되살리는 흐름"
+      ],
+      "points": [
+        {
+          "label": "세균에 들어갈 때",
+          "text": "수용체에 3초 붙으면 대상 세균의 ID·위치와 플레이어 위치를 기록한다",
+          "verbatim": true
+        },
+        {
+          "label": "포식 버튼을 누를 때",
+          "text": "현재 대상을 격파 기록으로 옮긴다",
+          "verbatim": true
+        },
+        {
+          "label": "유영 필드 로드 직후",
+          "text": "위치 복원 → 격파한 세균 끄기 → 파지 무리 생성 → 클리어 검사",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "mermaid",
+          "n": 1,
+          "fp": "---"
+        }
+      ],
+      "from": {
+        "key": "handover",
+        "sectionPath": [
+          "5. 씬 전환 · 다시 돌아와도 진행이 남도록",
+          "5.2 기록하고 되살리는 흐름"
+        ],
+        "sig": [
+          "5.2 기록하고 되살리는 흐름|mermaid|1|---"
+        ]
+      }
+    },
+    {
+      "key": "scene-choice",
+      "chapter": "scene",
+      "layout": "full",
+      "tab": "선택",
+      "title": {
+        "text": "5.3 두 파트를 한 씬에 둘 것인가",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "두 파트를 서로 다른 씬으로",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "5. 씬 전환 · 다시 돌아와도 진행이 남도록",
+        "5.3 두 파트를 한 씬에 둘 것인가"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "유영 필드와 세균 내부 필드를 한 씬 안에서 전환할지, 서로 다른 씬으로 나눌지 정해야 했습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "",
+          "text": "두 파트는 넘어갈 때마다 조작·목표·진행 규칙이 한꺼번에 바뀌어, 필요한 입력과 오브젝트를 씬 단위로 나눌 이유가 있었습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "|[A] 한 씬 안에서 오브젝트 묶음을 켜고 끄기|[B] 별도의 Unity 씬 두 개 ✓"
+        }
+      ],
+      "from": {
+        "key": "scene-choice",
+        "sectionPath": [
+          "5. 씬 전환 · 다시 돌아와도 진행이 남도록",
+          "5.3 두 파트를 한 씬에 둘 것인가"
+        ],
+        "sig": [
+          "5.3 두 파트를 한 씬에 둘 것인가|table|1||[A] 한 씬 안에서 오브젝트 묶음을 켜고 끄기|[B] 별도의 Unity 씬 두 개 ✓"
+        ]
+      }
+    },
+    {
+      "key": "ts-nuclease",
+      "chapter": "trouble",
+      "layout": "problem",
+      "tab": "문제 해결",
+      "title": {
+        "text": "6.1 분해효소가 핵양체 안으로 파고든 문제",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "공통 모터 때문에 핵양체로 파고든 분해효소",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "6. 만들며 생긴 문제",
+        "6.1 분해효소가 핵양체 안으로 파고든 문제"
+      ],
+      "points": [],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "의도|문제|해결"
+        }
+      ],
+      "from": {
+        "key": "ts-nuclease",
+        "sectionPath": [
+          "6. 만들며 생긴 문제",
+          "6.1 분해효소가 핵양체 안으로 파고든 문제"
+        ],
+        "sig": [
+          "6.1 분해효소가 핵양체 안으로 파고든 문제|table|1|의도|문제|해결"
+        ]
+      }
+    },
+    {
+      "key": "ts-camera",
+      "chapter": "trouble",
+      "layout": "problem",
+      "tab": "문제 해결",
+      "title": {
+        "text": "6.2 카메라를 따라가는 화면이 떨린 문제",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "카메라를 따라가며 떨리던 화면",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "6. 만들며 생긴 문제",
+        "6.2 카메라를 따라가는 화면이 떨린 문제"
+      ],
+      "points": [
+        {
+          "label": "문제",
+          "text": "카메라가 파지를 따라갈 때 화면이 떨려 보였습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "원인",
+          "text": "파지가 움직이는 시점과 카메라가 따라가는 시점이 달랐습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "결과",
+          "text": "수정한 뒤 화면이 떨리지 않았습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "바뀐 곳|Before|After|효과"
+        }
+      ],
+      "from": {
+        "key": "ts-camera",
+        "sectionPath": [
+          "6. 만들며 생긴 문제",
+          "6.2 카메라를 따라가는 화면이 떨린 문제"
+        ],
+        "sig": [
+          "6.2 카메라를 따라가는 화면이 떨린 문제|table|1|바뀐 곳|Before|After|효과"
+        ]
+      }
+    },
+    {
+      "key": "ts-singleton",
+      "chapter": "trouble",
+      "layout": "problem",
+      "tab": "문제 해결",
+      "title": {
+        "text": "6.3 세균 내부에 다시 들어가면 싱글톤이 멈추던 문제",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "다시 들어가면 멈추던 씬 전용 싱글톤",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "6. 만들며 생긴 문제",
+        "6.3 세균 내부에 다시 들어가면 싱글톤이 멈추던 문제"
+      ],
+      "points": [
+        {
+          "label": "문제",
+          "text": "처음 세균 내부에 들어갔을 때는 정상이었는데, 유영 필드로 나갔다가 다시 들어오면 세균 내부의 싱글톤들이 동작하지 않았습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "원인",
+          "text": "씬 전용 싱글톤은 씬을 나갈 때마다 파괴되므로, 씬 전환이 앱 종료로 처리된 것입니다.",
+          "verbatim": true
+        },
+        {
+          "label": "해결",
+          "text": "종료 표시는 이미 `OnApplicationQuit`에 있었으므로, `OnDestroy`의 줄을 지웠습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "결과",
+          "text": "수정한 뒤 여러 번 드나들어도 싱글톤이 정상 동작했습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "code",
+          "n": 1,
+          "fp": "// SingletonBase.cs — 인스턴스가 파괴될 때 정리"
+        }
+      ],
+      "from": {
+        "key": "ts-singleton",
+        "sectionPath": [
+          "6. 만들며 생긴 문제",
+          "6.3 세균 내부에 다시 들어가면 싱글톤이 멈추던 문제"
+        ],
+        "sig": [
+          "6.3 세균 내부에 다시 들어가면 싱글톤이 멈추던 문제|code|1|// SingletonBase.cs — 인스턴스가 파괴될 때 정리"
+        ]
+      }
+    },
+    {
+      "key": "ts-orbit",
+      "chapter": "trouble",
+      "layout": "problem",
+      "tab": "문제 해결",
+      "title": {
+        "text": "6.4 항체가 파지 주변을 공전한 문제",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "파지 주변을 맴돌던 항체",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "6. 만들며 생긴 문제",
+        "6.4 항체가 파지 주변을 공전한 문제"
+      ],
+      "points": [
+        {
+          "label": "문제",
+          "text": "항체가 파지에 가까워지면 다가오지 않고 그 주변을 맴돌았습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "원인",
+          "text": "항체 스프라이트(자식 오브젝트)가 원점에서 (-0.68, -2.56)만큼 어긋나 있어, 항체가 회전할 때마다 그림이 기준 위치를 중심으로 원을 그렸습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "해결",
+          "text": "스프라이트의 로컬 위치를 (0, 0, 0)으로 맞추자 항체가 파지를 향해 곧바로 쫓아왔습니다.",
+          "verbatim": true
+        },
+        {
+          "label": "배운 점",
+          "text": "같은 방법으로 풀리지 않으면 코드뿐 아니라 오브젝트 구성·에셋 설정도 점검해야 한다는 것을 배웠습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "image",
+          "src": "images/antibody_orbit_compare.gif",
+          "w": 1280,
+          "h": 716,
+          "caption": {
+            "text": "파지 주변을 공전하는 항체",
+            "verbatim": true
+          }
+        }
+      ],
+      "from": {
+        "key": "ts-orbit",
+        "sectionPath": [
+          "6. 만들며 생긴 문제",
+          "6.4 항체가 파지 주변을 공전한 문제"
+        ],
+        "sig": [
+          "6.4 항체가 파지 주변을 공전한 문제|image|images/antibody_orbit_compare.gif|1"
+        ]
+      }
+    },
+    {
+      "key": "goal-result",
+      "chapter": "results",
+      "layout": "full",
+      "tab": "결과",
+      "title": {
+        "text": "7.1 구현 결과",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "2주 안에 핵심 루프를 처음부터 끝까지",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "7. 결과와 돌아보기",
+        "7.1 구현 결과"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "2주 안에 유영 → 부착 → 증식 → 폭발 → 복귀로 이어지는 핵심 루프를 처음부터 끝까지 구현했습니다. 회전과 관성이 있는 자유 유영, 씬마다 다른 조작과 카메라, 후진과 드래그 앤 드롭, 재료가 모이면 스스로 생산하는 리보솜입니다.",
+          "verbatim": false
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "image",
+          "src": "images/ending_clear.png",
+          "w": 2559,
+          "h": 1439,
+          "caption": {
+            "text": "세균 세 개를 처리한 뒤의 클리어 화면",
+            "verbatim": true
+          },
+          "arrange": "fit"
+        },
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "목표 경험 (§1)|구현한 시스템|어디서",
+          "hideCols": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "key": "tuning",
+      "chapter": "results",
+      "layout": "full",
+      "tab": "결과",
+      "title": {
+        "text": "7.1 구현 결과",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "플레이 테스트를 하며 의도에 맞춰 바꾼 값",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "7. 결과와 돌아보기",
+        "7.1 구현 결과"
+      ],
+      "points": [],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 2,
+          "fp": "항목|변경 전|변경 후|이유"
+        }
+      ]
+    },
+    {
+      "key": "regret",
+      "chapter": "results",
+      "layout": "full",
+      "tab": "결과",
+      "title": {
+        "text": "7.2 아쉬운 점과 개선 계획",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "다섯 가지 아쉬운 점과 개선 계획",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "7. 결과와 돌아보기",
+        "7.2 아쉬운 점과 개선 계획"
+      ],
+      "points": [],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "#|아쉬운 점|원인 구분|개선 계획",
+          "hideCols": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "key": "learned",
+      "chapter": "results",
+      "layout": "full",
+      "tab": "결과",
+      "title": {
+        "text": "7.3 배운 점: 공통으로 묶을 것인가",
+        "verbatim": true
+      },
+      "lead": {
+        "text": "묶어서 얻은 것과 그 대가",
+        "verbatim": false
+      },
+      "sectionPath": [
+        "7. 결과와 돌아보기",
+        "7.3 배운 점: 공통으로 묶을 것인가"
+      ],
+      "points": [
+        {
+          "style": "text",
+          "place": "above",
+          "label": "",
+          "text": "이 프로젝트의 구현 선택은 대부분 \"여러 객체가 같은 일을 하면 공통 클래스로 묶는다\"였습니다.",
+          "verbatim": true
+        },
+        {
+          "style": "box",
+          "label": "공통 클래스",
+          "text": "공통 클래스의 조건 하나는 모든 사용처에 동시에 적용되므로, 삭제·종료처럼 수명에 관련된 처리는 사용처별 차이를 먼저 확인해야 합니다.",
+          "verbatim": true
+        },
+        {
+          "style": "box",
+          "label": "수치",
+          "text": "바꿀 필요는 대부분 코드가 아니라 플레이 화면에서 드러났고, 어느 쪽으로 바꿀지는 매번 \"이 값이 의도한 경험과 맞는가\"로 정했습니다.",
+          "verbatim": true
+        }
+      ],
+      "visuals": [
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "공통 클래스|얻은 것|그 대가로 생긴 일"
+        }
+      ]
     }
   ],
   "hide": [
@@ -23,10 +1130,25 @@
       "key": "rules",
       "from": {
         "key": "rules",
-        "sectionPath": ["2. 플레이", "2.2 한 판의 흐름"],
-        "sig": ["2.2 한 판의 흐름|table|1|구분|유영 필드 (SwimField)|세균 내부 필드 (BacteriaField)"]
+        "sectionPath": [
+          "2. 플레이",
+          "2.2 한 판의 흐름"
+        ],
+        "sig": [
+          "2.2 한 판의 흐름|table|1|구분|유영 필드 (SwimField)|세균 내부 필드 (BacteriaField)"
+        ]
       },
       "group": "merge-loop"
+    }
+  ],
+  "addChapters": [
+    {
+      "key": "results",
+      "title": "결과와 돌아보기",
+      "sectionPath": [
+        "7. 결과와 돌아보기"
+      ],
+      "after": "trouble"
     }
   ]
 }
