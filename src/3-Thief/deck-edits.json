@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "pin": [
+    {
+      "key": "latest-only",
+      "chapter": "delay",
+      "layout": "visual",
+      "tab": "구조",
+      "title": {"text": "5.4 송신, 서버, 수신 모두 최신값만", "verbatim": true},
+      "lead": {"text": "메시지 하나가 보내는 쪽, 서버, 받는 쪽을 지나는 순서입니다.", "verbatim": true},
+      "sectionPath": ["5. 기다릴수록 늘어나던 지연", "5.4 송신, 서버, 수신 모두 최신값만"],
+      "points": [
+        {"label": "", "text": "연결은 하나라서 서버는 이벤트를 먼저 보내고 상태를 그 뒤에 보냅니다.", "verbatim": false},
+        {"label": "", "text": "입력은 보낸 사람별로 칸을 나눴습니다(`vehicle_input:u2`).", "verbatim": true},
+        {"label": "", "text": "액셀 담당과 브레이크 담당의 입력이 같은 칸을 덮어쓰면 한 사람의 입력이 사라지기 때문입니다.", "verbatim": true}
+      ],
+      "visuals": [{"kind": "mermaid", "n": 1, "fp": "sequenceDiagram"}],
+      "from": {
+        "key": "latest-only",
+        "sectionPath": ["5. 기다릴수록 늘어나던 지연", "5.4 송신, 서버, 수신 모두 최신값만"],
+        "sig": ["5.4 송신, 서버, 수신 모두 최신값만|mermaid|1|flowchart TB"]
+      }
+    }
+  ],
+  "hide": []
+}
