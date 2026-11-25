@@ -209,6 +209,24 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .pi-tight .pi-meta dd { font-size: 14px; }
 .pi-tight .intent .it { font-size: 14px; line-height: 1.55; }
 .pi-tight .lcard a { padding: 6px 28px 7px 12px; }
+/* 표지 배치: 왼쪽 = 제목 · 큰 대표 이미지 · 작은 링크 3개, 오른쪽 = 정보 상자(세로 가운데) */
+.pi-c2 .pi-main { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 36px; }
+.pi-c2.portrait .pi-main { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+.pi-c2.nocover .pi-main { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+.pi-c2 .pi-left { gap: 12px; }
+.pi-c2 .pi-right { justify-content: center; }
+.pi-c2 .pi-panel { display: flex; flex-direction: column; gap: 14px; padding: 4px 22px 18px; border: 1px solid var(--line); border-radius: calc(var(--radius) * .9); background: var(--paper); }
+.pi-c2 .pi-panel .pi-meta { margin-inline: -22px; padding-inline: 22px; }
+.pi-c2 .pi-cover { max-height: 440px; box-shadow: none; border: 1px solid var(--line); }
+.pi-c2.pi-tight .pi-cover { max-height: 360px; }
+.pi-c2 .pi-links { gap: 8px; }
+.pi-c2 .pi-left .pi-links.row { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); }
+.pi-c2 .lcard a { padding: 6px 26px 7px 12px; }
+.pi-c2 .lcard a .pf-newtab-icon { right: 10px; top: 8px; }
+.pi-c2 .lcard .lc-k { font-size: 10px; }
+.pi-c2 .lcard .lc-t { font-size: 14px; }
+.pi-c2 .lcard.primary a { background: var(--accent); border-color: var(--accent); color: var(--on-accent, #fff); }
+.pi-c2 .lcard.primary a .lc-k { color: color-mix(in srgb, var(--on-accent, #fff) 78%, transparent); }
 .pi-tight .pi-left, .pi-tight .pi-right { gap: 12px; }
 
 /* ── 화면 카드(슬라이드 screens 장면의 열 하나): 화면 + FEATURE 0n + 제목 + 설명 ── */
