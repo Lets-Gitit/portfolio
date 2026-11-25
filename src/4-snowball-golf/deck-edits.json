@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "pin": [
+    {
+      "key": "core-loop",
+      "chapter": "play",
+      "layout": "visual",
+      "tab": "흐름",
+      "title": {"text": "2.1 세 스테이지", "verbatim": true},
+      "lead": null,
+      "sectionPath": ["2. 플레이", "2.1 세 스테이지"],
+      "points": [{"label": "", "text": "3스테이지에서는 공격하면 처음 크기로 돌아가므로, 눈더미를 먹고 다시 공격하는 루프를 수행합니다.", "verbatim": true}],
+      "visuals": [{"kind": "mermaid", "n": 1, "fp": "flowchart TD"}],
+      "from": {"key": "core-loop", "sectionPath": ["2. 플레이", "2.1 세 스테이지"], "sig": ["2.1 세 스테이지|mermaid|1|---"]}
+    }
+  ],
+  "hide": []
+}
