@@ -174,9 +174,22 @@
     if (k === 'table') {
       const t = v.el.cloneNode(true);
       t.classList.add('md-table');
+      // 시각 자료 참조의 hideCols: [열 번호(1부터)] → 슬라이드에서 그 열을 뺌(예: 문서용 "자세히" 링크 열)
+      if (Array.isArray(v.ref.hideCols)) t.querySelectorAll('tr').forEach((tr) => [...tr.children].forEach((c, i) => { if (v.ref.hideCols.includes(i + 1)) c.remove(); }));
+      // 문서용 절 참조 "(→ 4.2)"는 슬라이드에서 뺌(원문 블록은 그대로, 그린 표에서만)
+      t.querySelectorAll('td a[href^="#"], th a[href^="#"]').forEach((a) => {         // 링크로 된 참조 "(→ [4.2](#…))"
+        const prev = a.previousSibling, next = a.nextSibling;
+        if (prev?.nodeType === 3 && /\(→\s*$/.test(prev.nodeValue) && next?.nodeType === 3 && /^\)/.test(next.nodeValue)) {
+          prev.nodeValue = prev.nodeValue.replace(/\s*\(→\s*$/, ''); next.nodeValue = next.nodeValue.replace(/^\)/, ''); a.remove();
+        }
+      });
+      t.querySelectorAll('td, th').forEach((c) => c.childNodes.forEach((n) => { if (n.nodeType === 3) n.nodeValue = n.nodeValue.replace(/\s*\(→\s*[\d.]+\)/g, ''); }));   // 글자로 된 참조
+      t.querySelectorAll('td a[href^="#"], th a[href^="#"]').forEach((a) => a.replaceWith(document.createTextNode(a.textContent)));   // 남은 문서 안 링크(예: "[6.2](#…) 피드백")는 글자로
       t.querySelectorAll('img').forEach((i, n) => {                       // 행을 나누기 전에(원본과 같은 순서로) 크기를 적음
         const d = v.imgDims?.[n];
-        if (d) { const h = Math.min(d.h, 120); i.width = Math.round((h * d.w) / d.h); i.height = h; }   // CSS max-height 120px와 같은 크기
+        const capH = Number.isFinite(v.ref.imgMax) ? v.ref.imgMax : 120;   // 시각 자료 참조의 imgMax → 표 안 그림 최대 높이(기본 120px)
+        if (capH !== 120) i.style.maxHeight = `${capH}px`;
+        if (d) { const h = Math.min(d.h, capH); i.width = Math.round((h * d.w) / d.h); i.height = h; }   // CSS max-height와 같은 크기
         i.loading = 'lazy'; i.decoding = 'async';
       });
       if (chunk) { const rows = [...t.querySelectorAll('tbody tr')]; rows.forEach((r, i) => { if (i < chunk[0] || i >= chunk[1]) r.remove(); }); }
@@ -189,15 +202,41 @@
   const txt = (t) => (t && typeof t === 'object' ? t.text : t) || '';
   const ncards = (points, { row = false, num = true, two = false } = {}) => (points.length
     ? `<div class="cards${row ? ' row' : ''}${two ? ' two' : ''}" style="--n:${Math.min(points.length, 4)}">${points.map((pt, i) =>
-      `<div class="ncard${num ? '' : ' nonum'}">${num ? `<span class="num" aria-hidden="true">${i + 1}</span>` : ''}<div>${pt.label ? `<span class="lb">${esc(PF.label(pt.label))}</span>` : ''}<p>${inline(txt(pt))}</p></div></div>`).join('')}</div>` : '');
+      `<div class="ncard${num ? '' : ' nonum'}">${num ? `<span class="num" aria-hidden="true">${i + 1}</span>` : ''}<div>${pt.label ? `<span class="lb">${esc(PF.label(pt.label))}</span>` : ''}<p>${inline(txt(pt)).replace(/\n/g, '<br>')}</p></div></div>`).join('')}</div>` : '');   // 요점 글의 줄바꿈(\n)은 그대로 줄바꿈
   const FLOW = { '문제': '', '원인': '', '해결': 'accent', '결과': 'ok', '배운 점': '' };   // data 값 → 칩 색(보이는 글자만 PF.label로 바뀜)
   const flowHtml = (points, dir) => `<div class="flow ${dir}" style="--n:${Math.min(points.length, 4)}">${points.map((pt) =>
     `<div class="fstep${pt.label === '결과' ? ' res' : ''}">${pt.label ? `<span class="labelchip${FLOW[pt.label] ? ' ' + FLOW[pt.label] : ''}">${esc(PF.label(pt.label))}</span>` : ''}<p>${inline(txt(pt))}</p></div>`).join('')}</div>`;
-  function bodyHtml(sl, vs, variant) {
-    const points = sl.points || [];
-    const vis = (list) => `<div class="vis">${list.join('')}</div>`;
+  // 시각 자료 위 문장 블록(style "text" + place "above")이 있는데 나머지 요점이 보통 카드면: 문장 블록을 위에 두고 그 아래는 원래 틀 그대로
+  function bodyHtml(sl, vsIn, variant) {
+    const all = sl.points || [];
+    const aboves = all.filter((pt) => pt.style === 'text' && pt.place === 'above');
+    const rest = all.filter((pt) => !aboves.includes(pt));
+    if (aboves.length && !rest.some((pt) => pt.group || pt.style)) {
+      const inner = bodyHtmlInner({ ...sl, points: rest }, vsIn, variant);
+      return `<div class="dk-top-wrap">${aboves.map((pt) => `<p class="gp-para gp-top">${inline(txt(pt)).replace(/\n/g, '<br>')}</p>`).join('')}${inner}</div>`;
+    }
+    return bodyHtmlInner(sl, vsIn, variant);
+  }
+  function bodyHtmlInner(sl, vsIn, variant) {
+    // style "text" + at: n → n번째 시각 자료 바로 아래(같은 칸)에 띄워 붙는 별도 문장 블록(캡션이 아님)
+    //   style "item" + at: n → 같은 블록 안의 글머리 줄("label — text")
+    const notes = (sl.points || []).filter((pt) => (pt.style === 'text' || pt.style === 'item') && Number.isInteger(pt.at) && vsIn[pt.at - 1]);
+    const noteHtml = (pt) => (pt.style === 'item'
+      ? `<p class="vnote vitem">${pt.label ? `<b>${esc(PF.label(pt.label))}</b><span class="gp-dash" aria-hidden="true"> — </span>` : ''}${inline(txt(pt))}</p>`
+      : `<p class="vnote">${inline(txt(pt))}</p>`);
+    const vs = vsIn.map((h, i) => {
+      const mine = notes.filter((pt) => pt.at === i + 1);
+      return mine.length ? h.replace(/<\/figure>$/, `<div class="vnotes">${mine.map(noteHtml).join('')}</div></figure>`) : h;
+    });
+    const points = (sl.points || []).filter((pt) => !notes.includes(pt));
+    // 시각 자료 참조의 arrange: "pair" → 나란히 같은 폭 · "col" → 위아래로 붙여 쌓기 · "row" → 나란히
+    const arrVal = (sl._v || []).map((v) => v.ref?.arrange).find((a) => ['pair', 'fit', 'col', 'row'].includes(a));   // "fit" → 나란히, 그림은 높이에 맞는 폭, 표는 남는 폭
+    const arrange = arrVal && vs.length > 1 ? ` data-arr="${arrVal}"` : '';
+    const visW = (sl._v || []).map((v) => v.ref?.width).find((w) => Number.isFinite(w) && w >= 20 && w <= 100);   // 시각 자료 참조의 width(%) → 그 칸 폭
+    const vcenter = (sl._v || []).some((v) => v.ref?.valign === 'center') ? ' vcenter' : '';   // 시각 자료 참조의 valign: "center" → 나란히 놓인 자료를 세로 가운데로
+    const vis = (list) => `<div class="vis${vcenter}"${arrange}${visW ? ` style="width:${visW}%;max-width:${visW}%;margin-inline:auto;justify-self:center"` : ''}>${list.join('')}</div>`;
     const tight = variant.tight ? ' tight' : '';
-    if (!vs.length) {
+    if (!vs.length && !points.some((pt) => pt.group || pt.style)) {
       if (sl.layout === 'problem') return `<div class="dk dk-text${tight}">${flowHtml(points, variant.stack || variant.tight ? 'row' : 'col')}</div>`;
       return `<div class="dk dk-text${tight}">${ncards(points, { two: points.length >= 3 && !variant.stack, num: sl.layout !== 'overview' })}</div>`;
     }
@@ -207,6 +246,26 @@
     if (sl.layout === 'problem') {
       if (variant.stack || !points.length) return `<div class="dk dk-stack${tight}">${vis(vs)}${points.length ? flowHtml(points, 'row') : ''}</div>`;
       return `<div class="dk dk-side flip${tight}" style="--vw:${variant.vw}fr">${vis(vs)}${flowHtml(points, 'col')}</div>`;
+    }
+    // 요점에 group(소제목)이 있으면: 시각 자료 위, 아래에 소제목별 칸(예: 담당 · 목표). label이 있으면 "label — text", 없으면 번호
+    //   style: "text" → 시각 자료 아래 평범한 문단, "box" → 왼쪽 선이 있는 상자(나란히)
+    if (points.some((pt) => pt.group || pt.style)) {
+      const quotes = points.filter((pt) => pt.style === 'quote').map((pt) => `<blockquote class="gp-quote">${inline(txt(pt)).replace(/(^|[\s(])_([^_\s][^_]*?)_(?=$|[\s.,)])/g, '$1<em>$2</em>')}</blockquote>`).join('');
+      //   style "text" + place: "above" → 시각 자료 위 문단(별도 블록)
+      const topParas = points.filter((pt) => pt.style === 'text' && pt.place === 'above').map((pt) => `<p class="gp-para gp-top">${inline(txt(pt))}</p>`).join('');
+      const paras = points.filter((pt) => pt.style === 'text' && pt.place !== 'above').map((pt) => `<p class="gp-para">${inline(txt(pt)).replace(/\n/g, '<br>')}</p>`).join('');   // \n = 문단 안 줄바꿈
+      const boxList = points.filter((pt) => pt.style === 'box');
+      const boxes = boxList.length ? `<div class="gp-boxes" style="--n:${boxList.length}">${boxList.map((pt) => `<div class="gp-box">${pt.label ? `<b>${esc(PF.label(pt.label))}</b> ` : ''}${inline(txt(pt))}</div>`).join('')}</div>` : '';
+      const grouped = points.filter((pt) => !pt.style);
+      const below = paras || boxes || grouped.length;
+      const names = [...new Set(grouped.map((pt) => pt.group || ''))];
+      const cols = names.map((g) => {
+        const list = grouped.filter((pt) => (pt.group || '') === g);
+        const rows = list.map((pt, i) => `<li class="gp-i${pt.label ? '' : ' num'}">${pt.label ? `<b>${esc(PF.label(pt.label))}</b><span class="gp-dash" aria-hidden="true"> — </span>` : `<span class="gp-n">${i + 1}</span>`}<span>${inline(txt(pt))}</span></li>`).join('');
+        return `<section class="gp-col">${g ? `<p class="gp-h">${esc(g)}</p>` : ''}<ul>${rows}</ul></section>`;
+      }).join('');
+      //   style "quote" → 시각 자료 위 인용 상자
+      return `<div class="dk dk-stack gp${grouped.length ? ' has-cols' : ''}${quotes ? ' has-quote' : ''}${topParas ? ' has-top' : ''}${topParas && visW ? ' narrow' : ''}${vs.length ? '' : ' no-vis'}${tight}">${quotes}${topParas}${vs.length ? vis(vs) : ''}${below ? `<div class="gp-below">${paras}${boxes}${grouped.length ? `<div class="gp-cols" style="--n:${names.length}">${cols}</div>` : ''}</div>` : ''}</div>`;
     }
     // 요점이 없으면(나눈 장면 등) 옆 칸이 비지 않게 시각 자료를 가로 전체로
     if (sl.layout === 'full' || variant.stack || !points.length) return `<div class="dk dk-stack${tight}">${vis(vs)}${ncards(points, { row: true, num: sl.layout !== 'full' })}</div>`;
@@ -331,9 +390,12 @@
       chapterScenes.push(chs, ...slides.flatMap((x) => x.scenes));
       tocItems.push({ c, chId, n: slides.reduce((a, x) => a + x.scenes.length, 0) });
     });
-    const retro = buildRetro(p.retro || {}, p, foot, auto);
+    // 회고 장을 장면 고치기로 장(addChapters)으로 만들었으면 따로 그리던 회고 장면은 그리지 않음(같은 내용 두 번 방지)
+    const retroAsChapter = (p.deck?.chapters || []).some((c) => c.added && (p.deck?.slides || []).some((sl) => sl.chapter === c.key) && p.retro?.section && PF.normTitle((c.sectionPath || [])[0] || '') === PF.normTitle(p.retro.section));
+    const retro = retroAsChapter ? [] : buildRetro(p.retro || {}, p, foot, auto);
     const end = endScene(p, foot, ext, auto);
-    const toc = tocScene(p, foot, tocItems, retro, auto);
+    const tocParts = await loadTocParts(p.id);
+    const toc = tocScene(p, foot, tocItems, retro, auto, tocParts);
     const all = [cover, toc, ...chapterScenes, ...retro, end];
     PF.noteFill(all, { fill: !auto });                                  // 예전 데이터 자동 구성은 채움률 참고를 내지 않음(다시 빌드 안내 1건만)
     if (auto) PF.note('cover', 'auto-mode', 1, '예전 데이터로 자동 구성(다시 빌드하면 슬라이드)');
@@ -392,14 +454,25 @@
     return PF.shrinkOrClip(make('compact'), PFScene.refUrl(chId), info.overflow);
   }
 
-  function tocScene(p, foot, items, retro, auto) {
-    const rows = [...items.map((x, i) => [String(i + 1).padStart(2, '0'), x.c.title, PF.t('deck.toc-count', { n: x.n }), x.chId]),
-      retro.length && [String(items.length + 1).padStart(2, '0'), PF.t('deck.retro'), PF.t('deck.retro-desc'), retro[0].id],
-      [String(items.length + (retro.length ? 2 : 1)).padStart(2, '0'), PF.t('deck.more'), PF.t('deck.more-desc'), 'end']].filter(Boolean);
+  // 목차 파트 묶음: src/<폴더>/deck-edits.json의 "tocParts" = [[장 key …], …] (회고는 "retro", 더 보기는 "end"). 없으면 한 색
+  async function loadTocParts(id) {
+    try {
+      const r = await fetch(PF.srcPath(id, 'deck-edits.json'), { cache: 'no-cache' });
+      if (!r.ok) return null;
+      const parts = (await r.json())?.tocParts;
+      return Array.isArray(parts) && parts.every(Array.isArray) ? parts : null;
+    } catch { return null; }
+  }
+
+  function tocScene(p, foot, items, retro, auto, parts = null) {
+    const rows = [...items.map((x, i) => [String(i + 1).padStart(2, '0'), x.c.title, '', x.chId, x.c.key]),
+      retro.length && [String(items.length + 1).padStart(2, '0'), PF.t('deck.retro'), PF.t('deck.retro-desc'), retro[0].id, 'retro'],
+      [String(items.length + (retro.length ? 2 : 1)).padStart(2, '0'), PF.t('deck.more'), PF.t('deck.more-desc'), 'end', 'end']].filter(Boolean);
+    const partOf = (key) => { const i = parts ? parts.findIndex((g) => g.includes(key)) : -1; return i < 0 ? '' : ` data-part="${(i % 4) + 1}"`; };
     const make = (compact) => {
       const s = PF.scene({ id: 'toc', tpl: 'P2', kind: 'bare', cls: compact ? 'compact' : '', foot, sec: PF.t('name.toc'), stitle: PF.t('name.toc') });
       const half = rows.length > 7 ? Math.ceil(rows.length / 2) : rows.length;
-      const col = (list) => `<section><ol class="toc-list">${list.map((r) => item(...r)).join('')}</ol></section>`;
+      const col = (list) => `<section><ol class="toc-list">${list.map(([n, t, d, ref, key]) => item(n, t, d, ref).replace('<li>', `<li${partOf(key)}>`)).join('')}</ol></section>`;
       PF.body(s).innerHTML = `<div class="toc-top"><p class="toc-h">${esc(PF.t('en.contents'))}</p><p class="toc-sub">${esc(p.title)}</p></div>${DOT}<div class="toc-cols${rows.length > 7 ? '' : ' one'}">${col(rows.slice(0, half))}${rows.length > half ? col(rows.slice(half)) : ''}</div>`;
       return band(s, auto);
     };

@@ -254,7 +254,7 @@
     return { k, table: true, min: 14 / 15, max: 1, hAt };
   }
   // 시각 자료 상자 안에서 그림 말고 차지하는 높이: 캡션 + 원문 문제 띠(visual-changed). 상자 안 간격 6px씩
-  const capOf = (box) => [...box.querySelectorAll(':scope > figcaption, :scope > .pf-vband')].reduce((a, c) => a + c.offsetHeight + 6, 0);
+  const capOf = (box) => [...box.querySelectorAll(':scope > figcaption, :scope > .pf-vband, :scope > .vnotes')].reduce((a, c) => a + c.offsetHeight + 6, 0);
   // 표: 폭 bw에서 높이 bh 안에 들어가는 가장 큰 배율(하한까지)
   function fitTable(fin, bw, bh, min) {
     const at = (z) => { Object.assign(fin.style, { zoom: String(z), width: `${bw / z}px` }); return fin.offsetHeight * z <= bh + 0.5 && fin.scrollWidth <= bw / z + 1; };
@@ -281,6 +281,18 @@
       return { w: Math.max(1, Math.floor(bw)), h: Math.max(1, Math.floor(bw / t.ar)), lim };
     };
     if (arr === 'one' || n === 1) out[0] = contain(0, W, H - caps[0]);
+    else if (arr === 'fit') {
+      // 나란히, 그림·다이어그램은 장면 높이에 맞는 폭만, 남는 폭은 모두 표에(시각 자료 참조의 arrange: "fit")
+      const tables = nat.filter((t) => t.table).length || 1;
+      nat.forEach((t, i) => { if (!t.table) out[i] = contain(i, W, H - caps[i]); });
+      const rest = Math.max(1, (W - GAP * (n - 1) - out.reduce((a, o, i) => a + (nat[i].table ? 0 : o.w), 0)) / tables);
+      nat.forEach((t, i) => { if (t.table) out[i] = { w: Math.floor(rest), h: Math.min(H - caps[i], Math.ceil(t.hAt(rest))) }; });
+    } else if (arr === 'pair') {
+      // 나란히 같은 폭(시각 자료 참조의 arrange: "pair"): 칸마다 폭을 똑같이 나누고, 높이는 장면 높이까지 각자
+      const w = (W - GAP * (n - 1)) / n;
+      nat.forEach((t, i) => { out[i] = contain(i, w, H - caps[i]); });
+      nat.forEach((t, i) => { if (t.table) out[i].h = Math.min(out[i].h, Math.ceil(t.hAt(w))); });
+    }
     else if (arr === 'col') {
       // 세로로 쌓기: 표는 똑같이 나눈 몫까지 받되 칸 폭에서의 실제 높이가 더 작으면 그만큼만(남는 높이는 다이어그램·그림에)
       const avail = H - GAP * (n - 1) - caps.reduce((a, c) => a + c, 0);
@@ -309,6 +321,8 @@
   function fitVisuals(s) {
     const M = measureRoot(); const wasIn = s.isConnected; if (!wasIn) M.appendChild(s);
     s.classList.add('pf-sizing');
+    // 다시 잴 때는 앞에서 맞춰 둔 문장 블록 폭을 풀고 잼(남아 있으면 잴 때마다 문장이 좁아지고 그림이 작아짐)
+    s.querySelectorAll('.dk.gp.has-top > .gp-top').forEach((t) => { t.style.width = ''; t.style.marginInline = ''; t.style.justifySelf = ''; });
     const plans = [...s.querySelectorAll('.vis')].map((vis) => {
       const boxes = [...vis.children].filter((e) => e.classList.contains('vbox') && e.dataset.kind);
       // 원문을 찾지 못한 자리(.vbox.err, 띠만 있음)는 크기를 정하지 않으므로 그 높이를 칸에서 빼고 세로로 쌓음
@@ -355,6 +369,15 @@
         }
       });
     }
+    // 시각 자료 위 문장 블록(.gp-top)은 그 아래 시각 자료 묶음과 같은 폭으로(좌우 끝 맞춤)
+    s.querySelectorAll('.dk.gp.has-top:not(.narrow)').forEach((dk) => {
+      const vis = dk.querySelector(':scope > .vis'); if (!vis) return;
+      const bs = [...vis.children].filter((e) => e.classList.contains('vbox'));
+      if (!bs.length) return;
+      const wOf = (b) => parseFloat(b.style.width) || b.offsetWidth;
+      const w = ['row', 'pair', 'fit'].includes(vis.dataset.arr) ? bs.reduce((a, b) => a + wOf(b), 0) + GAP * (bs.length - 1) : Math.max(...bs.map(wOf));
+      dk.querySelectorAll(':scope > .gp-top').forEach((t) => Object.assign(t.style, { width: `${Math.round(w)}px`, marginInline: 'auto', justifySelf: 'center' }));
+    });
     s.classList.remove('pf-sizing');
     if (!wasIn) s.remove();
     return s;

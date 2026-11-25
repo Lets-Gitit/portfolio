@@ -128,6 +128,51 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .toc-list .n { width: 40px; height: 40px; border-radius: calc(var(--radius) * .6); background: var(--glow); color: #fff; display: flex; align-items: center; justify-content: center;
                font-family: var(--display); font-weight: 800; font-size: 16px; flex: none; font-variant-numeric: lining-nums tabular-nums; }
 .toc-list .tx { flex: 1; min-width: 0; }
+/* 소제목별 요점 칸(요점의 group — 예: 담당 · 목표). 시각 자료는 위 가운데, 칸은 아래 */
+.dk.gp.has-cols .vis { max-width: 78%; margin-inline: auto; }
+.gp-below { display: flex; flex-direction: column; gap: 14px; }
+/*   표 + 문단 = 한 덩어리(가깝게), 상자 = 다음 덩어리(띄워서) */
+.dk.gp:not(.has-cols) { gap: 14px; }
+.gp-para + .gp-boxes { margin-top: 40px; }
+.tight .gp-para + .gp-boxes { margin-top: 24px; }
+.gp-quote { margin: 0; padding: 16px 22px; border-left: 4px solid var(--accent); background: var(--accent-soft, color-mix(in srgb, var(--accent) 14%, transparent)); font-size: 19px; font-weight: 700; line-height: 1.6; color: var(--ink); }
+.gp-quote em, .gp-quote i { font-weight: 600; }
+.dk.gp.has-quote { gap: 58px; padding-bottom: 36px; }   /* 간격·아래 여백을 같이 늘림 → 가운데 정렬이어도 표는 그 자리, 인용 상자만 위로(제목과 표 사이 가운데쯤) */
+/*   인용 상자가 있는 장면: 인용 상자와 표를 같은 폭(가운데 80%)으로 */
+.dk.gp.has-quote > .gp-quote, .dk.gp.has-quote > .vis { width: 80%; max-width: 80%; margin-inline: auto; justify-self: center; }
+.dk.gp.has-quote > .vis .vbox, .dk.gp.has-quote > .vis .vbox .vmedia { width: 100% !important; }
+/*   위 문단 · 시각 자료 · 아래 문단이 세로로 놓인 장면: 문단은 가운데 80%, 블록 사이는 띄움 */
+.dk.gp.has-top { gap: 26px; }
+.dk.gp.has-top.narrow > .gp-top, .dk.gp.has-top.narrow > .gp-below { width: 66%; margin-inline: auto; justify-self: center; }   /* 시각 자료 폭을 정한 장면(d-delegate)만 가운데 좁게 */
+.dk.gp.has-top.narrow .gp-para { text-align: justify; word-break: normal; text-wrap: pretty; }   /* 양쪽 정렬 → 위·아래 문단의 좌우 끝이 같은 선 */
+.tight .gp-quote { font-size: 17px; padding: 12px 18px; }
+.gp-para { font-size: 17px; line-height: 1.65; color: var(--ink); }
+.gp-boxes { display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 14px; }
+.gp-box { background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--accent); padding: 12px 16px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+.gp-box b { font-weight: 800; display: block; margin-bottom: 4px; color: var(--accent-ink); }
+/* 시각 자료 없이 상자만 있는 장면(예: 배운 점): 상자를 크게, 라벨을 제목처럼 */
+.dk.gp.no-vis { grid-template-rows: auto; align-content: center; }
+.dk.gp.no-vis .gp-box { padding: 26px 28px; font-size: 18px; line-height: 1.7; }
+.dk.gp.no-vis .gp-box b { font-size: 22px; line-height: 1.4; margin-bottom: 12px; color: var(--ink); }
+.tight .gp-para { font-size: 15px; }
+.tight .gp-box { font-size: 14px; padding: 9px 13px; }
+.gp-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 32px; }
+.gp-cols[style*="--n:1"] { grid-template-columns: minmax(0, 1fr); }
+.gp-col { border-top: 2px solid var(--accent); padding-top: 10px; min-width: 0; }
+.gp-h { font-size: 14px; font-weight: 800; letter-spacing: .08em; color: var(--accent-ink); margin-bottom: 8px !important; }
+.gp-col ul { list-style: none; display: grid; gap: 8px; }
+.gp-i { font-size: 17px; line-height: 1.55; color: var(--ink); }
+.gp-i b { font-weight: 800; }
+.gp-i .gp-dash { color: var(--muted); }
+.gp-i.num { display: flex; gap: 10px; }
+.gp-n { flex: none; font-weight: 800; color: var(--accent-ink); }
+.tight .gp-i { font-size: 15px; }
+/* 목차 파트 색(deck-edits.json "tocParts") — 같은 파랑에서 조금씩만 */
+/*   배경 위에만 색을 덮음(inset 그림자) — 숫자 글씨는 흰색 그대로 */
+.toc-list li[data-part="1"] .n { box-shadow: inset 0 0 0 100px rgba(4, 22, 60, .32); }
+.toc-list li[data-part="2"] .n { box-shadow: inset 0 0 0 100px rgba(255, 255, 255, .14); }
+.toc-list li[data-part="3"] .n { box-shadow: inset 0 0 0 100px rgba(80, 60, 210, .30); }
+.toc-list li[data-part="4"] .n { box-shadow: inset 0 0 0 100px rgba(0, 150, 140, .34); }
 .toc-list .t { display: block; font-size: 20px; font-weight: 800; line-height: 1.3; }
 .toc-list .d { display: block; font-size: 14px; color: var(--muted); line-height: 1.4; }
 .toc-list .pg { flex: none; font-family: var(--mono); font-size: 15px; color: var(--accent-ink); white-space: pre; }
@@ -171,6 +216,10 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
      .pf-sizing = 시각 자료 맞추기(PF.fitVisuals) 동안만: .pf-fill이 본문 높이를 다 써서 .vis 칸 크기를 잴 수 있게 ── */
 .pf-body:has(> .pf-fill), .pf-zoomwrap:has(> .pf-fill) { display: flex; flex-direction: column; }
 .pf-fill { margin-block: auto; width: 100%; flex: none; }
+/* 장면 고치기로 짠 블록 장면(.dk.gp): 남는 여백은 위가 아니라 아래로 — 부제목 바로 아래에서 본문 시작(인용 상자 장면은 가운데 그대로) */
+.pf-fill:has(> .dk.gp:not(.has-quote)), .pf-fill:has(> .dk-top-wrap) { margin-block: 0 auto; padding-top: 28px; box-sizing: border-box; }   /* 여백을 padding으로 → 장면 크기를 잴 때도 포함 */
+.dk-top-wrap { display: flex; flex-direction: column; gap: 26px; min-height: 0; }
+.pf-sizing .dk-top-wrap > .dk { flex: 1 1 auto; min-height: 0; }
 .pf-sizing .pf-fill { flex: 1 1 auto; min-height: 0; margin-block: 0; display: flex; flex-direction: column; }
 .pf-sizing .pf-fill > * { flex: 1 1 auto; min-height: 0; }
 
@@ -248,6 +297,20 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .dk-text { align-content: center; }
 .vis { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-width: 0; min-height: 0; }
 .vis[data-arr="row"] { flex-direction: row; align-items: flex-start; }
+.vis[data-arr="pair"], .vis[data-arr="fit"] { flex-direction: row; align-items: center; }
+.vis.vcenter[data-arr="row"] { align-items: center; }
+/* 구성 규칙: 시각 자료에 붙은 글 = 캡션(왼쪽 끝, 작은 글씨) · 떨어진 글 = 별도 문장 블록(.vnote, 본문 크기) */
+.vis[data-arr="pair"] .cap, .vis[data-arr="fit"] .cap, .dk.gp .cap { text-align: left; }
+.vnotes { padding-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.vnote { margin: 0; font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink); text-align: left; }
+.vitem { position: relative; padding-left: 18px; }
+.vnotes:has(> .vitem:first-child) { padding-top: 40px; }   /* 글머리만 있는 블록은 시각 자료와 확실히 띄움 */
+.tight .vnotes:has(> .vitem:first-child) { padding-top: 26px; }
+.vis[data-arr="pair"] .vnotes:has(> .vitem:first-child), .vis[data-arr="fit"] .vnotes:has(> .vitem:first-child) { padding-top: 22px; }   /* 나란히 놓인 칸 안에서는 덜 띄움(장면 높이 여유) */
+.vitem::before { content: ''; position: absolute; left: 4px; top: .7em; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+.vitem b { font-weight: 800; }
+.tight .vnotes { padding-top: 12px; gap: 6px; }
+.tight .vnote { font-size: 15px; }
 .vbox { margin: 0; display: flex; flex-direction: column; gap: 6px; flex: none; max-width: 100%; min-width: 0; }
 .vmedia { border-radius: calc(var(--radius) * .6); overflow: hidden; background: var(--card); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
 .vbox[data-kind="mermaid"] .vmedia { background: var(--diagram-bg); border-color: var(--diagram-bg); }   /* 다이어그램은 밝은 판(학생 문서의 밝은 mermaid 테마가 그대로 읽히게) */

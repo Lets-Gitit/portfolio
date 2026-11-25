@@ -558,6 +558,20 @@ def apply_edits(data, edits, doc, rep):
             s.pop('edited', None)
     if edits is None:
         return base, base
+    # 장 더하기(고치기 파일의 "addChapters": [{key, title, sectionPath, after?}]) — 빌드가 장으로 만들지 않은 H2(예: 회고 장)를 장으로.
+    #   더한 장은 added: true로 표시하고, 고치기 파일에서 빠지면 다음 apply 때 지움
+    want_add = [c for c in (edits.get('addChapters') or []) if isinstance(c, dict) and key_ok(c.get('key')) and is_path(c.get('sectionPath'))]
+    chs = [c for c in deck.get('chapters') or [] if not (c.get('added') and c.get('key') not in {a['key'] for a in want_add})]
+    for a in want_add:
+        new = {'key': a['key'], 'title': a.get('title') or a['sectionPath'][-1], 'sectionPath': a['sectionPath'], 'added': True}
+        old = next((c for c in chs if c.get('key') == a['key']), None)
+        if old is not None:
+            if old.get('added'):
+                old.update(new)
+            continue
+        at = next((i for i, c in enumerate(chs) if c.get('key') == a.get('after')), len(chs) - 1)
+        chs.insert(at + 1, new)
+    deck['chapters'] = chs
     chapters = [c.get('key') for c in deck.get('chapters') or []]
     titles = {c.get('key'): c.get('title') or c.get('key') for c in deck.get('chapters') or []}
     S = copy.deepcopy(base)
