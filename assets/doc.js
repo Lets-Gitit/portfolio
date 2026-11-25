@@ -59,12 +59,14 @@
   // ── 뼈대 ──
   const metaRows = (p.meta || []).map((m) => `<div><dt>${esc(m.label)}</dt><dd>${inline(m.value)}</dd></div>`).join('') +
     (p.team?.role ? `<div class="role"><dt>${T('name.role')}</dt><dd>${inline(p.team.role)}</dd></div>` : '');
+  // 순서: 시연 영상(강조) → 슬라이드 → GitHub → 그 밖 링크. 영상이 없으면 슬라이드가 강조
+  const hasVideo = PF.isUrl(p.links?.video);
+  const videoBtn = hasVideo && link({ href: p.links.video, label: T('name.video'), kind: 'external', cls: 'btn primary' });
+  const deckBtn = (videoBtn || '') + link({ href: deckUrl(), label: T('name.deck'), kind: 'page', cls: hasVideo ? 'btn' : 'btn primary' });
   const ext = [
     PF.isUrl(p.links?.github) && link({ href: p.links.github, label: 'GitHub', kind: 'external', cls: 'btn' }),
-    PF.isUrl(p.links?.video) && link({ href: p.links.video, label: T('name.video'), kind: 'external', cls: 'btn' }),
     ...(p.links?.extra || []).filter((l) => PF.isUrl(l.url)).map((l) => link({ href: l.url, label: esc(l.label), kind: 'external', cls: 'btn' })),
   ].filter(Boolean);
-  const deckBtn = link({ href: deckUrl(), label: T('name.deck'), kind: 'page', cls: 'btn primary' });
 
   root.innerHTML = `
     <header class="doc-head">
