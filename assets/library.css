@@ -44,8 +44,8 @@ svg.pf-newtab-icon { width: .72em; height: .72em; margin-left: -.2em; opacity: .
 .brand { font-size: 21px; font-weight: 800; color: var(--ink); letter-spacing: .02em; white-space: nowrap; }
 
 /* ── 몸통: 왼쪽 라이브러리 + 오른쪽 화면 ── */
-.body { display: grid; grid-template-columns: var(--side-w) minmax(0, 1fr); min-height: calc(100vh - var(--top-h) - 34px); }
-.side { position: sticky; top: var(--top-h); align-self: start; height: calc(100vh - var(--top-h) - 34px); overflow-y: auto; background: var(--side); border-right: 1px solid #000; padding: 10px 0 16px; }
+.body { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); min-height: calc(100vh - var(--top-h) - 34px); }
+.side { position: sticky; top: var(--top-h); align-self: start; height: calc(100vh - var(--top-h) - 34px); overflow-y: auto; background: var(--side); border-left: 1px solid #000; padding: 10px 0 16px; grid-column: 2; grid-row: 1; }
 .home-btn { display: flex; align-items: center; gap: 12px; margin: 0 10px 8px; padding: 12px 12px; background: var(--sf); border-radius: var(--r); border-left: 3px solid transparent; font-size: 22px; color: var(--mu); }
 .home-btn > span { flex: 1; font-size: 16px; color: var(--tx); line-height: 1.35; }
 .home-btn b { color: var(--ink); display: block; font-size: 17px; }
@@ -196,7 +196,7 @@ code { font-family: D2Coding, ui-monospace, monospace; font-size: .92em; color: 
   .tabs { gap: 18px; }
   .tabs a { font-size: 18px; }
   .body { grid-template-columns: minmax(0, 1fr); }
-  .side { position: static; height: auto; border-right: 0; border-bottom: 1px solid #000; }
+  .side { position: static; height: auto; border-left: 0; border-bottom: 1px solid #000; grid-column: auto; grid-row: auto; }
   .lib { display: flex; overflow-x: auto; gap: 8px; padding: 0 10px; scroll-snap-type: x mandatory; }
   .lib li { flex: 0 0 min(78%, 300px); scroll-snap-align: start; }
   .li { border: 1px solid var(--ln); border-left-width: 3px; border-radius: var(--r); height: 100%; }
