@@ -68,9 +68,9 @@
     }
   ],
   "projects": [
-    "0-super-phage",
     "1-hive-purge",
     "3-Thief",
+    "0-super-phage",
     "4-snowball-golf"
   ]
 }
