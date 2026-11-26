@@ -395,7 +395,10 @@
       const bs = [...vis.children].filter((e) => e.classList.contains('vbox'));
       if (!bs.length) return;
       const wOf = (b) => parseFloat(b.style.width) || b.offsetWidth;
-      const w = ['row', 'pair', 'fit'].includes(vis.dataset.arr) ? bs.reduce((a, b) => a + wOf(b), 0) + GAP * (bs.length - 1) : Math.max(...bs.map(wOf));
+      const arr = vis.dataset.arr;
+      const w = ['row', 'pair', 'fit'].includes(arr) ? bs.reduce((a, b) => a + wOf(b), 0) + GAP * (bs.length - 1)
+        : arr === 'lstack' ? wOf(bs[0]) + GAP + Math.max(...bs.slice(1).map(wOf))
+          : arr === 'grid2' ? vis.clientWidth : Math.max(...bs.map(wOf));
       dk.querySelectorAll(':scope > .gp-top').forEach((t) => Object.assign(t.style, { width: `${Math.round(w)}px`, marginInline: 'auto', justifySelf: 'center' }));
     });
     s.classList.remove('pf-sizing');

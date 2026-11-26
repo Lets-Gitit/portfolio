@@ -2,48 +2,6 @@
   "schemaVersion": 1,
   "pin": [
     {
-      "key": "core-loop",
-      "chapter": "play",
-      "layout": "visual",
-      "tab": "흐름",
-      "title": {
-        "text": "2.1 세 스테이지",
-        "verbatim": true
-      },
-      "lead": {
-        "text": "샷 → 성장 → 파괴 → 목표, 3스테이지는 공격 반복",
-        "verbatim": false
-      },
-      "sectionPath": [
-        "2. 플레이",
-        "2.1 세 스테이지"
-      ],
-      "points": [
-        {
-          "label": "",
-          "text": "3스테이지에서는 공격하면 처음 크기로 돌아가므로, 눈더미를 먹고 다시 공격하는 루프를 수행합니다.",
-          "verbatim": true
-        }
-      ],
-      "visuals": [
-        {
-          "kind": "mermaid",
-          "n": 1,
-          "fp": "flowchart TD"
-        }
-      ],
-      "from": {
-        "key": "core-loop",
-        "sectionPath": [
-          "2. 플레이",
-          "2.1 세 스테이지"
-        ],
-        "sig": [
-          "2.1 세 스테이지|mermaid|1|---"
-        ]
-      }
-    },
-    {
       "key": "summary",
       "chapter": "overview",
       "layout": "overview",
@@ -129,9 +87,22 @@
           "label": "",
           "text": "세 스테이지 모두 \"굴리면 커지고, 커지면 부순다\"는 규칙 하나 위에서 조건만 바뀝니다.",
           "verbatim": true
+        },
+        {
+          "style": "text",
+          "at": 2,
+          "label": "",
+          "text": "3스테이지에서는 공격하면 처음 크기로 돌아가므로, 눈더미를 먹고 다시 공격하는 루프를 수행합니다.",
+          "verbatim": true
         }
       ],
       "visuals": [
+        {
+          "kind": "mermaid",
+          "n": 1,
+          "fp": "flowchart TD",
+          "arrange": "lstack"
+        },
         {
           "kind": "table",
           "n": 1,
@@ -147,7 +118,8 @@
         "sig": [
           "2.1 세 스테이지|table|1|1. 굴리면 커진다|2. 눈더미는 크게 키운다|3. 펭귄 보스전"
         ]
-      }
+      },
+      "group": "merge-stage-rules"
     },
     {
       "key": "candidates",
@@ -155,23 +127,23 @@
       "layout": "visual",
       "tab": "선택",
       "title": {
-        "text": "3.1 후보는 넓게 받고, 고르기는 직접 한다",
+        "text": "3.1 후보는 넓게 받고, 엮는 것은 직접 한다",
         "verbatim": true
       },
       "lead": {
-        "text": "후보는 넓게, 고르기는 직접",
+        "text": "후보는 넓게, 엮는 것은 직접",
         "verbatim": false
       },
       "sectionPath": [
         "3. 컨셉 · 골프에서 무엇을 바꾸고 무엇을 남겼나",
-        "3.1 후보는 넓게 받고, 고르기는 직접 한다"
+        "3.1 후보는 넓게 받고, 엮는 것은 직접 한다"
       ],
       "points": [
         {
           "style": "text",
           "place": "above",
           "label": "",
-          "text": "후보 가운데 카타마리와 보스전을 골라 세 스테이지의 첫 구상을 답했습니다.",
+          "text": "AI에게서는 방향을 넓혀 줄 재료를 받고, 그 재료가 골프 위에서 어떻게 돌아갈지는 제가 채우기로 했습니다. 열 가지 후보 가운데 카타마리와 보스전을 골라, 세 스테이지에서 각각 무엇을 하게 할지를 정해 답했습니다.",
           "verbatim": true
         },
         {
@@ -1129,7 +1101,22 @@
       ]
     }
   ],
-  "hide": [],
+  "hide": [
+    {
+      "key": "core-loop",
+      "from": {
+        "key": "core-loop",
+        "sectionPath": [
+          "2. 플레이",
+          "2.1 세 스테이지"
+        ],
+        "sig": [
+          "2.1 세 스테이지|mermaid|1|---"
+        ]
+      },
+      "group": "merge-stage-rules"
+    }
+  ],
   "addChapters": [
     {
       "key": "results",
