@@ -281,7 +281,23 @@
       return { w: Math.max(1, Math.floor(bw)), h: Math.max(1, Math.floor(bw / t.ar)), lim };
     };
     if (arr === 'one' || n === 1) out[0] = contain(0, W, H - caps[0]);
-    else if (arr === 'fit') {
+    else if (arr === 'lstack') {
+      // 왼쪽 하나 + 오른쪽 세로 쌓기(arrange "lstack"): 첫 자료는 장면 높이에 맞는 폭, 나머지는 남는 폭에 위에서 아래로(표는 실제 높이, 그림은 남는 높이)
+      out[0] = nat[0].k === 'code' ? contain(0, Math.min(W * 0.58, nat[0].nw), H - caps[0]) : contain(0, W, H - caps[0]);   // 코드는 칸 폭을 다 쓰므로 원래 폭(최대 58%)까지만
+      const R = Math.max(1, W - out[0].w - GAP);
+      let used = 0;
+      nat.forEach((t, i) => { if (i && t.table) { out[i] = { w: Math.floor(R), h: Math.ceil(t.hAt(R)) }; used += out[i].h + GAP; } });
+      const imgs = nat.filter((t, i) => i && !t.table).length || 1;
+      nat.forEach((t, i) => { if (i && !t.table) out[i] = contain(i, R, Math.max(60, (H - used) / imgs - caps[i])); });
+    } else if (arr === 'grid2') {
+      // 2단 격자(arrange "grid2"): 칸 폭은 반씩, 그림은 위쪽 줄, 표는 그 아래 — 표는 칸 폭에서의 실제 높이, 그림은 남는 높이를 나눠 가짐
+      const w = (W - GAP) / 2;
+      const rows = Math.ceil(n / 2);
+      const tH = nat.map((t) => (t.table ? Math.ceil(t.hAt(w)) : 0));
+      const colH = [0, 1].map((c) => nat.reduce((a, t, i) => a + (i % 2 === c && t.table ? tH[i] + GAP : 0), 0));
+      const imgRoom = Math.max(60, H - Math.max(...colH) - GAP * (rows - 1));
+      nat.forEach((t, i) => { out[i] = t.table ? { w: Math.floor(w), h: tH[i] } : contain(i, w, imgRoom - caps[i]); });
+    } else if (arr === 'fit') {
       // 나란히, 그림·다이어그램은 장면 높이에 맞는 폭만, 남는 폭은 모두 표에(시각 자료 참조의 arrange: "fit")
       const tables = nat.filter((t) => t.table).length || 1;
       nat.forEach((t, i) => { if (!t.table) out[i] = contain(i, W, H - caps[i]); });

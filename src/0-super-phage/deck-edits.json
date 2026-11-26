@@ -23,12 +23,26 @@
         {
           "kind": "mermaid",
           "n": 1,
-          "fp": "flowchart TD"
+          "fp": "flowchart TD",
+          "arrange": "lstack"
         },
         {
           "kind": "table",
           "n": 1,
           "fp": "구분|유영 필드 (SwimField)|세균 내부 필드 (BacteriaField)"
+        },
+        {
+          "kind": "image",
+          "src": "images/loop_swim_to_bacteria.gif",
+          "w": 1280,
+          "h": 720,
+          "sectionPath": [
+            "1. 프로젝트 개요"
+          ],
+          "caption": {
+            "text": "수용체에 붙어 세균 내부로 들어가 폭발한 뒤 유영 필드로 돌아오는 한 판의 흐름",
+            "verbatim": true
+          }
         }
       ],
       "from": {
@@ -108,7 +122,7 @@
     {
       "key": "objects",
       "chapter": "play",
-      "layout": "screens",
+      "layout": "full",
       "tab": "개요",
       "title": {
         "text": "2.1 등장하는 오브젝트",
@@ -132,7 +146,8 @@
           "caption": {
             "text": "유영 필드의 오브젝트 ①~⑥",
             "verbatim": true
-          }
+          },
+          "arrange": "grid2"
         },
         {
           "kind": "image",
@@ -143,6 +158,26 @@
             "text": "세균 내부의 오브젝트 ①~⑦",
             "verbatim": true
           }
+        },
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "① 파지(플레이어)|② 파지 AI|③ 항체"
+        },
+        {
+          "kind": "table",
+          "n": 3,
+          "fp": "① 리보솜|② RNA 중합효소|③ mRNA|④ 아미노산"
+        },
+        {
+          "kind": "table",
+          "n": 2,
+          "fp": "④ 에너지 오브|⑤ 세균|⑥ 수용체"
+        },
+        {
+          "kind": "table",
+          "n": 4,
+          "fp": "⑤ AGTC|⑥ 핵양체|⑦ 핵산 분해효소"
         }
       ],
       "from": {
@@ -422,7 +457,7 @@
     {
       "key": "flow",
       "chapter": "bacteria",
-      "layout": "visual",
+      "layout": "full",
       "tab": "흐름",
       "title": {
         "text": "4.2 재료 흐름",
@@ -441,7 +476,38 @@
         {
           "kind": "mermaid",
           "n": 1,
-          "fp": "flowchart TD"
+          "fp": "flowchart TD",
+          "arrange": "lstack"
+        },
+        {
+          "kind": "table",
+          "n": 1,
+          "fp": "① 리보솜|② RNA 중합효소|③ mRNA|④ 아미노산",
+          "sectionPath": [
+            "4. 세균 내부 · 액션 한 번이 다음 단계를 연다"
+          ]
+        },
+        {
+          "kind": "table",
+          "n": 2,
+          "fp": "⑤ AGTC|⑥ 핵양체|⑦ 핵산 분해효소",
+          "sectionPath": [
+            "4. 세균 내부 · 액션 한 번이 다음 단계를 연다"
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "images/bacteria_overview.png",
+          "w": 2048,
+          "h": 1173,
+          "sectionPath": [
+            "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+            "4.1 앞 단계의 산물이 다음 재료가 되는 구조"
+          ],
+          "caption": {
+            "text": "세균 내부 전체 화면 — 리보솜·핵양체·RNA 중합효소·아미노산",
+            "verbatim": true
+          }
         }
       ],
       "from": {
@@ -458,7 +524,7 @@
     {
       "key": "drop",
       "chapter": "bacteria",
-      "layout": "code",
+      "layout": "full",
       "tab": "구현",
       "title": {
         "text": "4.3 드롭에서 생산까지",
@@ -476,24 +542,55 @@
         {
           "label": "",
           "text": "드래그 컨트롤러는 놓은 자리에 무엇이 있는지만 압니다.",
-          "verbatim": true
+          "verbatim": true,
+          "style": "item",
+          "at": 2
         },
         {
           "label": "",
           "text": "받아들였을 때만 원본이 사라집니다.",
-          "verbatim": true
+          "verbatim": true,
+          "style": "item",
+          "at": 2
         },
         {
           "label": "",
           "text": "재료가 모두 들어온 뒤부터 생산 게이지가 찹니다.",
-          "verbatim": true
+          "verbatim": true,
+          "style": "item",
+          "at": 2
         }
       ],
       "visuals": [
         {
           "kind": "code",
           "n": 1,
-          "fp": "// RibosomeDropReceiver.cs — 드롭된 종류를 생산 종류 선택 또는 재료 추가로 바꿈"
+          "fp": "// RibosomeDropReceiver.cs — 드롭된 종류를 생산 종류 선택 또는 재료 추가로 바꿈",
+          "arrange": "lstack",
+          "wrap": [
+            {
+              "at": "수신기 한곳에서 정한다.",
+              "prefix": "// "
+            },
+            {
+              "at": "ribosome.SelectFactoryType(",
+              "prefix": "    "
+            }
+          ]
+        },
+        {
+          "kind": "image",
+          "src": "images/drag_drop.gif",
+          "w": 1280,
+          "h": 978,
+          "sectionPath": [
+            "4. 세균 내부 · 액션 한 번이 다음 단계를 연다",
+            "4.2 재료 흐름"
+          ],
+          "caption": {
+            "text": "mRNA와 아미노산을 리보솜에 드롭하는 장면",
+            "verbatim": true
+          }
         }
       ],
       "from": {
@@ -510,7 +607,7 @@
     {
       "key": "emitter",
       "chapter": "bacteria",
-      "layout": "visual",
+      "layout": "full",
       "tab": "구조",
       "title": {
         "text": "4.4 공통 생성기 `MicroEntityEmitter`",
@@ -529,22 +626,25 @@
           "style": "text",
           "place": "above",
           "label": "",
-          "text": "리보솜·핵양체·RNA 중합효소는 무엇을 내보낼지만 다르고, 생성·초기화·배출 절차는 같습니다.",
+          "text": "리보솜·핵양체·RNA 중합효소는 무엇을 내보낼지만 다르고, 생성·초기화·배출 절차는 같습니다. 그래서 절차는 `MicroEntityEmitter`에 두고, 각 생산자는 자기가 고른 프리팹을 `Emit`에 넘깁니다. 처음에는 기반 클래스가 프리팹 배열을 가지고 있었지만, 하위 클래스의 프리팹 필드와 중복되어 프리팹 선택을 생산자 쪽으로 옮겼습니다.",
           "verbatim": true
         },
         {
-          "label": "",
-          "text": "생성기마다 상한이 있습니다.",
+          "style": "box",
+          "label": "생성기마다 상한이 있습니다.",
+          "text": "상한에 닿으면 생성하지 않고, 생성물이 파괴되면 수량이 줄어 다시 생성됩니다.",
           "verbatim": true
         },
         {
-          "label": "",
-          "text": "생성물은 자기를 만든 쪽을 기억합니다.",
+          "style": "box",
+          "label": "생성물은 자기를 만든 쪽을 기억합니다.",
+          "text": "그래서 `Init(this)`로 만든 쪽을 등록해 두고, 파괴될 때 `DecreaseCount()`로 알려 상한의 빈자리를 만듭니다.",
           "verbatim": true
         },
         {
-          "label": "",
-          "text": "무엇을 낼지는 생산자가 정합니다.",
+          "style": "box",
+          "label": "무엇을 낼지는 생산자가 정합니다.",
+          "text": "리보솜은 생산 종류에 맞는 프리팹을, 핵양체는 AGTC와 배출 방향을, RNA 중합효소는 무작위 mRNA를 넘깁니다.",
           "verbatim": true
         }
       ],
@@ -552,7 +652,27 @@
         {
           "kind": "mermaid",
           "n": 1,
-          "fp": "classDiagram"
+          "fp": "classDiagram",
+          "arrange": "pair"
+        },
+        {
+          "kind": "code",
+          "n": 1,
+          "fp": "// MicroEntityEmitter.cs — 생산자가 넘긴 프리팹을 상한 안에서 생성·초기화하고 배출",
+          "wrap": [
+            {
+              "at": "생성 주체를 등록해 두어,",
+              "prefix": "// "
+            },
+            {
+              "at": "Instantiate(prefab,",
+              "prefix": "    "
+            }
+          ],
+          "lines": [
+            5,
+            11
+          ]
         }
       ],
       "from": {
@@ -598,6 +718,17 @@
         }
       ],
       "visuals": [
+        {
+          "kind": "image",
+          "src": "images/ribosome_produce.gif",
+          "w": 1280,
+          "h": 1072,
+          "arrange": "fit",
+          "caption": {
+            "text": "게이지가 차서 파지가 나오고, 반복할수록 빨리 차는 리보솜",
+            "verbatim": true
+          }
+        },
         {
           "kind": "table",
           "n": 1,

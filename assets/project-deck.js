@@ -144,8 +144,19 @@
   const LANG = { csharp: 'C#', cs: 'C#', js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', json: 'JSON', yaml: 'YAML', yml: 'YAML', xml: 'XML', html: 'HTML', css: 'CSS', python: 'Python', py: 'Python', bash: 'Shell', sh: 'Shell', powershell: 'PowerShell', hlsl: 'HLSL', shader: 'Shader', cpp: 'C++', c: 'C', lua: 'Lua' };
   const codeLines = (el) => { const t = (el.querySelector('code')?.textContent || '').replace(/\n$/, ''); return t.split('\n'); };
   const langOf = (el) => /language-([\w+#-]+)/.exec(el.querySelector('code')?.className || '')?.[1]?.toLowerCase() || '';
-  function codeHtml(el, a, b) {
-    const lang = langOf(el), text = codeLines(el).slice(a - 1, b).join('\n');
+  // wraps(시각 자료 참조의 wrap: [{ at, prefix }]) → 슬라이드에서만 그 글자 뒤에서 줄을 나눔. 다음 줄은 원래 들여쓰기 + prefix(예: "// " · "    ")
+  function codeHtml(el, a, b, wraps) {
+    const lang = langOf(el);
+    let lines = codeLines(el).slice(a - 1, b);
+    (wraps || []).forEach((w) => {
+      lines = lines.flatMap((ln) => {
+        const i = w.at ? ln.indexOf(w.at) : -1;
+        if (i < 0) return [ln];
+        const cut = i + w.at.length, ind = /^\s*/.exec(ln)[0];
+        return [ln.slice(0, cut).replace(/\s+$/, ''), ind + (w.prefix || '') + ln.slice(cut).replace(/^\s+/, '')];
+      });
+    });
+    const text = lines.join('\n');
     const code = document.createElement('code');
     code.textContent = text;
     if (lang && window.hljs && hljs.getLanguage(lang)) { code.className = `language-${lang}`; try { hljs.highlightElement(code); } catch { /* 강조 없이 */ } }
@@ -169,7 +180,7 @@
       const all = codeLines(v.el).length, [a, b] = chunk;
       const lang = LANG[langOf(v.el)] || '';
       const part = a > 1 || b < all ? PF.t('deck.code-lines', { a, b, all }) : '';
-      return `<figure class="vbox" data-kind="code"><div class="vmedia"><div class="fit-in"><pre>${codeHtml(v.el, a, b)}</pre></div></div>${cap([lang, part].filter(Boolean).map(esc).join(' · '))}${warn}</figure>`;
+      return `<figure class="vbox" data-kind="code"><div class="vmedia"><div class="fit-in"><pre>${codeHtml(v.el, a, b, v.ref.wrap)}</pre></div></div>${cap([lang, part].filter(Boolean).map(esc).join(' · '))}${warn}</figure>`;
     }
     if (k === 'table') {
       const t = v.el.cloneNode(true);
@@ -230,8 +241,8 @@
     });
     const points = (sl.points || []).filter((pt) => !notes.includes(pt));
     // 시각 자료 참조의 arrange: "pair" → 나란히 같은 폭 · "col" → 위아래로 붙여 쌓기 · "row" → 나란히
-    const arrVal = (sl._v || []).map((v) => v.ref?.arrange).find((a) => ['pair', 'fit', 'col', 'row'].includes(a));   // "fit" → 나란히, 그림은 높이에 맞는 폭, 표는 남는 폭
-    const arrange = arrVal && vs.length > 1 ? ` data-arr="${arrVal}"` : '';
+    const arrVal = (sl._v || []).map((v) => v.ref?.arrange).find((a) => ['pair', 'fit', 'col', 'row', 'grid2', 'lstack'].includes(a));   // "fit" → 나란히, 그림은 높이에 맞는 폭, 표는 남는 폭
+    const arrange = arrVal && vs.length > 1 ? ` data-arr="${arrVal}"${arrVal === 'lstack' ? ` style="--rows:${vs.length - 1}"` : ''}` : '';
     const visW = (sl._v || []).map((v) => v.ref?.width).find((w) => Number.isFinite(w) && w >= 20 && w <= 100);   // 시각 자료 참조의 width(%) → 그 칸 폭
     const vcenter = (sl._v || []).some((v) => v.ref?.valign === 'center') ? ' vcenter' : '';   // 시각 자료 참조의 valign: "center" → 나란히 놓인 자료를 세로 가운데로
     const vis = (list) => `<div class="vis${vcenter}"${arrange}${visW ? ` style="width:${visW}%;max-width:${visW}%;margin-inline:auto;justify-self:center"` : ''}>${list.join('')}</div>`;

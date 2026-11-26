@@ -444,8 +444,9 @@ def validate(p, chapters, doc):
         errs.append('points는 글 조각(label·text·verbatim) 0~4개여야 함(text가 비면 label 필요)')
         pts = []
     vis = p.get('visuals') if p.get('visuals') is not None else []
-    if not isinstance(vis, list) or len(vis) > 3:
-        errs.append('visuals는 0~3개여야 함')
+    max_vis = 6 if isinstance(vis, list) and any(isinstance(v, dict) and v.get('arrange') in ('grid2', 'lstack') for v in vis) else 3   # 2단 격자·왼쪽+오른쪽 쌓기는 6개까지
+    if not isinstance(vis, list) or len(vis) > max_vis:
+        errs.append('visuals는 0~%d개여야 함' % max_vis)
         vis = []
     for i, v in enumerate(vis):
         if not isinstance(v, dict) or v.get('kind') not in KINDS:

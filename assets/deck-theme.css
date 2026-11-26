@@ -299,6 +299,13 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .vis[data-arr="row"] { flex-direction: row; align-items: flex-start; }
 .vis[data-arr="pair"], .vis[data-arr="fit"] { flex-direction: row; align-items: center; }
 .vis.vcenter[data-arr="row"] { align-items: center; }
+.vis[data-arr="grid2"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; justify-items: center; }   /* 2단 격자: 시각 자료 순서대로 왼·오 */
+.vis[data-arr="grid2"] .cap { text-align: left !important; }
+.vis[data-arr="fit"] .md-table td:first-child, .vis[data-arr="fit"] .md-table th:first-child { white-space: nowrap; }   /* 좁은 표의 첫 칸(방식·장점…)이 한 글자씩 꺾이지 않게 */
+.vis[data-arr="lstack"] { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 16px; align-items: start; }   /* 왼쪽 하나 + 오른쪽 세로 쌓기 */
+.vis[data-arr="lstack"] > .vbox:first-child { grid-row: 1 / span var(--rows, 1); align-self: center; }
+.vis[data-arr="lstack"] > .vbox:not(:first-child) { grid-column: 2; }
+.vis[data-arr="lstack"] .cap { text-align: left !important; }
 /* 구성 규칙: 시각 자료에 붙은 글 = 캡션(왼쪽 끝, 작은 글씨) · 떨어진 글 = 별도 문장 블록(.vnote, 본문 크기) */
 .vis[data-arr="pair"] .cap, .vis[data-arr="fit"] .cap, .vis[data-arr="row"] .cap, .dk.gp .cap, .dk-top-wrap .vbox .cap { text-align: left !important; }
 .vnotes { padding-top: 18px; display: flex; flex-direction: column; gap: 8px; }
