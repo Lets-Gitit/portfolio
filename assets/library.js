@@ -61,6 +61,8 @@
   };
   const pitch = (p) => p.pitch || p.tagline || '';
   const metaOf = (p, ...labels) => (p.meta || []).find((m) => labels.some((l) => m.label.includes(l)))?.value || '';
+  // 과제로 만든 것(프로젝트 문서 개요 표의 "인원" 칸에 "과제"가 있으면) → 라이브러리에서 "과제"로 따로 묶음
+  const isTask = (p) => /과제/.test(metaOf(p, '인원', '팀'));
   const slot = (p, cls) => (p.cover
     ? `<figure class="${cls}"><img src="${esc(PF.srcPath(p.id, p.cover))}" alt="${esc(p.title)} 대표 화면"></figure>`
     : `<figure class="${cls} slot" aria-hidden="true"><span>${slotText()}</span></figure>`);
@@ -77,10 +79,13 @@
     const me = prof();
     const name = me.name || t('name.portfolio');
     document.title = `${me.name ? me.name + ' · ' : ''}${t('name.portfolio')}`;
-    const items = projects.map((p, j) => `<li style="--pc:${pcolor(p)}"><a class="li" href="#p-${esc(p.id)}" data-v="p-${esc(p.id)}">
+    const item = (p) => `<li style="--pc:${pcolor(p)}"><a class="li" href="#p-${esc(p.id)}" data-v="p-${esc(p.id)}">
         ${slot(p, 'li-th')}
         <span class="li-t"><b>${esc(p.title)}</b><span class="li-s">${esc(pitch(p))}</span>
-        <span class="li-m">${esc(PF.teamLabel(p.team))}</span></span></a></li>`).join('');
+        <span class="li-m">${esc(PF.teamLabel(p.team))}</span></span></a></li>`;
+    const mains = projects.filter((p) => !isTask(p)), tasks = projects.filter(isTask);
+    const items = mains.map(item).join('');
+    const taskItems = tasks.map(item).join('');
     root.innerHTML = `
       <header class="top">
         <div class="bar1"><div class="b1-l"><span class="mono">${esc(mono())}</span>
@@ -95,12 +100,13 @@
       <div class="body">
         <aside class="side" aria-label="프로젝트 라이브러리">
           <a class="home-btn" href="#home" data-v="home">${I.home}<span><b>내 소개</b><span class="li-s">이름 · 자기소개 · 기술 스택</span></span><i>${I.grid}</i></a>
-          <p class="grp">— 프로젝트 <span>(${projects.length})</span></p>
+          <p class="grp">— 프로젝트 <span>(${mains.length})</span></p>
           <ul class="lib">${items}</ul>
+          ${tasks.length ? `<p class="grp">— 과제 <span>(${tasks.length})</span></p><ul class="lib">${taskItems}</ul>` : ''}
         </aside>
         <main id="view" tabindex="-1"></main>
       </div>
-      <footer class="bot"><span>프로젝트 ${projects.length}개</span></footer>`;
+      <footer class="bot"><span>프로젝트 ${mains.length}개${tasks.length ? ` · 과제 ${tasks.length}개` : ''}</span></footer>`;
     const top = root.querySelector('.top');
     const fit = () => html.style.setProperty('--top-h', getComputedStyle(top).position === 'sticky' ? `${top.offsetHeight}px` : '0px');
     fit();
@@ -199,7 +205,7 @@
     const meta = (p.meta || []).map((m) => `<div><dt>${esc(m.label)}</dt><dd>${inline(m.value)}</dd></div>`);
     if (p.team?.role) meta.push(`<div><dt>${T('name.role')}</dt><dd>${inline(p.team.role)}</dd></div>`);
     const hl = (p.highlights || []).slice(0, 4);
-    return `<section class="banner">${slot(p, 'ban')}<div class="ban-t"><p class="eb" lang="en">PROJECT ${pad2(j + 1)} / ${pad2(projects.length)}</p><h1>${esc(p.title)}</h1>${pitch(p) ? `<p class="ban-s">${inline(pitch(p))}</p>` : ''}</div></section>
+    return `<section class="banner">${slot(p, 'ban')}<div class="ban-t"><p class="eb" lang="en">${(() => { const g = projects.filter((x) => isTask(x) === isTask(p)); return `${isTask(p) ? 'ASSIGNMENT' : 'PROJECT'} ${pad2(g.indexOf(p) + 1)} / ${pad2(g.length)}`; })()}</p><h1>${esc(p.title)}</h1>${pitch(p) ? `<p class="ban-s">${inline(pitch(p))}</p>` : ''}</div></section>
       <div class="act"><div class="act-b">${btns.join('')}</div>
         <dl class="stats">${stats.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></div>
       <div class="pcol">
