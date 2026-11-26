@@ -301,6 +301,7 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .vis.vcenter[data-arr="row"] { align-items: center; }
 .vis[data-arr="grid2"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; justify-items: center; }   /* 2단 격자: 시각 자료 순서대로 왼·오 */
 .vis[data-arr="grid2"] .cap { text-align: left !important; }
+.vis[data-arr="grid2"] > .vbox[data-span="2"] { grid-column: 1 / -1; }   /* 두 칸을 다 쓰는 자료 */
 .vis[data-arr="fit"] .md-table td:first-child, .vis[data-arr="fit"] .md-table th:first-child { white-space: nowrap; }   /* 좁은 표의 첫 칸(방식·장점…)이 한 글자씩 꺾이지 않게 */
 .vis[data-arr="lstack"] { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 16px; align-items: start; }   /* 왼쪽 하나 + 오른쪽 세로 쌓기 */
 .vis[data-arr="lstack"] > .vbox:first-child { grid-row: 1 / span var(--rows, 1); align-self: center; }

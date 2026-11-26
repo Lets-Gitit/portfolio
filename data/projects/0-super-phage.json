@@ -594,7 +594,31 @@
             "verbatim": true
           }
         ],
-        "visuals": [{"kind": "table", "n": 1, "fp": "|[A] 한 씬 안에서 오브젝트 묶음을 켜고 끄기|[B] 별도의 Unity 씬 두 개 ✓"}],
+        "visuals": [
+          {
+            "kind": "table",
+            "n": 1,
+            "fp": "|[A] 한 씬 안에서 오브젝트 묶음을 켜고 끄기|[B] 별도의 Unity 씬 두 개 ✓",
+            "arrange": "grid2",
+            "span": 2
+          },
+          {
+            "kind": "image",
+            "src": "images/cover_swimfield.png",
+            "w": 2551,
+            "h": 1432,
+            "sectionPath": ["Super Phage 기술 문서"],
+            "caption": {"text": "유영 필드 화면", "verbatim": true}
+          },
+          {
+            "kind": "image",
+            "src": "images/cover_bacteria.png",
+            "w": 2559,
+            "h": 1439,
+            "sectionPath": ["Super Phage 기술 문서"],
+            "caption": {"text": "세균 내부 화면", "verbatim": true}
+          }
+        ],
         "edited": true
       },
       {
@@ -605,7 +629,20 @@
         "title": {"text": "6.1 분해효소가 핵양체 안으로 파고든 문제", "verbatim": true},
         "lead": {"text": "공통 모터 때문에 핵양체로 파고든 분해효소", "verbatim": false},
         "sectionPath": ["6. 만들며 생긴 문제", "6.1 분해효소가 핵양체 안으로 파고든 문제"],
-        "points": [],
+        "points": [
+          {"label": "문제", "text": "분해효소는 핵양체 표면에 멈춰 붙어야 했습니다. 그런데 핵양체를 감지하고도 멈추지 못하고 안쪽으로 파고들어 갔습니다.", "verbatim": true},
+          {
+            "label": "원인",
+            "text": "원인은 분해효소도 공통 모터 `SwimMotor`로 움직인다는 점이었습니다. 모터는 이동 명령이 끊긴 뒤에도 남은 속도를 감속시키며 계속 움직입니다.",
+            "verbatim": false
+          },
+          {
+            "label": "해결",
+            "text": "모터를 고치면 다른 세 객체의 움직임까지 바뀔 수 있었습니다. 그래서 프리팹의 콜라이더 앞부분을 늘려 핵양체를 더 일찍 감지하게 했습니다.",
+            "verbatim": false
+          },
+          {"label": "배운 점", "text": "문제를 꼭 코드로 풀어야 하는 것은 아니며, 관점을 바꾸면 더 간단한 방법이 있을 수 있다는 것을 경험했습니다.", "verbatim": true}
+        ],
         "visuals": [{"kind": "table", "n": 1, "fp": "의도|문제|해결"}],
         "edited": true
       },
@@ -1092,6 +1129,6 @@
         ]
       }
     ],
-    "applied": "904109ea9a770fe4"
+    "applied": "66deccf3eaab9875"
   }
 }

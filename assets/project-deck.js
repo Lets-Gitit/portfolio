@@ -204,7 +204,7 @@
         i.loading = 'lazy'; i.decoding = 'async';
       });
       if (chunk) { const rows = [...t.querySelectorAll('tbody tr')]; rows.forEach((r, i) => { if (i < chunk[0] || i >= chunk[1]) r.remove(); }); }
-      return `<figure class="vbox" data-kind="table"><div class="vmedia"><div class="fit-in">${t.outerHTML}</div></div>${cap(v.ref.caption?.text ? inline(v.ref.caption.text) : '')}${warn}</figure>`;
+      return `<figure class="vbox" data-kind="table"${v.ref.span === 2 ? ' data-span="2"' : ''}><div class="vmedia"><div class="fit-in">${t.outerHTML}</div></div>${cap(v.ref.caption?.text ? inline(v.ref.caption.text) : '')}${warn}</figure>`;
     }
     return '';
   }
