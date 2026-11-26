@@ -289,6 +289,14 @@
       nat.forEach((t, i) => { if (i && t.table) { out[i] = { w: Math.floor(R), h: Math.ceil(t.hAt(R)) }; used += out[i].h + GAP; } });
       const imgs = nat.filter((t, i) => i && !t.table).length || 1;
       nat.forEach((t, i) => { if (i && !t.table) out[i] = contain(i, R, Math.max(60, (H - used) / imgs - caps[i])); });
+    } else if (arr === 'grid3') {
+      // 표는 위에 가로 전체, 그림은 그 아래 한 줄에 셋(arrange "grid3")
+      const w3 = (W - GAP * 2) / 3;
+      const tH = nat.map((t) => (t.table ? Math.ceil(t.hAt(W)) : 0));
+      const used = tH.reduce((a, h) => a + (h ? h + GAP : 0), 0);
+      const imgRows = Math.max(1, Math.ceil(nat.filter((t) => !t.table).length / 3));
+      const room = Math.max(60, (H - used - GAP * (imgRows - 1)) / imgRows);
+      nat.forEach((t, i) => { out[i] = t.table ? { w: Math.floor(W), h: tH[i] } : contain(i, w3, room - caps[i]); });
     } else if (arr === 'grid2') {
       // 2단 격자(arrange "grid2"): 칸 폭은 반씩, 그림은 위쪽 줄, 표는 그 아래 — 표는 칸 폭에서의 실제 높이, 그림은 남는 높이를 나눠 가짐
       const w = (W - GAP) / 2;
@@ -398,7 +406,7 @@
       const arr = vis.dataset.arr;
       const w = ['row', 'pair', 'fit'].includes(arr) ? bs.reduce((a, b) => a + wOf(b), 0) + GAP * (bs.length - 1)
         : arr === 'lstack' ? wOf(bs[0]) + GAP + Math.max(...bs.slice(1).map(wOf))
-          : arr === 'grid2' ? vis.clientWidth : Math.max(...bs.map(wOf));
+          : arr === 'grid2' || arr === 'grid3' ? vis.clientWidth : Math.max(...bs.map(wOf));
       dk.querySelectorAll(':scope > .gp-top').forEach((t) => Object.assign(t.style, { width: `${Math.round(w)}px`, marginInline: 'auto', justifySelf: 'center' }));
     });
     s.classList.remove('pf-sizing');

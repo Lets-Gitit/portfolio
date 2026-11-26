@@ -243,7 +243,7 @@
     });
     const points = (sl.points || []).filter((pt) => !notes.includes(pt));
     // 시각 자료 참조의 arrange: "pair" → 나란히 같은 폭 · "col" → 위아래로 붙여 쌓기 · "row" → 나란히
-    const arrVal = (sl._v || []).map((v) => v.ref?.arrange).find((a) => ['pair', 'fit', 'col', 'row', 'grid2', 'lstack'].includes(a));   // "fit" → 나란히, 그림은 높이에 맞는 폭, 표는 남는 폭
+    const arrVal = (sl._v || []).map((v) => v.ref?.arrange).find((a) => ['pair', 'fit', 'col', 'row', 'grid2', 'grid3', 'lstack'].includes(a));   // "fit" → 나란히, 그림은 높이에 맞는 폭, 표는 남는 폭
     const arrange = arrVal && vs.length > 1 ? ` data-arr="${arrVal}"${arrVal === 'lstack' ? ` style="--rows:${vs.length - 1}"` : ''}` : '';
     const visW = (sl._v || []).map((v) => v.ref?.width).find((w) => Number.isFinite(w) && w >= 20 && w <= 100);   // 시각 자료 참조의 width(%) → 그 칸 폭
     const vcenter = (sl._v || []).some((v) => v.ref?.valign === 'center') ? ' vcenter' : '';   // 시각 자료 참조의 valign: "center" → 나란히 놓인 자료를 세로 가운데로
@@ -263,7 +263,7 @@
     // 요점에 group(소제목)이 있으면: 시각 자료 위, 아래에 소제목별 칸(예: 담당 · 목표). label이 있으면 "label — text", 없으면 번호
     //   style: "text" → 시각 자료 아래 평범한 문단, "box" → 왼쪽 선이 있는 상자(나란히)
     if (points.some((pt) => pt.group || pt.style)) {
-      const quotes = points.filter((pt) => pt.style === 'quote').map((pt) => `<blockquote class="gp-quote">${inline(txt(pt)).replace(/(^|[\s(])_([^_\s][^_]*?)_(?=$|[\s.,)])/g, '$1<em>$2</em>')}</blockquote>`).join('');
+      const quotes = points.filter((pt) => pt.style === 'quote').map((pt) => `<blockquote class="gp-quote">${inline(txt(pt)).replace(/(^|[\s(])_([^_\s][^_]*?)_(?=$|[\s.,)])/g, '$1<em>$2</em>').replace(/\n/g, '<br>')}</blockquote>`).join('');
       //   style "text" + place: "above" → 시각 자료 위 문단(별도 블록)
       const topParas = points.filter((pt) => pt.style === 'text' && pt.place === 'above').map((pt) => `<p class="gp-para gp-top">${inline(txt(pt))}</p>`).join('');
       const paras = points.filter((pt) => pt.style === 'text' && pt.place !== 'above').map((pt) => `<p class="gp-para">${inline(txt(pt)).replace(/\n/g, '<br>')}</p>`).join('');   // \n = 문단 안 줄바꿈
@@ -272,13 +272,16 @@
       const grouped = points.filter((pt) => !pt.style);
       const below = paras || boxes || grouped.length;
       const names = [...new Set(grouped.map((pt) => pt.group || ''))];
+      //   시각 자료 참조의 inGroup: "<소제목>" → 위가 아니라 그 소제목 칸 안(글 아래)에 시각 자료를 둠
+      const inGroup = (sl._v || []).map((v) => v.ref?.inGroup).find((g) => g && names.includes(g));
       const cols = names.map((g) => {
         const list = grouped.filter((pt) => (pt.group || '') === g);
-        const rows = list.map((pt, i) => `<li class="gp-i${pt.label ? '' : ' num'}">${pt.label ? `<b>${esc(PF.label(pt.label))}</b><span class="gp-dash" aria-hidden="true"> — </span>` : `<span class="gp-n">${i + 1}</span>`}<span>${inline(txt(pt))}</span></li>`).join('');
-        return `<section class="gp-col">${g ? `<p class="gp-h">${esc(g)}</p>` : ''}<ul>${rows}</ul></section>`;
+        const one = list.length === 1;                                   // 한 줄뿐이면 번호 없이
+        const rows = list.map((pt, i) => `<li class="gp-i${pt.label || one ? '' : ' num'}">${pt.label ? `<b>${esc(PF.label(pt.label))}</b><span class="gp-dash" aria-hidden="true"> — </span>` : one ? '' : `<span class="gp-n">${i + 1}</span>`}<span>${inline(txt(pt))}</span></li>`).join('');
+        return `<section class="gp-col">${g ? `<p class="gp-h">${esc(g)}</p>` : ''}<ul>${rows}</ul>${g === inGroup && vs.length ? vis(vs) : ''}</section>`;
       }).join('');
       //   style "quote" → 시각 자료 위 인용 상자
-      return `<div class="dk dk-stack gp${grouped.length ? ' has-cols' : ''}${quotes ? ' has-quote' : ''}${topParas ? ' has-top' : ''}${topParas && visW ? ' narrow' : ''}${vs.length ? '' : ' no-vis'}${tight}">${quotes}${topParas}${vs.length ? vis(vs) : ''}${below ? `<div class="gp-below">${paras}${boxes}${grouped.length ? `<div class="gp-cols" style="--n:${names.length}">${cols}</div>` : ''}</div>` : ''}</div>`;
+      return `<div class="dk dk-stack gp${grouped.length ? ' has-cols' : ''}${inGroup ? ' vis-in-col' : ''}${quotes ? ' has-quote' : ''}${topParas ? ' has-top' : ''}${topParas && visW ? ' narrow' : ''}${vs.length ? '' : ' no-vis'}${tight}">${topParas && quotes && points.findIndex((pt) => pt.style === 'quote') > points.findIndex((pt) => pt.place === 'above') ? topParas + quotes : quotes + topParas}${vs.length && !inGroup ? vis(vs) : ''}${below ? `<div class="gp-below">${paras}${boxes}${grouped.length ? `<div class="gp-cols" style="--n:${names.length}">${cols}</div>` : ''}</div>` : ''}</div>`;
     }
     // 요점이 없으면(나눈 장면 등) 옆 칸이 비지 않게 시각 자료를 가로 전체로
     if (sl.layout === 'full' || variant.stack || !points.length) return `<div class="dk dk-stack${tight}">${vis(vs)}${ncards(points, { row: true, num: sl.layout !== 'full' })}</div>`;

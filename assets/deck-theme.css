@@ -130,6 +130,8 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .toc-list .tx { flex: 1; min-width: 0; }
 /* 소제목별 요점 칸(요점의 group — 예: 담당 · 목표). 시각 자료는 위 가운데, 칸은 아래 */
 .dk.gp.has-cols .vis { max-width: 78%; margin-inline: auto; }
+.dk.gp.vis-in-col .gp-col .vis { max-width: 100%; margin: 14px 0 0; align-items: flex-start; }   /* 소제목 칸 안에 들어간 시각 자료 */
+.dk.gp.vis-in-col { grid-template-rows: auto auto; }
 .gp-below { display: flex; flex-direction: column; gap: 14px; }
 /*   표 + 문단 = 한 덩어리(가깝게), 상자 = 다음 덩어리(띄워서) */
 .dk.gp:not(.has-cols) { gap: 14px; }
@@ -146,6 +148,7 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 /*   위 문단 · 시각 자료 · 아래 문단이 세로로 놓인 장면: 문단은 가운데 80%, 블록 사이는 띄움 */
 .dk.gp.has-top { gap: 26px; }
 .dk.gp.has-top.narrow > .gp-top, .dk.gp.has-top.narrow > .gp-below { width: 66%; margin-inline: auto; justify-self: center; }   /* 시각 자료 폭을 정한 장면(d-delegate)만 가운데 좁게 */
+.dk.gp.has-top.narrow > .gp-quote { width: 66%; max-width: 66%; margin-inline: auto; justify-self: center; }
 .dk.gp.has-top.narrow .gp-para { text-align: justify; word-break: normal; text-wrap: pretty; }   /* 양쪽 정렬 → 위·아래 문단의 좌우 끝이 같은 선 */
 .tight .gp-quote { font-size: 17px; padding: 12px 18px; }
 .gp-para { font-size: 17px; line-height: 1.65; color: var(--ink); }
@@ -303,7 +306,10 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .vis.vcenter[data-arr="row"] { align-items: center; }
 .vis[data-arr="grid2"] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; justify-items: center; }   /* 2단 격자: 시각 자료 순서대로 왼·오 */
 .vis[data-arr="grid2"] .cap { text-align: left !important; }
-.vis[data-arr="grid2"] > .vbox[data-span="2"] { grid-column: 1 / -1; }   /* 두 칸을 다 쓰는 자료 */
+.vis[data-arr="grid2"] > .vbox[data-span="2"] { grid-column: 1 / -1; }
+.vis[data-arr="grid3"] { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; justify-items: center; }
+.vis[data-arr="grid3"] > .vbox[data-kind="table"] { grid-column: 1 / -1; }   /* 표는 가로 전체, 그림은 셋씩 */
+.vis[data-arr="grid3"] .cap { text-align: left !important; }   /* 두 칸을 다 쓰는 자료 */
 .vis[data-arr="fit"] .md-table td:first-child, .vis[data-arr="fit"] .md-table th:first-child { white-space: nowrap; }   /* 좁은 표의 첫 칸(방식·장점…)이 한 글자씩 꺾이지 않게 */
 .vis[data-arr="lstack"] { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 16px; align-items: start; }   /* 왼쪽 하나 + 오른쪽 세로 쌓기 */
 .vis[data-arr="lstack"] > .vbox:first-child { grid-row: 1 / span var(--rows, 1); align-self: center; }
