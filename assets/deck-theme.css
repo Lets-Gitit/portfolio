@@ -137,6 +137,8 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .tight .gp-para + .gp-boxes { margin-top: 24px; }
 .gp-quote { margin: 0; padding: 16px 22px; border-left: 4px solid var(--accent); background: var(--accent-soft, color-mix(in srgb, var(--accent) 14%, transparent)); font-size: 19px; font-weight: 700; line-height: 1.6; color: var(--ink); }
 .gp-quote em, .gp-quote i { font-weight: 600; }
+.dk-top-wrap > .gp-quote { font-size: 16px; font-weight: 500; line-height: 1.6; padding: 14px 20px; }
+.dk-top-wrap > .gp-quote strong { display: inline-block; font-size: 18px; font-weight: 800; margin-bottom: 4px; }
 .dk.gp.has-quote { gap: 58px; padding-bottom: 36px; }   /* 간격·아래 여백을 같이 늘림 → 가운데 정렬이어도 표는 그 자리, 인용 상자만 위로(제목과 표 사이 가운데쯤) */
 /*   인용 상자가 있는 장면: 인용 상자와 표를 같은 폭(가운데 80%)으로 */
 .dk.gp.has-quote > .gp-quote, .dk.gp.has-quote > .vis { width: 80%; max-width: 80%; margin-inline: auto; justify-self: center; }

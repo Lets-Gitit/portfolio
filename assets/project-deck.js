@@ -220,11 +220,13 @@
   // 시각 자료 위 문장 블록(style "text" + place "above")이 있는데 나머지 요점이 보통 카드면: 문장 블록을 위에 두고 그 아래는 원래 틀 그대로
   function bodyHtml(sl, vsIn, variant) {
     const all = sl.points || [];
-    const aboves = all.filter((pt) => pt.style === 'text' && pt.place === 'above');
+    const aboves = all.filter((pt) => (pt.style === 'text' && pt.place === 'above') || (pt.style === 'quote' && pt.place === 'above'));
     const rest = all.filter((pt) => !aboves.includes(pt));
     if (aboves.length && !rest.some((pt) => pt.group || pt.style)) {
       const inner = bodyHtmlInner({ ...sl, points: rest }, vsIn, variant);
-      return `<div class="dk-top-wrap">${aboves.map((pt) => `<p class="gp-para gp-top">${inline(txt(pt)).replace(/\n/g, '<br>')}</p>`).join('')}${inner}</div>`;
+      // style "quote" + place "above" → 맨 위 인용 상자(**굵게** · 줄바꿈 \n 지원), 아래는 원래 틀
+      const quoteHtml = (pt) => `<blockquote class="gp-quote gp-top">${inline(txt(pt)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</blockquote>`;
+      return `<div class="dk-top-wrap">${aboves.map((pt) => (pt.style === 'quote' ? quoteHtml(pt) : `<p class="gp-para gp-top">${inline(txt(pt)).replace(/\n/g, '<br>')}</p>`)).join('')}${inner}</div>`;
     }
     return bodyHtmlInner(sl, vsIn, variant);
   }
