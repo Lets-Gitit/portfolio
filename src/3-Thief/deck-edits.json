@@ -731,8 +731,6 @@
       ],
       "points": [
         {
-          "style": "text",
-          "place": "above",
           "label": "",
           "text": "번호판 교체 미니게임은 단계가 넷이라, 서버가 지금 몇 번째 단계인지를 들고 있습니다.",
           "verbatim": true
@@ -750,6 +748,17 @@
       ],
       "visuals": [
         {
+          "kind": "image",
+          "src": "images/license_plate_phases.gif",
+          "w": 1280,
+          "h": 720,
+          "caption": {
+            "text": "경유지에 정차한 뒤 헌 번호판을 버리고 새 번호판을 붙여 미션을 마치고 다시 운전으로 돌아가는 장면",
+            "verbatim": true
+          },
+          "arrange": "row"
+        },
+        {
           "kind": "mermaid",
           "n": 1,
           "fp": "stateDiagram-v2"
@@ -764,48 +773,8 @@
         "sig": [
           "6.3 번호판 교체의 단계|mermaid|1|stateDiagram-v2"
         ]
-      }
-    },
-    {
-      "key": "plate-play",
-      "chapter": "minigame",
-      "layout": "visual",
-      "tab": "결과",
-      "title": {
-        "text": "6.3 번호판 교체의 단계",
-        "verbatim": true
       },
-      "lead": {
-        "text": "번호판 교체 플레이 화면",
-        "verbatim": false
-      },
-      "sectionPath": [
-        "6. 서버가 판정하는 미니게임",
-        "6.3 번호판 교체의 단계"
-      ],
-      "points": [],
-      "visuals": [
-        {
-          "kind": "image",
-          "src": "images/license_plate_phases.gif",
-          "w": 1280,
-          "h": 720,
-          "caption": {
-            "text": "경유지에 정차한 뒤 헌 번호판을 버리고 새 번호판을 붙여 미션을 마치고 다시 운전으로 돌아가는 장면",
-            "verbatim": true
-          }
-        }
-      ],
-      "from": {
-        "key": "plate-play",
-        "sectionPath": [
-          "6. 서버가 판정하는 미니게임",
-          "6.3 번호판 교체의 단계"
-        ],
-        "sig": [
-          "6.3 번호판 교체의 단계|image|images/license_plate_phases.gif|1"
-        ]
-      }
+      "group": "merge-plate-states"
     },
     {
       "key": "gate",
@@ -1079,7 +1048,22 @@
       ]
     }
   ],
-  "hide": [],
+  "hide": [
+    {
+      "key": "plate-play",
+      "from": {
+        "key": "plate-play",
+        "sectionPath": [
+          "6. 서버가 판정하는 미니게임",
+          "6.3 번호판 교체의 단계"
+        ],
+        "sig": [
+          "6.3 번호판 교체의 단계|image|images/license_plate_phases.gif|1"
+        ]
+      },
+      "group": "merge-plate-states"
+    }
+  ],
   "addChapters": [
     {
       "key": "results",

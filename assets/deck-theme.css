@@ -300,7 +300,7 @@ table.kv td.role { color: var(--accent-ink); font-weight: 800; }
 .vis[data-arr="pair"], .vis[data-arr="fit"] { flex-direction: row; align-items: center; }
 .vis.vcenter[data-arr="row"] { align-items: center; }
 /* 구성 규칙: 시각 자료에 붙은 글 = 캡션(왼쪽 끝, 작은 글씨) · 떨어진 글 = 별도 문장 블록(.vnote, 본문 크기) */
-.vis[data-arr="pair"] .cap, .vis[data-arr="fit"] .cap, .dk.gp .cap, .dk-top-wrap .vbox .cap { text-align: left !important; }
+.vis[data-arr="pair"] .cap, .vis[data-arr="fit"] .cap, .vis[data-arr="row"] .cap, .dk.gp .cap, .dk-top-wrap .vbox .cap { text-align: left !important; }
 .vnotes { padding-top: 18px; display: flex; flex-direction: column; gap: 8px; }
 .vnote { margin: 0; font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink); text-align: left; }
 .vitem { position: relative; padding-left: 18px; }

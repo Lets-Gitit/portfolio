@@ -504,36 +504,20 @@
         "lead": {"text": "서버가 들고 있는 번호판 교체 단계", "verbatim": false},
         "sectionPath": ["6. 서버가 판정하는 미니게임", "6.3 번호판 교체의 단계"],
         "points": [
-          {
-            "style": "text",
-            "place": "above",
-            "label": "",
-            "text": "번호판 교체 미니게임은 단계가 넷이라, 서버가 지금 몇 번째 단계인지를 들고 있습니다.",
-            "verbatim": true
-          },
+          {"label": "", "text": "번호판 교체 미니게임은 단계가 넷이라, 서버가 지금 몇 번째 단계인지를 들고 있습니다.", "verbatim": true},
           {"label": "", "text": "서버는 지금 단계에 맞지 않는 입력을 버립니다.", "verbatim": true},
           {"label": "", "text": "같은 나사를 두 번 눌러도 `HashSet.Add`가 `false`를 돌려주므로 한 번만 셉니다.", "verbatim": true}
         ],
-        "visuals": [{"kind": "mermaid", "n": 1, "fp": "stateDiagram-v2"}],
-        "edited": true
-      },
-      {
-        "key": "plate-play",
-        "chapter": "minigame",
-        "layout": "visual",
-        "tab": "결과",
-        "title": {"text": "6.3 번호판 교체의 단계", "verbatim": true},
-        "lead": {"text": "번호판 교체 플레이 화면", "verbatim": false},
-        "sectionPath": ["6. 서버가 판정하는 미니게임", "6.3 번호판 교체의 단계"],
-        "points": [],
         "visuals": [
           {
             "kind": "image",
             "src": "images/license_plate_phases.gif",
             "w": 1280,
             "h": 720,
-            "caption": {"text": "경유지에 정차한 뒤 헌 번호판을 버리고 새 번호판을 붙여 미션을 마치고 다시 운전으로 돌아가는 장면", "verbatim": true}
-          }
+            "caption": {"text": "경유지에 정차한 뒤 헌 번호판을 버리고 새 번호판을 붙여 미션을 마치고 다시 운전으로 돌아가는 장면", "verbatim": true},
+            "arrange": "row"
+          },
+          {"kind": "mermaid", "n": 1, "fp": "stateDiagram-v2"}
         ],
         "edited": true
       },
@@ -1003,6 +987,6 @@
         "visuals": [{"kind": "code", "n": 1, "fp": "// SingletonBase.cs — 바꾼 뒤의 Awake"}]
       }
     ],
-    "applied": "b252b17a0f293c0e"
+    "applied": "e5c4ae61d9d5282d"
   }
 }
