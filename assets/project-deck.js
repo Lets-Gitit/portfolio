@@ -222,7 +222,8 @@
     const all = sl.points || [];
     const aboves = all.filter((pt) => (pt.style === 'text' && pt.place === 'above') || (pt.style === 'quote' && pt.place === 'above'));
     const rest = all.filter((pt) => !aboves.includes(pt));
-    if (aboves.length && !rest.some((pt) => pt.group || pt.style)) {
+    const cardNote = (pt) => pt.style === 'card' && Number.isInteger(pt.at);   // style "card" + at: n → n번째 시각 자료 아래 카드(옆 배치 틀은 그대로)
+    if (aboves.length && !rest.some((pt) => (pt.group || pt.style) && !cardNote(pt))) {
       const inner = bodyHtmlInner({ ...sl, points: rest }, vsIn, variant);
       // style "quote" + place "above" → 맨 위 인용 상자(**굵게** · 줄바꿈 \n 지원), 아래는 원래 틀
       const quoteHtml = (pt) => `<blockquote class="gp-quote gp-top">${inline(txt(pt)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}</blockquote>`;
@@ -233,8 +234,10 @@
   function bodyHtmlInner(sl, vsIn, variant) {
     // style "text" + at: n → n번째 시각 자료 바로 아래(같은 칸)에 띄워 붙는 별도 문장 블록(캡션이 아님)
     //   style "item" + at: n → 같은 블록 안의 글머리 줄("label — text")
-    const notes = (sl.points || []).filter((pt) => (pt.style === 'text' || pt.style === 'item') && Number.isInteger(pt.at) && vsIn[pt.at - 1]);
-    const noteHtml = (pt) => (pt.style === 'item'
+    const notes = (sl.points || []).filter((pt) => (pt.style === 'text' || pt.style === 'item' || pt.style === 'card') && Number.isInteger(pt.at) && vsIn[pt.at - 1]);
+    const noteHtml = (pt) => (pt.style === 'card'
+      ? `<div class="ncard vcard"><span class="num" aria-hidden="true">${notes.filter((q) => q.style === 'card' && q.at === pt.at).indexOf(pt) + 1}</span><div><p>${inline(txt(pt))}</p></div></div>`
+      : pt.style === 'item'
       ? `<p class="vnote vitem">${pt.label ? `<b>${esc(PF.label(pt.label))}</b><span class="gp-dash" aria-hidden="true"> — </span>` : ''}${inline(txt(pt))}</p>`
       : `<p class="vnote">${inline(txt(pt))}</p>`);
     const vs = vsIn.map((h, i) => {
@@ -285,7 +288,8 @@
     }
     // 요점이 없으면(나눈 장면 등) 옆 칸이 비지 않게 시각 자료를 가로 전체로
     if (sl.layout === 'full' || variant.stack || !points.length) return `<div class="dk dk-stack${tight}">${vis(vs)}${ncards(points, { row: true, num: sl.layout !== 'full' })}</div>`;
-    return `<div class="dk dk-side${tight}" style="--vw:${variant.vw}fr">${vis(vs)}${ncards(points, { num: true })}</div>`;
+    const hug = (sl._v || []).some((v) => v.ref?.hug) ? ' hug' : '';   // 시각 자료 참조의 hug: true → 그림 칸은 그림 폭, 카드는 글 길이만큼(이 장면만)
+    return `<div class="dk dk-side${hug}${tight}" style="--vw:${variant.vw}fr">${vis(vs)}${ncards(points, { num: true })}</div>`;
   }
 
   // 장면 하나(나뉠 수 있음): 코드 줄 범위 20줄 단위, 표는 넘치면 행을 반으로

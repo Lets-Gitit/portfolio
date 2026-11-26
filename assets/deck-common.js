@@ -397,6 +397,13 @@
         }
       });
     }
+    // 옆 배치에 hug(시각 자료 참조의 hug: true)가 있는 장면만: 그림 칸 = 그림 폭, 카드 칸 = 글 길이, 둘을 묶어 가운데로
+    s.querySelectorAll('.dk-side.hug').forEach((dk) => {
+      const vis = dk.querySelector(':scope > .vis'); if (!vis) return;
+      const box = [...vis.children].find((e) => e.classList.contains('vbox') && e.dataset.kind); if (!box) return;
+      const w = parseFloat(box.style.width) || box.offsetWidth; if (!w) return;
+      Object.assign(dk.style, { gridTemplateColumns: `${Math.ceil(w)}px fit-content(100%)`, justifyContent: 'center' });
+    });
     // 시각 자료 위 문장 블록(.gp-top)은 그 아래 시각 자료 묶음과 같은 폭으로(좌우 끝 맞춤)
     s.querySelectorAll('.dk.gp.has-top:not(.narrow)').forEach((dk) => {
       const vis = dk.querySelector(':scope > .vis'); if (!vis) return;
